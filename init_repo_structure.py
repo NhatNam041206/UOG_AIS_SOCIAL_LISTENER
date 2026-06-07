@@ -270,12 +270,6 @@ from __future__ import annotations
 
 from typing import List, Dict, Optional, Any
 
-from src.phase2_preprocessing.cleaning_heuristics_model import (
-    deduplicate_text,
-    filter_bots,
-    verify_emoji_integrity,
-    verify_syntax,
-)
 from src.phase2_preprocessing.telemetry_reporter_view import TelemetryReporterView
 from src.shared.pipeline_orchestrator_controller import BasePipelineOrchestrator
 
@@ -297,10 +291,6 @@ class PreprocessingRunnerController(BasePipelineOrchestrator):
 
     def _apply_cleaning_passes(self, records: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """Apply bot filtering, deduplication, and text integrity checks sequentially."""
-        _ = filter_bots
-        _ = deduplicate_text
-        _ = verify_syntax
-        _ = verify_emoji_integrity
         raise NotImplementedError
 ''',
 }
@@ -309,10 +299,11 @@ class PreprocessingRunnerController(BasePipelineOrchestrator):
 def create_directory(path: Path) -> None:
     """Create directory path and handle existing directories gracefully."""
     try:
-        path.mkdir(parents=True, exist_ok=False)
+        if path.exists():
+            print(f"[exists dir] {path}")
+            return
+        path.mkdir(parents=True, exist_ok=True)
         print(f"[created dir] {path}")
-    except FileExistsError:
-        print(f"[exists dir] {path}")
     except OSError as exc:
         print(f"[error dir] {path}: {exc}")
 
