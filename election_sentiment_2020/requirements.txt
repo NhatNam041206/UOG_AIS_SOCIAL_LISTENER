@@ -1,0 +1,7 @@
+pandas
+numpy
+vaderSentiment
+transformers
+statsmodels
+scikit-learn
+pyarrow
