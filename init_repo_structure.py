@@ -21,7 +21,7 @@ DIRECTORIES: List[Path] = [
 ]
 
 FILES: Dict[Path, str] = {
-    SCAFFOLD_ROOT / ".gitignore": "data/\n",
+    SCAFFOLD_ROOT / ".gitignore": "/data/\n",
     SCAFFOLD_ROOT / "src" / "__init__.py": '"""Top-level package for the 2020 election sentiment pipeline modules."""\n',
     SCAFFOLD_ROOT / "src" / "shared" / "__init__.py": '"""Shared abstractions reused by ingestion and preprocessing pipeline phases."""\n',
     SCAFFOLD_ROOT / "src" / "phase1_ingestion" / "__init__.py": '"""Phase 1 ingestion package for stream loading, persistence, and control flow."""\n',
@@ -218,7 +218,7 @@ from typing import List, Dict, Optional, Any
 
 
 def filter_bots(records: List[Dict[str, Any]], bot_score_threshold: float) -> List[Dict[str, Any]]:
-    """Exclude records at or above bot_score_threshold, skipping rows without score fields."""
+    """Exclude records at or above bot_score_threshold using each record's `bot_score` key."""
     raise NotImplementedError
 
 
@@ -251,7 +251,7 @@ class TelemetryReporterView:
     """View component for computing and rendering preprocessing drop-rate summaries."""
 
     def compute_drop_rate(self, initial_count: int, final_count: int) -> float:
-        """Compute percentage drop; return a safe zero-value when initial_count equals zero."""
+        """Compute percentage drop with an implementation that must safely handle initial_count=0."""
         raise NotImplementedError
 
     def format_drop_rate_report(self, stage_name: str, initial_count: int, final_count: int) -> str:
