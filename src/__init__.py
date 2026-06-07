@@ -1,1 +1,1 @@
-"""Top-level package for the 2020 election sentiment pipeline modules."""
+"""Core package for the election sentiment pipeline."""
