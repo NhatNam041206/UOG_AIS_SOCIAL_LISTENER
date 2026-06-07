@@ -6,7 +6,7 @@ from __future__ import annotations
 from pathlib import Path
 
 
-PROJECT_ROOT = Path("election_sentiment_2020")
+PROJECT_ROOT = Path("./")
 
 DIRECTORIES = [
     PROJECT_ROOT / "data" / "01_raw",
