@@ -1,193 +1,344 @@
 #!/usr/bin/env python3
-"""Create the baseline 2020 election sentiment project structure."""
+"""Build a goal-oriented, suffix-based MVC scaffold for election sentiment analysis."""
 
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Dict, List
 
 
-PROJECT_ROOT = Path("./")
+PROJECT_ROOT: Path = Path(__file__).resolve().parent
+SCAFFOLD_ROOT: Path = PROJECT_ROOT / "election_sentiment_2020"
 
-DIRECTORIES = [
-    PROJECT_ROOT / "data" / "01_raw",
-    PROJECT_ROOT / "data" / "02_interim",
-    PROJECT_ROOT / "data" / "03_processed",
-    PROJECT_ROOT / "src" / "utils",
-    PROJECT_ROOT / "notebooks",
+DIRECTORIES: List[Path] = [
+    SCAFFOLD_ROOT / "data" / "01_raw",
+    SCAFFOLD_ROOT / "data" / "02_interim",
+    SCAFFOLD_ROOT / "data" / "03_processed",
+    SCAFFOLD_ROOT / "src",
+    SCAFFOLD_ROOT / "src" / "shared",
+    SCAFFOLD_ROOT / "src" / "phase1_ingestion",
+    SCAFFOLD_ROOT / "src" / "phase2_preprocessing",
 ]
 
-FILES = {
-    PROJECT_ROOT / ".gitignore": '''# Python cache and virtual environments
-__pycache__/
-*.py[cod]
-venv/
+FILES: Dict[Path, str] = {
+    SCAFFOLD_ROOT / ".gitignore": "data/\n",
+    SCAFFOLD_ROOT / "src" / "__init__.py": '"""Top-level package for the 2020 election sentiment pipeline modules."""\n',
+    SCAFFOLD_ROOT / "src" / "shared" / "__init__.py": '"""Shared abstractions reused by ingestion and preprocessing pipeline phases."""\n',
+    SCAFFOLD_ROOT / "src" / "phase1_ingestion" / "__init__.py": '"""Phase 1 ingestion package for stream loading, persistence, and control flow."""\n',
+    SCAFFOLD_ROOT / "src" / "phase2_preprocessing" / "__init__.py": '"""Phase 2 preprocessing package for cleaning heuristics and telemetry reporting."""\n',
+    SCAFFOLD_ROOT / "src" / "shared" / "data_interfaces_model.py": '''"""Define shared data contracts and schema templates for all pipeline phases.
 
-# Data artifacts
-data/**
-!data/.gitkeep
-
-# Notebook metadata
-notebooks/.ipynb_checkpoints/
-''',
-    PROJECT_ROOT / "requirements.txt": '''pandas>=1.5.0,<3.0.0
-numpy>=1.24.0,<3.0.0
-vaderSentiment>=3.3.2,<4.0.0
-transformers>=4.30.0,<5.0.0
-statsmodels>=0.14.0,<1.0.0
-scikit-learn>=1.3.0,<2.0.0
-pyarrow>=14.0.0,<20.0.0
-''',
-    PROJECT_ROOT / "README.md": '''# 2020 Election Sentiment Analysis
-
-A modular, object-oriented baseline for a 5-phase sentiment analysis pipeline over 2020 election-related data.
-
-## Manual setup
-
-1. Create and activate a virtual environment:
-   - `python -m venv venv`
-   - `source venv/bin/activate` (Linux/macOS) or `venv/Scripts/activate` (Windows)
-2. Install dependencies:
-   - `pip install -r requirements.txt`
-''',
-    PROJECT_ROOT / "data" / ".gitkeep": "",
-    PROJECT_ROOT / "src" / "__init__.py": '"""Core package for the election sentiment pipeline."""\n',
-    PROJECT_ROOT / "src" / "utils" / "__init__.py": '"""Utility helpers shared across all pipeline phases."""\n',
-    PROJECT_ROOT / "src" / "utils" / "helpers.py": '''"""Utility helpers for cross-phase concerns such as timezone alignment."""
-
-from __future__ import annotations
-
-from datetime import datetime
-from zoneinfo import ZoneInfo, ZoneInfoNotFoundError
-
-
-def align_timestamp_timezone(timestamp: datetime, timezone: str) -> datetime:
-    """Normalize a timestamp to the provided timezone."""
-    try:
-        target_tz = ZoneInfo(timezone)
-    except ZoneInfoNotFoundError as exc:
-        raise ValueError(f"Unknown timezone: {timezone}") from exc
-
-    if timestamp.tzinfo is None:
-        timestamp = timestamp.replace(tzinfo=ZoneInfo("UTC"))
-    return timestamp.astimezone(target_tz)
-''',
-    PROJECT_ROOT / "src" / "01_ingestion.py": '''"""Phase 1 ingestion module for abstract and concrete data source loaders."""
+This model-layer module centralizes abstract interfaces that enforce typed boundaries
+between data access, schema mapping, and validation responsibilities.
+"""
 
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
-from pathlib import Path
-from typing import Any
+from typing import List, Dict, Optional, Any
 
 
-class BaseIngestion(ABC):
-    """Base interface for ingestion implementations."""
+class RecordSchemaTemplate(ABC):
+    """Abstract schema contract describing required fields and validation behavior."""
 
     @abstractmethod
-    def load(self, source: Path) -> Any:
-        """Load source records into a structured in-memory representation."""
+    def required_fields(self) -> List[str]:
+        """Return the mandatory column names expected by downstream modules."""
+
+    @abstractmethod
+    def validate(self, record: Dict[str, Any]) -> bool:
+        """Return True when an input record conforms to the schema template."""
 
 
-class TwitterIngestion(BaseIngestion):
-    """Example ingestion class for raw Twitter exports."""
+class SchemaMapperInterface(ABC):
+    """Abstract mapper for normalizing raw provider payloads into shared schema format."""
 
-    def load(self, source: Path) -> Any:
-        raise NotImplementedError
+    @abstractmethod
+    def map_record(self, raw_record: Dict[str, Any]) -> Dict[str, Any]:
+        """Transform one raw record into the canonical schema representation."""
+
+
+class DataFrameProvider(ABC):
+    """Abstract provider for exposing typed tabular datasets to controllers."""
+
+    @abstractmethod
+    def load(self, source: str, options: Optional[Dict[str, Any]] = None) -> Any:
+        """Load source data into a DataFrame-like object."""
 ''',
-    PROJECT_ROOT / "src" / "02_preprocessing.py": '''"""Phase 2 preprocessing module for bot filtering and text cleaning."""
+    SCAFFOLD_ROOT / "src" / "shared" / "pipeline_orchestrator_controller.py": '''"""Define shared controller-level orchestration loops and exception handling contracts.
+
+This controller-layer module provides abstract execution flow definitions so concrete
+phase controllers can remain small, testable, and consistent with the MVC suffix rules.
+"""
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from abc import ABC, abstractmethod
+from typing import List, Dict, Optional, Any
 
 
-@dataclass
-class PreprocessingConfig:
-    """Configuration options for preprocessing heuristics."""
-
-    remove_bots: bool = True
-    normalize_text: bool = True
+class PipelineControllerError(Exception):
+    """Base exception type for pipeline controller-level failures."""
 
 
-class Preprocessor:
-    """Apply deterministic preprocessing to ingested social content."""
+class BasePipelineOrchestrator(ABC):
+    """Abstract orchestrator with a reusable guarded execution loop."""
 
-    def run(self, records: list[dict]) -> list[dict]:
-        raise NotImplementedError
+    def __init__(self) -> None:
+        self._last_error: Optional[Exception] = None
+
+    def run(self, *args: Any, **kwargs: Any) -> Any:
+        """Execute the controller flow and dispatch failures to a handler hook."""
+        try:
+            return self.execute(*args, **kwargs)
+        except Exception as exc:  # pragma: no cover - skeleton behavior
+            self._last_error = exc
+            return self.handle_exception(exc)
+
+    @abstractmethod
+    def execute(self, *args: Any, **kwargs: Any) -> Any:
+        """Implement the concrete phase execution loop."""
+
+    @abstractmethod
+    def handle_exception(self, error: Exception) -> Any:
+        """Implement phase-specific recovery, logging, or propagation strategy."""
 ''',
-    PROJECT_ROOT / "src" / "03_sentiment.py": '''"""Phase 3 sentiment module for lexicon scoring and validation steps."""
+    SCAFFOLD_ROOT / "src" / "phase1_ingestion" / "stream_readers_model.py": '''"""Define model-layer DAOs for loading raw CSV and JSON streams into DataFrames.
+
+This module isolates source-specific ingestion concerns behind abstract interfaces so
+controller logic can coordinate readers without coupling to file format details.
+"""
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from abc import ABC, abstractmethod
+from typing import List, Dict, Optional, Any
 
 
-@dataclass
-class SentimentScore:
-    """Container for sentiment score outputs."""
+class StreamReaderDAO(ABC):
+    """DAO contract for loading external stream files into tabular structures."""
 
-    compound: float
+    @abstractmethod
+    def read(self, source_path: str, options: Optional[Dict[str, Any]] = None) -> Any:
+        """Read input data from disk and return a DataFrame-like object."""
 
 
-class SentimentAnalyzer:
-    """Compute and validate sentiment signals from cleaned text."""
+class CsvStreamReader(StreamReaderDAO):
+    """CSV stream reader DAO for raw export ingestion."""
 
-    def analyze(self, text: str) -> SentimentScore:
+    def read(self, source_path: str, options: Optional[Dict[str, Any]] = None) -> Any:
+        """Load CSV content from source_path into a DataFrame-like object."""
+        raise NotImplementedError
+
+
+class JsonStreamReader(StreamReaderDAO):
+    """JSON stream reader DAO for newline-delimited or standard JSON payloads."""
+
+    def read(self, source_path: str, options: Optional[Dict[str, Any]] = None) -> Any:
+        """Load JSON content from source_path into a DataFrame-like object."""
         raise NotImplementedError
 ''',
-    PROJECT_ROOT / "src" / "04_aggregation.py": '''"""Phase 4 aggregation module for spatial and temporal feature matrices."""
+    SCAFFOLD_ROOT / "src" / "phase1_ingestion" / "storage_serializers_view.py": '''"""Define view-layer serializers for persisted outputs and ingestion observability.
+
+This module encapsulates Parquet write operations and ingestion metrics presentation
+to keep persistence and reporting concerns out of model and controller classes.
+"""
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from typing import List, Dict, Optional, Any
 
 
-@dataclass
-class AggregationWindow:
-    """Aggregation granularity settings."""
+class StorageSerializersView:
+    """View component responsible for persistence formatting and ingestion metrics."""
 
-    frequency: str = "D"
+    def serialize_to_parquet(self, dataframe: Any, destination_path: str) -> None:
+        """Persist a DataFrame-like object to parquet format at destination_path."""
+        raise NotImplementedError
 
-
-class Aggregator:
-    """Group sentiment signals into analytical matrices."""
-
-    def build(self, records: list[dict]) -> list[dict]:
+    def log_ingestion_baseline_metrics(
+        self,
+        total_records: int,
+        retained_records: int,
+        metadata: Optional[Dict[str, Any]] = None,
+    ) -> Dict[str, Any]:
+        """Build and log baseline ingestion metrics for auditability."""
         raise NotImplementedError
 ''',
-    PROJECT_ROOT / "src" / "05_modeling.py": '''"""Phase 5 modeling module for statistical and regression workflows."""
+    SCAFFOLD_ROOT / "src" / "phase1_ingestion" / "ingestion_runner_controller.py": '''"""Define the phase 1 controller that orchestrates stream reading and normalization.
+
+This controller-layer module coordinates reader DAOs, shared schema mapping, and
+UTC timestamp conversion to prepare canonical interim datasets for preprocessing.
+"""
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from typing import List, Dict, Optional, Any
+
+from src.phase1_ingestion.stream_readers_model import StreamReaderDAO
+from src.shared.data_interfaces_model import SchemaMapperInterface
+from src.shared.pipeline_orchestrator_controller import BasePipelineOrchestrator
 
 
-@dataclass
-class ModelingConfig:
-    """High-level modeling options."""
+class IngestionRunnerController(BasePipelineOrchestrator):
+    """Master loop for source ingestion, schema mapping, and UTC normalization."""
 
-    target_column: str = "sentiment"
+    def __init__(self, reader: StreamReaderDAO, schema_mapper: SchemaMapperInterface) -> None:
+        super().__init__()
+        self._reader: StreamReaderDAO = reader
+        self._schema_mapper: SchemaMapperInterface = schema_mapper
+
+    def execute(self, source_path: str, options: Optional[Dict[str, Any]] = None) -> Any:
+        """Run ingestion by reading raw streams, mapping schema, and normalizing UTC."""
+        raise NotImplementedError
+
+    def handle_exception(self, error: Exception) -> Any:
+        """Handle ingestion failures with phase-specific logging or re-raising."""
+        raise NotImplementedError
+
+    def _map_records(self, records: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """Apply shared schema mapping across all raw records."""
+        raise NotImplementedError
+
+    def _convert_timestamps_to_utc(self, dataframe: Any, timestamp_column: str) -> Any:
+        """Normalize timestamp column values to UTC timezone semantics."""
+        raise NotImplementedError
+''',
+    SCAFFOLD_ROOT / "src" / "phase2_preprocessing" / "cleaning_heuristics_model.py": '''"""Define pure cleaning heuristics used by the preprocessing pipeline phase.
+
+This model-layer module keeps deterministic text-quality and bot-filter logic as
+side-effect-free functions to maximize reusability, testability, and composability.
+"""
+
+from __future__ import annotations
+
+from typing import List, Dict, Optional, Any
 
 
-class ModelEngine:
-    """Train and evaluate downstream election sentiment models."""
+def filter_bots(records: List[Dict[str, Any]], bot_score_threshold: float) -> List[Dict[str, Any]]:
+    """Remove records likely generated by bots based on thresholded bot scores."""
+    raise NotImplementedError
 
-    def train(self, features: list[dict]) -> None:
+
+def deduplicate_text(records: List[Dict[str, Any]], text_key: str = "text") -> List[Dict[str, Any]]:
+    """Drop duplicate records by normalized textual content."""
+    raise NotImplementedError
+
+
+def verify_syntax(record: Dict[str, Any], text_key: str = "text") -> bool:
+    """Validate baseline syntax quality for a single text record."""
+    raise NotImplementedError
+
+
+def verify_emoji_integrity(record: Dict[str, Any], text_key: str = "text") -> bool:
+    """Validate emoji encoding and placement heuristics for a single text record."""
+    raise NotImplementedError
+''',
+    SCAFFOLD_ROOT / "src" / "phase2_preprocessing" / "telemetry_reporter_view.py": '''"""Define view-layer telemetry formatters for preprocessing quality metrics.
+
+This module encapsulates drop-rate computations and report presentation so quality
+observability remains separate from controller sequencing and model heuristics.
+"""
+
+from __future__ import annotations
+
+from typing import List, Dict, Optional, Any
+
+
+class TelemetryReporterView:
+    """View component for computing and rendering preprocessing drop-rate summaries."""
+
+    def compute_drop_rate(self, initial_count: int, final_count: int) -> float:
+        """Compute the percentage drop between initial and final record counts."""
+        raise NotImplementedError
+
+    def format_drop_rate_report(self, stage_name: str, initial_count: int, final_count: int) -> str:
+        """Build a human-readable drop-rate report string for one cleaning stage."""
+        raise NotImplementedError
+
+    def print_drop_rate_report(self, stage_name: str, initial_count: int, final_count: int) -> None:
+        """Print formatted drop-rate telemetry for console or notebook monitoring."""
+        raise NotImplementedError
+''',
+    SCAFFOLD_ROOT / "src" / "phase2_preprocessing" / "preprocessing_runner_controller.py": '''"""Define the phase 2 controller that orchestrates sequential cleaning passes.
+
+This controller-layer module wires pure heuristic functions into a deterministic
+multi-pass workflow that prepares cleaned data for downstream sentiment analysis.
+"""
+
+from __future__ import annotations
+
+from typing import List, Dict, Optional, Any
+
+from src.phase2_preprocessing.cleaning_heuristics_model import (
+    deduplicate_text,
+    filter_bots,
+    verify_emoji_integrity,
+    verify_syntax,
+)
+from src.phase2_preprocessing.telemetry_reporter_view import TelemetryReporterView
+from src.shared.pipeline_orchestrator_controller import BasePipelineOrchestrator
+
+
+class PreprocessingRunnerController(BasePipelineOrchestrator):
+    """Controller that applies preprocessing passes in a defined sequence."""
+
+    def __init__(self, telemetry_reporter: TelemetryReporterView) -> None:
+        super().__init__()
+        self._telemetry_reporter: TelemetryReporterView = telemetry_reporter
+
+    def execute(self, records: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """Run preprocessing passes and return the cleaned dataset."""
+        raise NotImplementedError
+
+    def handle_exception(self, error: Exception) -> Any:
+        """Handle preprocessing failures with phase-specific reporting behavior."""
+        raise NotImplementedError
+
+    def _apply_cleaning_passes(self, records: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """Apply bot filtering, deduplication, and text integrity checks sequentially."""
+        _ = filter_bots
+        _ = deduplicate_text
+        _ = verify_syntax
+        _ = verify_emoji_integrity
         raise NotImplementedError
 ''',
 }
 
 
+def create_directory(path: Path) -> None:
+    """Create directory path and handle existing directories gracefully."""
+    try:
+        path.mkdir(parents=True, exist_ok=False)
+        print(f"[created dir] {path}")
+    except FileExistsError:
+        print(f"[exists dir] {path}")
+    except OSError as exc:
+        print(f"[error dir] {path}: {exc}")
+
+
+def create_file(path: Path, content: str) -> None:
+    """Create a file with template content and handle existing files gracefully."""
+    try:
+        if path.exists():
+            print(f"[exists file] {path}")
+            return
+        path.parent.mkdir(parents=True, exist_ok=True)
+        path.write_text(content, encoding="utf-8")
+        print(f"[created file] {path}")
+    except OSError as exc:
+        print(f"[error file] {path}: {exc}")
+
+
 def create_structure() -> None:
-    """Create all required directories and files."""
+    """Build the full election sentiment scaffold on disk."""
     for directory in DIRECTORIES:
-        directory.mkdir(parents=True, exist_ok=True)
+        create_directory(directory)
 
     for file_path, content in FILES.items():
-        file_path.parent.mkdir(parents=True, exist_ok=True)
-        file_path.write_text(content, encoding="utf-8")
+        create_file(file_path, content)
 
 
 if __name__ == "__main__":
     create_structure()
-    print(f"Created baseline structure under: {PROJECT_ROOT}")
+    print(f"Scaffold ready at: {SCAFFOLD_ROOT}")
