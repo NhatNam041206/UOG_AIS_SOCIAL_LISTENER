@@ -175,9 +175,9 @@ from __future__ import annotations
 
 from typing import List, Dict, Optional, Any
 
-from src.phase1_ingestion.stream_readers_model import StreamReaderDAO
-from src.shared.data_interfaces_model import SchemaMapperInterface
-from src.shared.pipeline_orchestrator_controller import BasePipelineOrchestrator
+from .stream_readers_model import StreamReaderDAO
+from ..shared.data_interfaces_model import SchemaMapperInterface
+from ..shared.pipeline_orchestrator_controller import BasePipelineOrchestrator
 
 
 class IngestionRunnerController(BasePipelineOrchestrator):
@@ -270,8 +270,8 @@ from __future__ import annotations
 
 from typing import List, Dict, Optional, Any
 
-from src.phase2_preprocessing.telemetry_reporter_view import TelemetryReporterView
-from src.shared.pipeline_orchestrator_controller import BasePipelineOrchestrator
+from .telemetry_reporter_view import TelemetryReporterView
+from ..shared.pipeline_orchestrator_controller import BasePipelineOrchestrator
 
 
 class PreprocessingRunnerController(BasePipelineOrchestrator):
