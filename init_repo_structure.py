@@ -29,13 +29,13 @@ data/**
 # Notebook metadata
 notebooks/.ipynb_checkpoints/
 ''',
-    PROJECT_ROOT / "requirements.txt": '''pandas
-numpy
-vaderSentiment
-transformers
-statsmodels
-scikit-learn
-pyarrow
+    PROJECT_ROOT / "requirements.txt": '''pandas>=1.5.0,<3.0.0
+numpy>=1.24.0,<3.0.0
+vaderSentiment>=3.3.2,<4.0.0
+transformers>=4.30.0,<5.0.0
+statsmodels>=0.14.0,<1.0.0
+scikit-learn>=1.3.0,<2.0.0
+pyarrow>=14.0.0,<20.0.0
 ''',
     PROJECT_ROOT / "README.md": '''# 2020 Election Sentiment Analysis
 
