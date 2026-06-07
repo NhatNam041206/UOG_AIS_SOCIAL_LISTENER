@@ -251,7 +251,7 @@ class TelemetryReporterView:
     """View component for computing and rendering preprocessing drop-rate summaries."""
 
     def compute_drop_rate(self, initial_count: int, final_count: int) -> float:
-        """Compute percentage drop with an implementation that must safely handle initial_count=0."""
+        """Compute percentage drop, returning 0.0 when initial_count is zero."""
         raise NotImplementedError
 
     def format_drop_rate_report(self, stage_name: str, initial_count: int, final_count: int) -> str:
