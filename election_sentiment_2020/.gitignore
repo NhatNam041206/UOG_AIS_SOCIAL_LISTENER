@@ -1,0 +1,11 @@
+# Python cache and virtual environments
+__pycache__/
+*.py[cod]
+venv/
+
+# Data artifacts
+data/**
+!data/.gitkeep
+
+# Notebook metadata
+notebooks/.ipynb_checkpoints/
