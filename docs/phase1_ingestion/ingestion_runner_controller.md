@@ -20,9 +20,11 @@ No source-specific fields are fixed in the controller.
 
 - `reader_options`: Mapping forwarded unchanged to the configured stream reader.
 - `fields`: Optional output fields retained after schema mapping.
+- `rename_fields`: Optional source-to-canonical column rename mapping.
+- `constant_fields`: Optional fields added with a constant value for every record.
 - `timestamp_columns`: Optional field name or sequence of fields converted to UTC.
 - `timestamp_errors`: Timestamp conversion behavior, either `raise` or `coerce`.
 
-The processing order is read, optional schema mapping, field projection, then UTC
-normalization. Parser-level projection remains available through reader options such as
-the CSV reader's `usecols` when early projection is desirable.
+The processing order is read, optional schema mapping, renaming, constant fields,
+field projection, then UTC normalization. `execute_batches` applies the same pipeline
+to streaming reader batches.

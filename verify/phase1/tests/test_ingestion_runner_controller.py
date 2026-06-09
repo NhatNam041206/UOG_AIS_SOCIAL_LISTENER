@@ -82,6 +82,26 @@ class IngestionRunnerControllerTests(unittest.TestCase):
 
         self.assertEqual(dataframe.columns.tolist(), ["a", "b"])
 
+    def test_controller_renames_and_adds_constant_fields(self) -> None:
+        with TemporaryDirectory() as directory:
+            source = Path(directory) / "records.csv"
+            source.write_text("raw_id,text\n1,hello\n", encoding="utf-8")
+            controller = IngestionRunnerController(CsvStreamReader())
+
+            dataframe = controller.execute(
+                str(source),
+                {
+                    "rename_fields": {"raw_id": "id"},
+                    "constant_fields": {"stream": "twitter"},
+                    "fields": ["id", "text", "stream"],
+                },
+            )
+
+        self.assertEqual(
+            dataframe.iloc[0].to_dict(),
+            {"id": 1, "text": "hello", "stream": "twitter"},
+        )
+
 
 if __name__ == "__main__":
     unittest.main()

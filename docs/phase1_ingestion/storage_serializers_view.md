@@ -8,5 +8,6 @@ Serializes tabular outputs and publishes ingestion metrics for observability.
 
 ## Class and Method Signatures
 * `StorageSerializersView`: View component responsible for persistence formatting and ingestion metrics.
-  * `serialize_to_parquet(self, dataframe: Any, destination_path: str) -> None`: Persist a DataFrame-like object to parquet format at destination_path.
-  * `log_ingestion_baseline_metrics(self, total_records: int, retained_records: int, metadata: Optional[Dict[str, Any]] = None) -> Dict[str, Any]`: Build and log baseline ingestion metrics for auditability.
+  * `serialize_to_parquet(self, dataframe: Any, destination_path: str) -> None`: Validate and persist a pandas DataFrame to Parquet without its index, creating parent directories when needed.
+  * `serialize_batches_to_parquet(self, dataframes: Iterable[pd.DataFrame], destination_path: str) -> int`: Incrementally persist large DataFrame streams to one Parquet file and return the row count.
+  * `log_ingestion_baseline_metrics(self, total_records: int, retained_records: int, metadata: Optional[Dict[str, Any]] = None) -> Dict[str, Any]`: Build, print, and return record-count and retention-rate metrics.

@@ -7,7 +7,7 @@ UTC timestamp conversion to prepare canonical interim datasets for preprocessing
 from __future__ import annotations
 
 from collections.abc import Mapping, Sequence
-from typing import List, Dict, Optional, Any, Literal
+from typing import Iterator, List, Dict, Optional, Any, Literal
 
 import pandas as pd
 
@@ -43,10 +43,38 @@ class IngestionRunnerController(BasePipelineOrchestrator):
         service_options = self._normalize_service_options(options)
         dataframe = self._reader.read(source_path, service_options["reader_options"])
         self._validate_dataframe(dataframe)
+        return self._transform_dataframe(dataframe, service_options)
 
+    def execute_batches(
+        self,
+        source_path: str,
+        options: Optional[Dict[str, Any]] = None,
+    ) -> Iterator[pd.DataFrame]:
+        """Yield transformed DataFrame batches from a streaming-capable reader."""
+        if not hasattr(self._reader, "iter_batches"):
+            raise TypeError("configured stream reader does not support batch ingestion")
+
+        service_options = self._normalize_service_options(options)
+        for dataframe in self._reader.iter_batches(  # type: ignore[attr-defined]
+            source_path,
+            service_options["reader_options"],
+        ):
+            self._validate_dataframe(dataframe)
+            yield self._transform_dataframe(dataframe, service_options)
+
+    def _transform_dataframe(
+        self,
+        dataframe: pd.DataFrame,
+        service_options: Dict[str, Any],
+    ) -> pd.DataFrame:
+        """Apply controller-owned mapping, renaming, constants, projection, and UTC."""
         if self._schema_mapper is not None:
             dataframe = pd.DataFrame(self._map_records(dataframe.to_dict(orient="records")))
 
+        if service_options["rename_fields"]:
+            dataframe = dataframe.rename(columns=service_options["rename_fields"])
+        for field, value in service_options["constant_fields"].items():
+            dataframe[field] = value
         dataframe = self._select_fields(dataframe, service_options["fields"])
         for timestamp_column in service_options["timestamp_columns"]:
             dataframe = self._convert_timestamps_to_utc(
@@ -107,6 +135,8 @@ class IngestionRunnerController(BasePipelineOrchestrator):
         supported_options = {
             "reader_options",
             "fields",
+            "rename_fields",
+            "constant_fields",
             "timestamp_columns",
             "timestamp_errors",
         }
@@ -117,6 +147,12 @@ class IngestionRunnerController(BasePipelineOrchestrator):
         reader_options = options.get("reader_options", {})
         if not isinstance(reader_options, Mapping):
             raise TypeError("reader_options must be a mapping")
+        rename_fields = options.get("rename_fields", {})
+        if not isinstance(rename_fields, Mapping):
+            raise TypeError("rename_fields must be a mapping")
+        constant_fields = options.get("constant_fields", {})
+        if not isinstance(constant_fields, Mapping):
+            raise TypeError("constant_fields must be a mapping")
 
         fields = self._normalize_column_names(options.get("fields"), "fields")
         timestamp_columns = self._normalize_column_names(
@@ -131,6 +167,8 @@ class IngestionRunnerController(BasePipelineOrchestrator):
         return {
             "reader_options": dict(reader_options),
             "fields": fields,
+            "rename_fields": dict(rename_fields),
+            "constant_fields": dict(constant_fields),
             "timestamp_columns": timestamp_columns,
             "timestamp_errors": timestamp_errors,
         }

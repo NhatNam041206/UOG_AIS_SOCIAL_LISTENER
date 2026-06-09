@@ -7,6 +7,8 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 import unittest
 
+import pandas as pd
+
 from src.phase1_ingestion.stream_readers_model import CsvStreamReader, JsonStreamReader
 
 
@@ -50,6 +52,23 @@ class StreamReaderTests(unittest.TestCase):
     def test_reader_rejects_missing_source(self) -> None:
         with self.assertRaises(FileNotFoundError):
             CsvStreamReader().read("missing.csv")
+
+    def test_csv_reader_streams_and_counts_invalid_rows(self) -> None:
+        with TemporaryDirectory() as directory:
+            source = Path(directory) / "records.csv"
+            source.write_text("id,text\n1,valid\n2,too,many\n3,valid\n", encoding="utf-8")
+            reader = CsvStreamReader()
+
+            dataframe = pd.concat(
+                reader.iter_batches(
+                    str(source),
+                    {"columns": ["id", "text"], "invalid_row_behavior": "skip"},
+                ),
+                ignore_index=True,
+            )
+
+        self.assertEqual(dataframe["id"].tolist(), [1, 3])
+        self.assertEqual(reader.invalid_row_count, 1)
 
 
 if __name__ == "__main__":

@@ -41,3 +41,22 @@ Supported controller options:
 A schema mapper can be injected into `IngestionRunnerController` when a source needs
 field renaming or structural transformation. Without one, the controller operates on
 the source columns directly.
+
+## Phase 1 execution and verification
+
+Dataset-specific configuration and verification are kept outside production modules:
+
+```powershell
+.venv\Scripts\python.exe verify\phase1\run_phase1.py
+```
+
+The complete Phase 1 run reads:
+
+- `data/01_raw/twitter/hashtag_donaldtrump.csv`
+- `data/01_raw/twitter/hashtag_joebiden.csv`
+- `data/01_raw/political_events/political_events.csv`
+- `data/01_raw/electoral_returns/electoral_returns.csv`
+
+It writes aligned Parquet outputs to `data/02_interim/`, EDA graphs to
+`output/graphs/phase1/`, a manifest to `output/results/phase1/`, and an ingestion
+report to `output/reports/phase1/`.
