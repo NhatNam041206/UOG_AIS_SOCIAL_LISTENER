@@ -1,7 +1,7 @@
 # Python cache and virtual environments
 __pycache__/
 *.py[cod]
-venv/
+.venv/
 
 # Data artifacts
 data/**
