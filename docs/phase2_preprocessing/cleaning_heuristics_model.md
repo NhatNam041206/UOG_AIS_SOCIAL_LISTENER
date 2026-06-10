@@ -9,8 +9,9 @@ configuration.
 
 ## Rules
 
-- A user's records are rejected on a UTC day when their count exceeds the configured
-  maximum of 50.
+- All records from a user are rejected when their empirically measured
+  `tweets_per_active_day` exceeds the threshold injected by the activity audit. The
+  cleaning policy has no fixed default activity threshold.
 - An account created within 30 days of the November 3, 2020 election is rejected when
   the configured account-created field exists. Missing account-created values are not
   guessed.

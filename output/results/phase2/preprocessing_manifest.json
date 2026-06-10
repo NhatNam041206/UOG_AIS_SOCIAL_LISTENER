@@ -7,37 +7,119 @@
   ],
   "output_path": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\data\\02_interim\\twitter_cleaned.parquet",
   "initial_record_count": 1747542,
-  "final_record_count": 1462744,
-  "retention_rate_pct": 83.7029381840322,
+  "final_record_count": 1331317,
+  "retention_rate_pct": 76.18226056941693,
   "stage_metrics": {
     "bot_filter": {
       "initial_count": 1747542,
-      "final_count": 1686645,
-      "dropped_count": 60897,
-      "drop_rate_pct": 3.4847231139509094
+      "final_count": 1525176,
+      "dropped_count": 222366,
+      "drop_rate_pct": 12.72450104203504
     },
     "exact_duplicate_filter": {
-      "initial_count": 1686645,
-      "final_count": 1462772,
-      "dropped_count": 223873,
-      "drop_rate_pct": 13.273273273273274
+      "initial_count": 1525176,
+      "final_count": 1331345,
+      "dropped_count": 193831,
+      "drop_rate_pct": 12.708762791966304
     },
     "text_cleaning": {
-      "initial_count": 1462772,
-      "final_count": 1462744,
+      "initial_count": 1331345,
+      "final_count": 1331317,
       "dropped_count": 28,
-      "drop_rate_pct": 0.001914173910903408
+      "drop_rate_pct": 0.002103136302010373
     }
   },
   "policy": {
     "minimum_account_age_days": 30,
-    "maximum_tweets_per_day": 50,
+    "activity_metric": "tweets_per_active_day",
+    "maximum_tweets_per_active_day": 9.0,
     "duplicate_rule": "exact tweet text; first observed record retained",
     "text_rule": "remove HTML and URLs; preserve capitalization, punctuation, and emoji"
   },
+  "user_activity_audit": {
+    "metric": "tweets_per_active_day",
+    "selected_threshold": 9.0,
+    "selection_reason": "No candidate at or above P99 met both retention safeguards; selected P99.5 because it has the smallest combined safeguard exceedance among eligible tail thresholds.",
+    "candidate_thresholds": {
+      "p95": 3.0,
+      "p97_5": 4.0,
+      "p99": 6.0,
+      "p99_5": 9.0,
+      "iqr_upper_fence": 2.666666666666667,
+      "extreme_iqr_upper_fence": 3.666666666666667,
+      "log_z_threshold": 4.550100499963576,
+      "mad_threshold": 1.0
+    },
+    "tradeoffs": [
+      {
+        "method": "p95",
+        "threshold": 3.0,
+        "users_removed": 19558,
+        "users_removed_pct": 4.0478087649,
+        "tweets_removed": 636787,
+        "tweets_removed_pct": 36.4390097634
+      },
+      {
+        "method": "p97_5",
+        "threshold": 4.0,
+        "users_removed": 10218,
+        "users_removed_pct": 2.1147617323,
+        "tweets_removed": 491261,
+        "tweets_removed_pct": 28.1115418113
+      },
+      {
+        "method": "p99",
+        "threshold": 6.0,
+        "users_removed": 4610,
+        "users_removed_pct": 0.9541056553,
+        "tweets_removed": 332815,
+        "tweets_removed_pct": 19.0447497113
+      },
+      {
+        "method": "p99_5",
+        "threshold": 9.0,
+        "users_removed": 2227,
+        "users_removed_pct": 0.4609096083,
+        "tweets_removed": 222366,
+        "tweets_removed_pct": 12.724501042
+      },
+      {
+        "method": "iqr_upper_fence",
+        "threshold": 2.6666666667,
+        "users_removed": 30928,
+        "users_removed_pct": 6.4009934289,
+        "tweets_removed": 730824,
+        "tweets_removed_pct": 41.8201107613
+      },
+      {
+        "method": "extreme_iqr_upper_fence",
+        "threshold": 3.6666666667,
+        "users_removed": 15838,
+        "users_removed_pct": 3.2779013815,
+        "tweets_removed": 550319,
+        "tweets_removed_pct": 31.491031403
+      },
+      {
+        "method": "log_z_threshold",
+        "threshold": 4.5501005,
+        "users_removed": 8904,
+        "users_removed_pct": 1.8428105759,
+        "tweets_removed": 445847,
+        "tweets_removed_pct": 25.5128059869
+      },
+      {
+        "method": "mad_threshold",
+        "threshold": 1.0,
+        "users_removed": 159599,
+        "users_removed_pct": 33.031303358,
+        "tweets_removed": 1354893,
+        "tweets_removed_pct": 77.5313554696
+      }
+    ]
+  },
   "account_age_rule_applied": false,
   "notes": [
-    "Bot volume is evaluated per user and UTC day across both candidate streams.",
+    "High-volume users are evaluated using the empirically selected tweets-per-active-day threshold.",
     "The account-age rule is skipped when Phase 1 input lacks user_created_at.",
     "Exact duplicates are removed before text normalization."
   ]

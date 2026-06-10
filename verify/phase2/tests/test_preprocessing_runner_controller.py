@@ -28,14 +28,14 @@ class PreprocessingRunnerControllerTests(unittest.TestCase):
         self.assertEqual(records[0]["tweet"], "<b>GOOD!!!</b> 😊 http://x.test")
         self.assertEqual(reporter.stage_metrics["exact_duplicate_filter"]["dropped_count"], 1)
 
-    def test_controller_rejects_more_than_configured_daily_volume(self) -> None:
+    def test_controller_rejects_users_above_configured_activity_threshold(self) -> None:
         records = [
             {"user_id": "busy", "date": "2020-11-01", "tweet": f"tweet {index}"}
             for index in range(3)
         ]
         controller = PreprocessingRunnerController(
             TelemetryReporterView(),
-            CleaningPolicy(maximum_tweets_per_day=2),
+            CleaningPolicy(maximum_tweets_per_active_day=2),
         )
 
         self.assertEqual(controller.execute(records), [])

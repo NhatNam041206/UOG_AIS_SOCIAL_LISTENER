@@ -28,8 +28,8 @@ class CleaningHeuristicsTests(unittest.TestCase):
         self.assertEqual(cleaned, "AMAZING!!! Vote 😊")
         self.assertEqual(TextCleaner().clean("Test https:// broken source"), "Test broken source")
 
-    def test_bot_filter_rejects_new_accounts_and_high_volume_user_days(self) -> None:
-        policy = CleaningPolicy(maximum_tweets_per_day=2)
+    def test_bot_filter_rejects_new_accounts_and_high_activity_users(self) -> None:
+        policy = CleaningPolicy(maximum_tweets_per_active_day=2)
         dataframe = pd.DataFrame(
             [
                 {"user_id": "steady", "date": "2020-11-01", "user_created_at": "2019-01-01"},

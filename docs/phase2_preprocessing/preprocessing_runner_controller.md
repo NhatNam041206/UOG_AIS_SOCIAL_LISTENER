@@ -7,7 +7,8 @@ components and delegates telemetry presentation to `TelemetryReporterView`.
 
 ## Processing Order
 
-1. Bot filtering.
+1. User-level activity filtering using the audit-selected threshold, plus available
+   account-age or bot-score rules.
 2. Exact-text deduplication.
 3. HTML and URL removal followed by invalid-text rejection.
 
@@ -17,6 +18,7 @@ input. `run(...)` wraps failures in `PipelineControllerError`.
 
 ## Configuration
 
-Inject a `CleaningPolicy` to change canonical field names or thresholds without
-rewriting controller logic. Inject a `TextCleaner` to extend normalization while
-preserving the controller's sequencing responsibility.
+Inject a `CleaningPolicy` containing the empirically selected
+`maximum_tweets_per_active_day`; no fixed activity threshold is embedded in the
+controller. Inject a `TextCleaner` to extend normalization while preserving the
+controller's sequencing responsibility.

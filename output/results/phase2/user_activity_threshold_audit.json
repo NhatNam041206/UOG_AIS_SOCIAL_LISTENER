@@ -1,0 +1,81 @@
+{
+  "metric": "tweets_per_active_day",
+  "selected_threshold": 9.0,
+  "selection_reason": "No candidate at or above P99 met both retention safeguards; selected P99.5 because it has the smallest combined safeguard exceedance among eligible tail thresholds.",
+  "candidate_thresholds": {
+    "p95": 3.0,
+    "p97_5": 4.0,
+    "p99": 6.0,
+    "p99_5": 9.0,
+    "iqr_upper_fence": 2.666666666666667,
+    "extreme_iqr_upper_fence": 3.666666666666667,
+    "log_z_threshold": 4.550100499963576,
+    "mad_threshold": 1.0
+  },
+  "tradeoffs": [
+    {
+      "method": "p95",
+      "threshold": 3.0,
+      "users_removed": 19558,
+      "users_removed_pct": 4.0478087649,
+      "tweets_removed": 636787,
+      "tweets_removed_pct": 36.4390097634
+    },
+    {
+      "method": "p97_5",
+      "threshold": 4.0,
+      "users_removed": 10218,
+      "users_removed_pct": 2.1147617323,
+      "tweets_removed": 491261,
+      "tweets_removed_pct": 28.1115418113
+    },
+    {
+      "method": "p99",
+      "threshold": 6.0,
+      "users_removed": 4610,
+      "users_removed_pct": 0.9541056553,
+      "tweets_removed": 332815,
+      "tweets_removed_pct": 19.0447497113
+    },
+    {
+      "method": "p99_5",
+      "threshold": 9.0,
+      "users_removed": 2227,
+      "users_removed_pct": 0.4609096083,
+      "tweets_removed": 222366,
+      "tweets_removed_pct": 12.724501042
+    },
+    {
+      "method": "iqr_upper_fence",
+      "threshold": 2.6666666667,
+      "users_removed": 30928,
+      "users_removed_pct": 6.4009934289,
+      "tweets_removed": 730824,
+      "tweets_removed_pct": 41.8201107613
+    },
+    {
+      "method": "extreme_iqr_upper_fence",
+      "threshold": 3.6666666667,
+      "users_removed": 15838,
+      "users_removed_pct": 3.2779013815,
+      "tweets_removed": 550319,
+      "tweets_removed_pct": 31.491031403
+    },
+    {
+      "method": "log_z_threshold",
+      "threshold": 4.5501005,
+      "users_removed": 8904,
+      "users_removed_pct": 1.8428105759,
+      "tweets_removed": 445847,
+      "tweets_removed_pct": 25.5128059869
+    },
+    {
+      "method": "mad_threshold",
+      "threshold": 1.0,
+      "users_removed": 159599,
+      "users_removed_pct": 33.031303358,
+      "tweets_removed": 1354893,
+      "tweets_removed_pct": 77.5313554696
+    }
+  ]
+}

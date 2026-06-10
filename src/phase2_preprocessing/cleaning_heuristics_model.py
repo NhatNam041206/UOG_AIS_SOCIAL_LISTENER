@@ -26,14 +26,17 @@ class CleaningPolicy:
     account_created_key: str = "user_created_at"
     election_date: datetime = datetime(2020, 11, 3, tzinfo=timezone.utc)
     minimum_account_age_days: int = 30
-    maximum_tweets_per_day: int = 50
+    maximum_tweets_per_active_day: Optional[float] = None
     bot_score_threshold: Optional[float] = None
 
     def __post_init__(self) -> None:
         if self.minimum_account_age_days < 0:
             raise ValueError("minimum_account_age_days must be non-negative")
-        if self.maximum_tweets_per_day < 1:
-            raise ValueError("maximum_tweets_per_day must be positive")
+        if (
+            self.maximum_tweets_per_active_day is not None
+            and self.maximum_tweets_per_active_day <= 0
+        ):
+            raise ValueError("maximum_tweets_per_active_day must be positive")
 
 
 class TextCleaner:
@@ -68,16 +71,24 @@ class BotFilter:
         )
         retained = pd.Series(True, index=dataframe.index, dtype=bool)
 
-        timestamps = pd.to_datetime(
-            dataframe[self.policy.timestamp_key],
-            utc=True,
-            errors="coerce",
-        )
-        user_day_counts = dataframe.groupby(
-            [dataframe[self.policy.user_key], timestamps.dt.floor("D")],
-            dropna=False,
-        )[self.policy.user_key].transform("size")
-        retained &= user_day_counts.le(self.policy.maximum_tweets_per_day)
+        if self.policy.maximum_tweets_per_active_day is not None:
+            from .user_activity_audit_model import UserActivityAuditor
+
+            auditor = UserActivityAuditor(
+                user_key=self.policy.user_key,
+                timestamp_key=self.policy.timestamp_key,
+            )
+            metrics = auditor.compute_user_metrics(dataframe)
+            high_volume_users = set(
+                metrics.loc[
+                    metrics["tweets_per_active_day"].gt(
+                        self.policy.maximum_tweets_per_active_day
+                    ),
+                    self.policy.user_key,
+                ]
+            )
+            identities = auditor.user_identity(dataframe[self.policy.user_key])
+            retained &= ~identities.isin(high_volume_users)
 
         if self.policy.account_created_key in dataframe.columns:
             created = pd.to_datetime(
