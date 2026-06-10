@@ -21,6 +21,11 @@
 - FEC rows: 51 states/DC.
 - Swing states at the 5-point threshold: AZ, FL, GA, MI, NC, NV, PA, WI.
 
+## Major Figures
+
+- `output/graphs/phase1/twitter_daily_volume.png` shows how valid tweet-record volume changes by UTC day for the two candidate hashtag streams. It is retained because temporal coverage and volume variation directly affect later event and sentiment analysis.
+- `output/graphs/phase1/twitter_location_coverage.png` compares usable and missing user-location text. Missing location affects 30.4% of the Donald Trump stream and 30.1% of the Joe Biden stream, which limits later state-level mapping.
+
 ## Data Quality Notes
 
 - Kaggle CSV rows with an invalid column count were rejected and counted.

@@ -1,0 +1,96 @@
+{
+  "streams": {
+    "political_events": {
+      "source_path": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\data\\01_raw\\political_events\\political_events.csv",
+      "record_count": 4,
+      "columns": [
+        "event_id",
+        "event_timestamp_utc",
+        "event_timezone",
+        "event_name",
+        "event_category",
+        "event_description",
+        "post_event_dummy",
+        "source_url"
+      ]
+    },
+    "electoral_returns": {
+      "source_path": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\data\\01_raw\\electoral_returns\\electoral_returns.csv",
+      "record_count": 51,
+      "columns": [
+        "state_code",
+        "biden_votes",
+        "trump_votes",
+        "total_votes",
+        "other_votes",
+        "biden_vote_share_pct",
+        "trump_vote_share_pct",
+        "democratic_margin_pct",
+        "absolute_margin_pct",
+        "winner",
+        "state_classification",
+        "swing_threshold_pct",
+        "source_url"
+      ]
+    },
+    "twitter_donald_trump": {
+      "source_path": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\data\\01_raw\\twitter\\hashtag_donaldtrump.csv",
+      "record_count": 970765,
+      "invalid_csv_rows": 323,
+      "minimum_date_utc": "2020-10-15T00:00:01+00:00",
+      "maximum_date_utc": "2020-11-08T23:59:56+00:00",
+      "missing_counts": {
+        "id": 0,
+        "date": 0,
+        "tweet": 0,
+        "user_id": 0,
+        "user_loc": 295110
+      },
+      "columns": [
+        "id",
+        "date",
+        "tweet",
+        "user_id",
+        "user_loc",
+        "retweets",
+        "replies",
+        "candidate",
+        "source_file"
+      ]
+    },
+    "twitter_joe_biden": {
+      "source_path": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\data\\01_raw\\twitter\\hashtag_joebiden.csv",
+      "record_count": 776777,
+      "invalid_csv_rows": 296,
+      "minimum_date_utc": "2020-10-15T00:00:01+00:00",
+      "maximum_date_utc": "2020-11-08T23:59:58+00:00",
+      "missing_counts": {
+        "id": 0,
+        "date": 0,
+        "tweet": 0,
+        "user_id": 0,
+        "user_loc": 233872
+      },
+      "columns": [
+        "id",
+        "date",
+        "tweet",
+        "user_id",
+        "user_loc",
+        "retweets",
+        "replies",
+        "candidate",
+        "source_file"
+      ]
+    }
+  },
+  "phase": "phase1_ingestion",
+  "status": "completed",
+  "notes": [
+    "Malformed Kaggle CSV rows were rejected and counted during Arrow streaming.",
+    "The Kaggle source has no replies field; canonical replies values are null.",
+    "The downloaded Kaggle files cover October 15 through November 8.",
+    "Tweet and user IDs remain source strings because the CSV uses scientific notation.",
+    "Exact duplicate tweets are retained for Phase 2 deduplication."
+  ]
+}

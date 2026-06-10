@@ -57,6 +57,6 @@ The complete Phase 1 run reads:
 - `data/01_raw/political_events/political_events.csv`
 - `data/01_raw/electoral_returns/electoral_returns.csv`
 
-It writes aligned Parquet outputs to `data/02_interim/`, EDA graphs to
+It writes aligned Parquet outputs to `data/02_interim/`, PNG research figures to
 `output/graphs/phase1/`, a manifest to `output/results/phase1/`, and an ingestion
 report to `output/reports/phase1/`.

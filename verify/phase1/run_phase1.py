@@ -2,14 +2,19 @@
 
 from __future__ import annotations
 
-import html
 import json
 import sys
 from collections import Counter
 from pathlib import Path
 from typing import Any, Dict, Iterable, Iterator
 
+import matplotlib
+
+matplotlib.use("Agg")
+
+import matplotlib.pyplot as plt
 import pandas as pd
+import seaborn as sns
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
 if str(PROJECT_ROOT) not in sys.path:
@@ -182,8 +187,11 @@ def run_phase1(project_root: str | Path = ".") -> Dict[str, Any]:
     manifest_path = result_dir / "ingestion_manifest.json"
     manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
 
-    _write_record_count_graph(manifest, graph_dir / "record_counts.svg")
-    _write_daily_volume_graph(daily_volume, graph_dir / "twitter_daily_volume.svg")
+    _write_location_coverage_graph(
+        manifest,
+        graph_dir / "twitter_location_coverage.png",
+    )
+    _write_daily_volume_graph(daily_volume, graph_dir / "twitter_daily_volume.png")
     _write_report(manifest, returns, report_dir / "ingestion_report.md")
     return manifest
 
@@ -267,71 +275,99 @@ def _maximum_timestamp(current: Any, candidate: pd.Timestamp) -> str:
     return str(current)
 
 
-def _write_record_count_graph(manifest: Dict[str, Any], destination: Path) -> None:
-    labels = list(manifest["streams"])
-    values = [manifest["streams"][label]["record_count"] for label in labels]
-    _write_bar_svg(labels, values, "Phase 1 Record Counts", destination)
+def _write_location_coverage_graph(
+    manifest: Dict[str, Any],
+    destination: Path,
+) -> None:
+    """Write a major Phase 1 data-quality figure for location availability."""
+    rows = []
+    for candidate, key in (
+        ("Donald Trump", "twitter_donald_trump"),
+        ("Joe Biden", "twitter_joe_biden"),
+    ):
+        stream = manifest["streams"][key]
+        missing = stream["missing_counts"]["user_loc"]
+        rows.extend(
+            [
+                {"Candidate": candidate, "Location status": "Available", "Records": stream["record_count"] - missing},
+                {"Candidate": candidate, "Location status": "Missing", "Records": missing},
+            ]
+        )
+    dataframe = pd.DataFrame(rows)
+    sns.set_theme(style="whitegrid", context="paper")
+    figure, axis = plt.subplots(figsize=(7.2, 4.8))
+    sns.barplot(
+        data=dataframe,
+        x="Candidate",
+        y="Records",
+        hue="Location status",
+        palette={"Available": "#3977C3", "Missing": "#E69F00"},
+        errorbar=None,
+        ax=axis,
+    )
+    axis.set_title("Twitter User-Location Coverage", weight="bold", pad=12)
+    axis.set_xlabel("")
+    axis.set_ylabel("Tweet records")
+    axis.set_ylim(bottom=0)
+    axis.legend(title="")
+    axis.ticklabel_format(axis="y", style="plain")
+    for container in axis.containers:
+        axis.bar_label(container, labels=[f"{value:,.0f}" for value in container.datavalues], padding=3, fontsize=8)
+    figure.text(
+        0.01,
+        0.01,
+        "Source: Kaggle 2020 US Election Tweets. Null and blank user-location strings count as missing.",
+        fontsize=7.5,
+        color="#555555",
+    )
+    figure.tight_layout(rect=(0, 0.06, 1, 1))
+    figure.savefig(destination, dpi=180, bbox_inches="tight", facecolor="white")
+    plt.close(figure)
 
 
 def _write_daily_volume_graph(
     daily_volume: Counter[tuple[str, str]],
     destination: Path,
 ) -> None:
-    dates = sorted({date for _, date in daily_volume})
-    candidates = ["donald_trump", "joe_biden"]
-    width, height = 1200, 650
-    left, top, chart_width, chart_height = 90, 70, 1050, 480
-    maximum = max(daily_volume.values(), default=1)
-    colors = {"donald_trump": "#D94B4B", "joe_biden": "#3977C3"}
-    elements = [_svg_header(width, height), '<rect width="100%" height="100%" fill="white"/>']
-    elements.append('<text x="600" y="35" text-anchor="middle" font-size="22">Twitter Daily Volume</text>')
-    elements.append(f'<line x1="{left}" y1="{top + chart_height}" x2="{left + chart_width}" y2="{top + chart_height}" stroke="#333"/>')
-    elements.append(f'<line x1="{left}" y1="{top}" x2="{left}" y2="{top + chart_height}" stroke="#333"/>')
-    for candidate in candidates:
-        points = []
-        for index, date in enumerate(dates):
-            x = left + (index * chart_width / max(len(dates) - 1, 1))
-            y = top + chart_height - daily_volume[(candidate, date)] * chart_height / maximum
-            points.append(f"{x:.1f},{y:.1f}")
-        elements.append(
-            f'<polyline points="{" ".join(points)}" fill="none" stroke="{colors[candidate]}" stroke-width="3"/>'
-        )
-    for index, date in enumerate(dates):
-        if index % 4 == 0 or index == len(dates) - 1:
-            x = left + (index * chart_width / max(len(dates) - 1, 1))
-            elements.append(f'<text x="{x:.1f}" y="580" font-size="11" text-anchor="end" transform="rotate(-35 {x:.1f} 580)">{html.escape(date)}</text>')
-    elements.append('<text x="930" y="42" fill="#D94B4B">Donald Trump</text>')
-    elements.append('<text x="1040" y="42" fill="#3977C3">Joe Biden</text>')
-    elements.append("</svg>")
-    destination.write_text("\n".join(elements), encoding="utf-8")
-
-
-def _write_bar_svg(
-    labels: list[str],
-    values: list[int],
-    title: str,
-    destination: Path,
-) -> None:
-    width, height = 1000, 620
-    left, top, chart_height = 110, 70, 430
-    bar_width, gap = 130, 70
-    maximum = max(values, default=1)
-    elements = [_svg_header(width, height), '<rect width="100%" height="100%" fill="white"/>']
-    elements.append(f'<text x="500" y="35" text-anchor="middle" font-size="22">{html.escape(title)}</text>')
-    elements.append(f'<line x1="{left}" y1="{top + chart_height}" x2="930" y2="{top + chart_height}" stroke="#333"/>')
-    for index, (label, value) in enumerate(zip(labels, values)):
-        x = left + 50 + index * (bar_width + gap)
-        bar_height = value * chart_height / maximum
-        y = top + chart_height - bar_height
-        elements.append(f'<rect x="{x}" y="{y:.1f}" width="{bar_width}" height="{bar_height:.1f}" fill="#3977C3"/>')
-        elements.append(f'<text x="{x + bar_width / 2}" y="{y - 8:.1f}" text-anchor="middle" font-size="13">{value:,}</text>')
-        elements.append(f'<text x="{x + bar_width / 2}" y="535" text-anchor="middle" font-size="12">{html.escape(label)}</text>')
-    elements.append("</svg>")
-    destination.write_text("\n".join(elements), encoding="utf-8")
-
-
-def _svg_header(width: int, height: int) -> str:
-    return f'<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}">'
+    rows = [
+        {
+            "Date": pd.Timestamp(date),
+            "Candidate": "Donald Trump" if candidate == "donald_trump" else "Joe Biden",
+            "Records": count,
+        }
+        for (candidate, date), count in daily_volume.items()
+    ]
+    dataframe = pd.DataFrame(rows).sort_values(["Date", "Candidate"])
+    sns.set_theme(style="whitegrid", context="paper")
+    figure, axis = plt.subplots(figsize=(9.0, 4.8))
+    sns.lineplot(
+        data=dataframe,
+        x="Date",
+        y="Records",
+        hue="Candidate",
+        palette={"Donald Trump": "#D94B4B", "Joe Biden": "#3977C3"},
+        marker="o",
+        linewidth=2,
+        errorbar=None,
+        ax=axis,
+    )
+    axis.set_title("Twitter Daily Volume", weight="bold", pad=12)
+    axis.set_xlabel("Date (UTC)")
+    axis.set_ylabel("Tweet records")
+    axis.set_ylim(bottom=0)
+    axis.legend(title="")
+    axis.ticklabel_format(axis="y", style="plain")
+    figure.autofmt_xdate(rotation=30, ha="right")
+    figure.text(
+        0.01,
+        0.01,
+        "Source: Kaggle 2020 US Election Tweets. Malformed CSV rows are excluded.",
+        fontsize=7.5,
+        color="#555555",
+    )
+    figure.tight_layout(rect=(0, 0.07, 1, 1))
+    figure.savefig(destination, dpi=180, bbox_inches="tight", facecolor="white")
+    plt.close(figure)
 
 
 def _write_report(
@@ -376,6 +412,18 @@ def _write_report(
             "",
             f"- FEC rows: {len(returns)} states/DC.",
             f"- Swing states at the 5-point threshold: {', '.join(swing_states)}.",
+            "",
+            "## Major Figures",
+            "",
+            "- `output/graphs/phase1/twitter_daily_volume.png` shows how valid tweet-record volume changes by UTC day for the two candidate hashtag streams. It is retained because temporal coverage and volume variation directly affect later event and sentiment analysis.",
+            (
+                "- `output/graphs/phase1/twitter_location_coverage.png` compares usable "
+                "and missing user-location text. Missing location affects "
+                f"{100 * streams['twitter_donald_trump']['missing_counts']['user_loc'] / streams['twitter_donald_trump']['record_count']:.1f}% "
+                "of the Donald Trump stream and "
+                f"{100 * streams['twitter_joe_biden']['missing_counts']['user_loc'] / streams['twitter_joe_biden']['record_count']:.1f}% "
+                "of the Joe Biden stream, which limits later state-level mapping."
+            ),
             "",
             "## Data Quality Notes",
             "",
