@@ -1,0 +1,44 @@
+{
+  "phase": "phase2_preprocessing",
+  "status": "completed",
+  "input_paths": [
+    "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\data\\02_interim\\twitter_donald_trump.parquet",
+    "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\data\\02_interim\\twitter_joe_biden.parquet"
+  ],
+  "output_path": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\data\\02_interim\\twitter_cleaned.parquet",
+  "initial_record_count": 1747542,
+  "final_record_count": 1462744,
+  "retention_rate_pct": 83.7029381840322,
+  "stage_metrics": {
+    "bot_filter": {
+      "initial_count": 1747542,
+      "final_count": 1686645,
+      "dropped_count": 60897,
+      "drop_rate_pct": 3.4847231139509094
+    },
+    "exact_duplicate_filter": {
+      "initial_count": 1686645,
+      "final_count": 1462772,
+      "dropped_count": 223873,
+      "drop_rate_pct": 13.273273273273274
+    },
+    "text_cleaning": {
+      "initial_count": 1462772,
+      "final_count": 1462744,
+      "dropped_count": 28,
+      "drop_rate_pct": 0.001914173910903408
+    }
+  },
+  "policy": {
+    "minimum_account_age_days": 30,
+    "maximum_tweets_per_day": 50,
+    "duplicate_rule": "exact tweet text; first observed record retained",
+    "text_rule": "remove HTML and URLs; preserve capitalization, punctuation, and emoji"
+  },
+  "account_age_rule_applied": false,
+  "notes": [
+    "Bot volume is evaluated per user and UTC day across both candidate streams.",
+    "The account-age rule is skipped when Phase 1 input lacks user_created_at.",
+    "Exact duplicates are removed before text normalization."
+  ]
+}

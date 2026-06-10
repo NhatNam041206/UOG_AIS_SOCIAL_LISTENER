@@ -60,3 +60,39 @@ The complete Phase 1 run reads:
 It writes aligned Parquet outputs to `data/02_interim/`, PNG research figures to
 `output/graphs/phase1/`, a manifest to `output/results/phase1/`, and an ingestion
 report to `output/reports/phase1/`.
+
+## Phase 2 preprocessing
+
+Phase 2 operates only on the aligned Phase 1 Twitter Parquet files. Its ordered rules
+are:
+
+1. Reject records from a user on any UTC day where that user exceeds 50 tweets.
+2. Reject accounts created within 30 days of the November 3, 2020 election whenever
+   the configured `user_created_at` field is present.
+3. Remove exact tweet-text duplicates, retaining the first observed record.
+4. Remove HTML and URLs, then reject empty or invalid-Unicode text.
+5. Preserve capitalization, punctuation, and emoji for downstream VADER scoring.
+
+Run the complete Phase 2 workflow:
+
+```powershell
+.venv\Scripts\python.exe verify\phase2\run_phase2.py
+```
+
+It reads `data/02_interim/twitter_donald_trump.parquet` and
+`data/02_interim/twitter_joe_biden.parquet`, then writes:
+
+- `data/02_interim/twitter_cleaned.parquet`
+- `output/graphs/phase2/preprocessing_attrition.png`
+- `output/results/phase2/preprocessing_manifest.json`
+- `output/reports/phase2/preprocessing_report.md`
+
+The current Phase 1 interim schema does not include account-creation timestamps, so the
+runner records that the 30-day account-age rule was unavailable rather than changing
+Phase 1 or silently inferring account age.
+
+Run the focused Phase 2 tests:
+
+```powershell
+.venv\Scripts\python.exe -m unittest discover -s verify\phase2\tests -v
+```

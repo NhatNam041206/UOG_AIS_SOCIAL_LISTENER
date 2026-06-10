@@ -1,13 +1,23 @@
 # Module: cleaning_heuristics_model
 
 ## Architectural Role
-Model boundary for deterministic text-cleaning heuristics.
 
-## Core Functional Objective
-Applies bot filtering, deduplication, and syntax or emoji integrity checks while preserving raw emojis and punctuation.
+Model boundary for deterministic Phase 2 rules. Components have one responsibility:
+`BotFilter` identifies bot-like activity, `DuplicateFilter` identifies exact duplicate
+text, `TextCleaner` performs conservative normalization, and `CleaningPolicy` owns
+configuration.
 
-## Class and Method Signatures
-* `filter_bots(records: List[Dict[str, Any]], bot_score_threshold: float) -> List[Dict[str, Any]]`: Exclude records at or above bot_score_threshold using each record's `bot_score` key.
-* `deduplicate_text(records: List[Dict[str, Any]], text_key: str = 'text') -> List[Dict[str, Any]]`: Drop duplicate records by normalized textual content.
-* `verify_syntax(record: Dict[str, Any], text_key: str = 'text') -> bool`: Validate baseline syntax quality for a single text record.
-* `verify_emoji_integrity(record: Dict[str, Any], text_key: str = 'text') -> bool`: Validate emoji encoding and placement heuristics for a single text record.
+## Rules
+
+- A user's records are rejected on a UTC day when their count exceeds the configured
+  maximum of 50.
+- An account created within 30 days of the November 3, 2020 election is rejected when
+  the configured account-created field exists. Missing account-created values are not
+  guessed.
+- Exact non-null tweet text is deduplicated before normalization.
+- HTML and URLs are removed. Capitalization, punctuation, and emoji are preserved.
+- Empty text, Unicode replacement characters, and invalid surrogate code points are
+  rejected.
+
+Compatibility functions (`filter_bots`, `deduplicate_text`, `verify_syntax`, and
+`verify_emoji_integrity`) remain available for record-oriented callers.
