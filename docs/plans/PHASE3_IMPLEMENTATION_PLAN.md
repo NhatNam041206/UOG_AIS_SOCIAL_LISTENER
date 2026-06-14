@@ -265,7 +265,7 @@ output/graphs/phase3/
 ## Phase Closure Gates
 
 - [x] Phase 2 input contract passes.
-- [ ] Every cleaned tweet has valid VADER scores.
+- [x] Every cleaned tweet has valid VADER scores.
 - [ ] The 5,000-record sample is reproducible with documented strata and seed.
 - [ ] Candidate and daily sample coverage are verified.
 - [ ] Every sampled record has valid RoBERTa probabilities.
@@ -294,3 +294,35 @@ The cleaned dataset is approved for Phase 3 sentiment scoring. Non-blocking warn
 were recorded for post-cleaning duplicate convergence, potential RoBERTa truncation,
 unavailable replies, and blank location strings that must be handled as missing
 during Phase 4.
+
+### Full-Dataset VADER Scoring
+
+Completed: 2026-06-14
+
+Status: **Passed**
+
+Evidence:
+
+- `data/02_interim/twitter_sentiment.parquet`
+- `output/results/phase3/sentiment_manifest.json`
+- `output/results/phase3/vader_output_validation.json`
+- `output/reports/phase3/sentiment_report.md`
+- `output/graphs/phase3/vader_sentiment_distribution.png`
+- `output/graphs/phase3/sentiment_distribution_by_candidate.png`
+- `.venv\Scripts\python.exe -m unittest discover -s verify\phase3\tests -v`
+
+All 1,331,317 cleaned tweets received the approved five-field VADER schema. The
+output validator passed 11 checks covering row-count and source-schema preservation,
+field completeness, score ranges, component-sum rounding tolerance, expected labels,
+and compound-threshold consistency.
+
+Descriptive full-dataset results:
+
+| Label | Records | Percentage |
+| --- | ---: | ---: |
+| Negative | 350,836 | 26.35% |
+| Neutral | 527,371 | 39.61% |
+| Positive | 453,110 | 34.03% |
+
+The mean compound score is `0.0518`. These results remain unvalidated descriptive
+VADER outputs until the planned RoBERTa comparison is complete.

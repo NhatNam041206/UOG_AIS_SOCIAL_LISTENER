@@ -1,0 +1,81 @@
+{
+  "phase": "phase3_sentiment",
+  "stage": "vader_output_validation",
+  "status": "passed",
+  "checks": [
+    {
+      "name": "phase2_cleaned_input_exists",
+      "status": "passed",
+      "detail": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\data\\02_interim\\twitter_cleaned.parquet"
+    },
+    {
+      "name": "vader_output_exists",
+      "status": "passed",
+      "detail": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\data\\02_interim\\twitter_sentiment.parquet"
+    },
+    {
+      "name": "row_count_preserved",
+      "status": "passed",
+      "detail": "input=1,331,317; output=1,331,317"
+    },
+    {
+      "name": "source_schema_preserved",
+      "status": "passed",
+      "detail": "source_columns=9; output_prefix_columns=9"
+    },
+    {
+      "name": "approved_vader_schema_appended",
+      "status": "passed",
+      "detail": "appended=['vader_negative', 'vader_neutral', 'vader_positive', 'vader_compound', 'vader_label']"
+    },
+    {
+      "name": "vader_fields_complete",
+      "status": "passed",
+      "detail": "null_counts={'vader_negative': 0, 'vader_neutral': 0, 'vader_positive': 0, 'vader_compound': 0, 'vader_label': 0}"
+    },
+    {
+      "name": "vader_components_in_unit_interval",
+      "status": "passed",
+      "detail": "minimum=0.0; maximum=1.0"
+    },
+    {
+      "name": "vader_compound_in_expected_range",
+      "status": "passed",
+      "detail": "minimum=-0.9998; maximum=1.0"
+    },
+    {
+      "name": "vader_component_sums_within_rounding_tolerance",
+      "status": "passed",
+      "detail": "maximum_absolute_error=0.001000000000000112"
+    },
+    {
+      "name": "vader_labels_expected",
+      "status": "passed",
+      "detail": "observed=['negative', 'neutral', 'positive']"
+    },
+    {
+      "name": "vader_labels_match_compound_thresholds",
+      "status": "passed",
+      "detail": "mismatches=0"
+    }
+  ],
+  "metrics": {
+    "input_record_count": 1331317,
+    "output_record_count": 1331317,
+    "output_column_count": 14,
+    "output_row_groups": 27,
+    "null_counts": {
+      "vader_negative": 0,
+      "vader_neutral": 0,
+      "vader_positive": 0,
+      "vader_compound": 0,
+      "vader_label": 0
+    },
+    "component_min": 0.0,
+    "component_max": 1.0,
+    "compound_min": -0.9998,
+    "compound_max": 1.0,
+    "component_sum_maximum_absolute_error": 0.001000000000000112,
+    "label_mismatches": 0
+  }
+}

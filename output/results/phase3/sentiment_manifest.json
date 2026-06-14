@@ -1,0 +1,51 @@
+{
+  "phase": "phase3_sentiment",
+  "stage": "vader_full_dataset_scoring",
+  "status": "vader_scoring_completed",
+  "input_path": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\data\\02_interim\\twitter_cleaned.parquet",
+  "output_path": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\data\\02_interim\\twitter_sentiment.parquet",
+  "input_record_count": 1331317,
+  "output_record_count": 1331317,
+  "batch_size": 50000,
+  "model": {
+    "name": "vaderSentiment",
+    "version": "3.3.2",
+    "text_field": "tweet",
+    "negative_threshold": -0.05,
+    "positive_threshold": 0.05
+  },
+  "output_fields": [
+    "vader_negative",
+    "vader_neutral",
+    "vader_positive",
+    "vader_compound",
+    "vader_label"
+  ],
+  "vader_summary": {
+    "compound_mean": 0.05177809537473043,
+    "compound_std": 0.46449002794548555,
+    "compound_min": -0.9998,
+    "compound_max": 1.0,
+    "label_counts": {
+      "negative": 350836,
+      "neutral": 527371,
+      "positive": 453110
+    },
+    "label_percentages": {
+      "negative": 26.352551646227006,
+      "neutral": 39.61272934995947,
+      "positive": 34.034719003813514
+    }
+  },
+  "validation_status": "roberta_validation_pending",
+  "output_validation": {
+    "status": "passed",
+    "result_path": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\output\\results\\phase3\\vader_output_validation.json",
+    "checks_passed": 11
+  },
+  "notes": [
+    "VADER scored the Phase 2 cleaned tweet text without additional normalization.",
+    "The output preserves all Phase 2 fields and appends the approved five-field VADER schema.",
+    "RoBERTa validation is required before Phase 3 closure."
+  ]
+}

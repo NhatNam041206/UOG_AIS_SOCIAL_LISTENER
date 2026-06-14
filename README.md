@@ -110,3 +110,39 @@ Run the focused Phase 2 tests:
 ```powershell
 .venv\Scripts\python.exe -m unittest discover -s verify\phase2\tests -v
 ```
+
+## Phase 3 VADER scoring
+
+The first two Phase 3 entry stages validate the Phase 2 cleaned-data contract and
+score the complete cleaned dataset with VADER:
+
+```powershell
+.venv\Scripts\python.exe verify\phase3\validate_phase2_input_contract.py
+.venv\Scripts\python.exe verify\phase3\run_phase3_vader.py
+```
+
+The VADER stage preserves every Phase 2 field and appends:
+
+- `vader_negative`
+- `vader_neutral`
+- `vader_positive`
+- `vader_compound`
+- `vader_label`
+
+It writes:
+
+- `data/02_interim/twitter_sentiment.parquet`
+- `output/results/phase3/sentiment_manifest.json`
+- `output/results/phase3/vader_output_validation.json`
+- `output/reports/phase3/sentiment_report.md`
+- `output/graphs/phase3/vader_sentiment_distribution.png`
+- `output/graphs/phase3/sentiment_distribution_by_candidate.png`
+
+These are descriptive VADER outputs. Phase 3 remains open until the planned
+5,000-record RoBERTa validation and model-agreement analysis are complete.
+
+Run the focused Phase 3 tests:
+
+```powershell
+.venv\Scripts\python.exe -m unittest discover -s verify\phase3\tests -v
+```
