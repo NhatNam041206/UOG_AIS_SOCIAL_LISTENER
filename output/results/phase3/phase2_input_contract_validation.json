@@ -1,0 +1,130 @@
+{
+  "phase": "phase3_input_contract",
+  "status": "passed",
+  "dataset_path": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\data\\02_interim\\twitter_cleaned.parquet",
+  "phase2_manifest_path": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\output\\results\\phase2\\preprocessing_manifest.json",
+  "checks": [
+    {
+      "name": "cleaned_dataset_exists",
+      "status": "passed",
+      "detail": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\data\\02_interim\\twitter_cleaned.parquet"
+    },
+    {
+      "name": "phase2_manifest_exists",
+      "status": "passed",
+      "detail": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\output\\results\\phase2\\preprocessing_manifest.json"
+    },
+    {
+      "name": "phase2_manifest_completed",
+      "status": "passed",
+      "detail": "status='completed'"
+    },
+    {
+      "name": "row_count_matches_manifest",
+      "status": "passed",
+      "detail": "parquet=1,331,317; manifest=1,331,317"
+    },
+    {
+      "name": "required_columns_present",
+      "status": "passed",
+      "detail": "none missing"
+    },
+    {
+      "name": "required_column_types_compatible",
+      "status": "passed",
+      "detail": "all compatible"
+    },
+    {
+      "name": "phase3_required_values_non_null",
+      "status": "passed",
+      "detail": "no required nulls"
+    },
+    {
+      "name": "tweet_text_non_empty",
+      "status": "passed",
+      "detail": "blank_count=0"
+    },
+    {
+      "name": "tweet_text_has_valid_unicode",
+      "status": "passed",
+      "detail": "invalid_unicode_count=0"
+    },
+    {
+      "name": "timestamps_valid_and_utc",
+      "status": "passed",
+      "detail": "invalid_count=0"
+    },
+    {
+      "name": "candidate_values_expected",
+      "status": "passed",
+      "detail": "observed=['donald_trump', 'joe_biden']; unexpected=[]; missing=[]"
+    },
+    {
+      "name": "candidate_day_strata_available",
+      "status": "passed",
+      "detail": "strata=50; minimum_records=7,163"
+    }
+  ],
+  "warnings": [
+    {
+      "name": "post_cleaning_exact_duplicate_text",
+      "status": "warning",
+      "detail": "count=50,561; permitted because Phase 2 deduplicates before text normalization"
+    },
+    {
+      "name": "long_text_truncation_risk",
+      "status": "warning",
+      "detail": "records_over_512_characters=581; token-level truncation must be measured during RoBERTa inference"
+    },
+    {
+      "name": "known_nullable_source_fields",
+      "status": "warning",
+      "detail": "null_counts={'user_loc': 0, 'replies': 1331317}"
+    },
+    {
+      "name": "blank_user_locations",
+      "status": "warning",
+      "detail": "count=404,348; treat blank strings as missing during Phase 4 spatial mapping"
+    }
+  ],
+  "metrics": {
+    "dataset_path": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\data\\02_interim\\twitter_cleaned.parquet",
+    "phase2_manifest_path": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\output\\results\\phase2\\preprocessing_manifest.json",
+    "row_count": 1331317,
+    "column_count": 9,
+    "schema": {
+      "id": "string",
+      "date": "timestamp[ms, tz=UTC]",
+      "tweet": "string",
+      "user_id": "string",
+      "user_loc": "string",
+      "retweets": "double",
+      "replies": "null",
+      "candidate": "string",
+      "source_file": "string"
+    },
+    "null_counts": {
+      "id": 0,
+      "date": 0,
+      "tweet": 0,
+      "user_id": 0,
+      "user_loc": 0,
+      "retweets": 0,
+      "replies": 1331317,
+      "candidate": 0,
+      "source_file": 0
+    },
+    "date_min_utc": "2020-10-15T00:00:01+00:00",
+    "date_max_utc": "2020-11-08T23:59:58+00:00",
+    "candidate_counts": {
+      "donald_trump": 827734,
+      "joe_biden": 503583
+    },
+    "candidate_day_strata": 50,
+    "minimum_stratum_records": 7163,
+    "maximum_stratum_records": 115014,
+    "exact_duplicate_text_count_after_cleaning": 50561,
+    "records_over_512_characters": 581,
+    "blank_user_location_count": 404348
+  }
+}
