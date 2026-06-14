@@ -9,3 +9,6 @@ data/**
 
 # Notebook metadata
 notebooks/.ipynb_checkpoints/
+
+# Local project tracking
+docs/PROJECT_JOURNAL.md
