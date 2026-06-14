@@ -194,3 +194,13 @@ The validation reports Pearson and Spearman correlation, label agreement, macro-
 agreement, confusion matrices, candidate/day metrics, likely-English sensitivity
 metrics, and the largest score disagreements. These measure agreement between two
 models; RoBERTa is not treated as human ground truth.
+
+Generate the final validation figures and run the Phase 3 closure gate:
+
+```powershell
+.venv\Scripts\python.exe verify\phase3\close_phase3.py
+```
+
+Phase 3 closure verifies every required artifact, reconciles the final manifest,
+generates the score-comparison and confusion-matrix figures, and confirms
+`data/02_interim/twitter_sentiment.parquet` is ready for Phase 4.

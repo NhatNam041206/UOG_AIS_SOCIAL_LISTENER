@@ -37,7 +37,7 @@
       "positive": 34.034719003813514
     }
   },
-  "validation_status": "roberta_validation_pending",
+  "validation_status": "roberta_validation_completed",
   "output_validation": {
     "status": "passed",
     "result_path": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\output\\results\\phase3\\vader_output_validation.json",
@@ -47,5 +47,16 @@
     "VADER scored the Phase 2 cleaned tweet text without additional normalization.",
     "The output preserves all Phase 2 fields and appends the approved five-field VADER schema.",
     "RoBERTa validation is required before Phase 3 closure."
-  ]
+  ],
+  "phase_status": "completed",
+  "validation_summary": {
+    "sample_record_count": 5000,
+    "pearson_r": 0.5037380969516854,
+    "pearson_95_ci": [
+      0.4827597051773412,
+      0.5241387028628807
+    ],
+    "label_agreement_rate": 0.606,
+    "likely_english_pct": 68.72
+  }
 }

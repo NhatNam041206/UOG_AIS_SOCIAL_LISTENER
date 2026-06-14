@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any, Dict
 
 import matplotlib.pyplot as plt
+import numpy as np
 import pandas as pd
 import seaborn as sns
 
@@ -99,6 +100,29 @@ class SentimentReporterView:
         destination.parent.mkdir(parents=True, exist_ok=True)
         destination.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
+    def render_validation_graphs(
+        self,
+        dataframe: pd.DataFrame,
+        metrics: Dict[str, Any],
+        graph_dir: Path,
+    ) -> None:
+        """Write the two approved VADER/RoBERTa validation figures."""
+        required = {"vader_compound", "roberta_score", "vader_label", "roberta_label"}
+        missing = sorted(required - set(dataframe.columns))
+        if missing:
+            raise ValueError(f"Required validation reporting columns are missing: {missing}")
+        graph_dir.mkdir(parents=True, exist_ok=True)
+        sns.set_theme(style="whitegrid", context="paper")
+        self._score_comparison(
+            dataframe,
+            metrics,
+            graph_dir / "vader_roberta_score_comparison.png",
+        )
+        self._confusion_matrix(
+            metrics,
+            graph_dir / "vader_roberta_confusion_matrix.png",
+        )
+
     def _sentiment_distribution(self, dataframe: pd.DataFrame, destination: Path) -> None:
         figure, axes = plt.subplots(1, 2, figsize=(11.0, 4.8), gridspec_kw={"width_ratios": [1.8, 1]})
         axes[0].hist(
@@ -159,6 +183,68 @@ class SentimentReporterView:
             figure,
             destination,
             "Source: Phase 2 cleaned Twitter dataset. Curves are density-normalized because candidate-stream record counts differ.",
+        )
+
+    def _score_comparison(
+        self,
+        dataframe: pd.DataFrame,
+        metrics: Dict[str, Any],
+        destination: Path,
+    ) -> None:
+        overall = metrics["overall"]
+        figure, axis = plt.subplots(figsize=(7.2, 6.0))
+        axis.scatter(
+            dataframe["vader_compound"],
+            dataframe["roberta_score"],
+            alpha=0.2,
+            s=14,
+            color="#4C78A8",
+            edgecolors="none",
+        )
+        coefficients = np.polyfit(dataframe["vader_compound"], dataframe["roberta_score"], 1)
+        x = np.linspace(-1, 1, 200)
+        axis.plot(x, coefficients[0] * x + coefficients[1], color="#D55E00", linewidth=2, label="Linear fit")
+        axis.plot([-1, 1], [-1, 1], color="#777777", linestyle="--", linewidth=1.2, label="Equal scores")
+        axis.set_title("VADER and RoBERTa Continuous Score Agreement", weight="bold", pad=12)
+        axis.set_xlabel("VADER compound score")
+        axis.set_ylabel("RoBERTa score (positive probability - negative probability)")
+        axis.set_xlim(-1, 1)
+        axis.set_ylim(-1, 1)
+        axis.text(
+            0.02,
+            0.98,
+            f"Pearson r = {overall['pearson_r']:.3f}\n95% CI [{overall['pearson_95_ci'][0]:.3f}, {overall['pearson_95_ci'][1]:.3f}]\nn = {overall['record_count']:,}",
+            transform=axis.transAxes,
+            va="top",
+            bbox={"facecolor": "white", "edgecolor": "#BBBBBB", "alpha": 0.9},
+        )
+        axis.legend(frameon=True, loc="lower right")
+        self._save(
+            figure,
+            destination,
+            "Source: Phase 3 proportional candidate-by-UTC-day validation sample. RoBERTa is a comparison model, not human ground truth.",
+        )
+
+    def _confusion_matrix(self, metrics: Dict[str, Any], destination: Path) -> None:
+        matrix = np.asarray(metrics["overall"]["confusion_matrix"], dtype=int)
+        figure, axis = plt.subplots(figsize=(7.0, 5.8))
+        sns.heatmap(
+            matrix,
+            annot=True,
+            fmt="d",
+            cmap="Blues",
+            cbar_kws={"label": "Tweet records"},
+            xticklabels=[label.title() for label in self.LABEL_ORDER],
+            yticklabels=[label.title() for label in self.LABEL_ORDER],
+            ax=axis,
+        )
+        axis.set_title("VADER and RoBERTa Label Agreement", weight="bold", pad=12)
+        axis.set_xlabel("RoBERTa label")
+        axis.set_ylabel("VADER label")
+        self._save(
+            figure,
+            destination,
+            f"Source: Phase 3 validation sample. Overall exact-label agreement is {100.0 * metrics['overall']['label_agreement_rate']:.2f}%.",
         )
 
     @staticmethod

@@ -1,0 +1,32 @@
+{
+  "phase": "phase3_sentiment",
+  "status": "completed",
+  "checks": {
+    "all_required_artifacts_exist": true,
+    "full_sentiment_dataset_matches_vader_manifest": true,
+    "validation_sample_has_5000_records": true,
+    "validation_fields_complete": true,
+    "pearson_metric_available": true,
+    "all_four_approved_figures_exist": true,
+    "phase4_input_schema_available": true
+  },
+  "full_sentiment_record_count": 1331317,
+  "validation_sample_record_count": 5000,
+  "headline_metrics": {
+    "sample_record_count": 5000,
+    "pearson_r": 0.5037380969516854,
+    "pearson_95_ci": [
+      0.4827597051773412,
+      0.5241387028628807
+    ],
+    "label_agreement_rate": 0.606,
+    "likely_english_pct": 68.72
+  },
+  "phase4_input_path": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\data\\02_interim\\twitter_sentiment.parquet",
+  "known_limitations": [
+    "RoBERTa is a comparison model, not human ground truth.",
+    "The deterministic language audit estimates 68.72% likely English and can misclassify short tweets.",
+    "The models show moderate agreement and are not interchangeable.",
+    "Spatial mapping must treat blank user locations as missing."
+  ]
+}

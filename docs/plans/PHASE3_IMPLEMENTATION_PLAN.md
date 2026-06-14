@@ -272,9 +272,9 @@ output/graphs/phase3/
 - [x] Model name, revision, preprocessing, and inference settings are recorded.
 - [x] Pearson correlation and supporting agreement metrics are calculated.
 - [x] Language and truncation limitations are documented.
-- [ ] Reports, results, figures, and manifest agree.
-- [ ] Phase 3 tests pass.
-- [ ] The sentiment-enriched dataset is verified as ready for Phase 4.
+- [x] Reports, results, figures, and manifest agree.
+- [x] Phase 3 tests pass.
+- [x] The sentiment-enriched dataset is verified as ready for Phase 4.
 
 ## Execution Record
 
@@ -446,3 +446,21 @@ The deterministic language audit classified 3,436 records (68.72%) as likely
 English. Likely-English Pearson correlation was `0.5453`. Language detection on
 short social-media text is imperfect, so language classifications are retained as a
 suitability audit rather than used as an exclusion rule.
+
+### Phase 3 Closure
+
+Completed: 2026-06-14
+
+Status: **Closed**
+
+Evidence:
+
+- `output/results/phase3/phase3_completion_manifest.json`
+- `output/reports/phase3/phase3_completion_report.md`
+- `output/graphs/phase3/vader_roberta_score_comparison.png`
+- `output/graphs/phase3/vader_roberta_confusion_matrix.png`
+- `.venv\Scripts\python.exe verify\phase3\close_phase3.py`
+
+All seven closure checks and all 18 Phase 3 automated tests passed. The
+sentiment-enriched dataset at `data/02_interim/twitter_sentiment.parquet` is
+verified as the primary Twitter input for Phase 4.
