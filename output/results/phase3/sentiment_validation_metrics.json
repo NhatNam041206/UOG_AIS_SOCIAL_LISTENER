@@ -1,0 +1,975 @@
+{
+  "phase": "phase3_sentiment",
+  "stage": "model_agreement_validation",
+  "status": "completed",
+  "sample_path": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\output\\results\\phase3\\sentiment_validation_sample.parquet",
+  "record_count": 5000,
+  "score_mapping": {
+    "vader": "vader_compound",
+    "roberta": "positive_probability - negative_probability"
+  },
+  "interpretation": "agreement between two models; RoBERTa is not human ground truth",
+  "language_audit": {
+    "method": "langdetect with deterministic seed 0",
+    "version": "1.0.9",
+    "counts": {
+      "en": 3436,
+      "es": 338,
+      "de": 245,
+      "fr": 185,
+      "nl": 163,
+      "it": 133,
+      "tr": 74,
+      "ro": 64,
+      "id": 42,
+      "pt": 37,
+      "da": 34,
+      "ca": 29,
+      "vi": 29,
+      "ar": 26,
+      "fa": 14,
+      "fi": 14,
+      "no": 11,
+      "ja": 9,
+      "hr": 9,
+      "pl": 9,
+      "sv": 9,
+      "ur": 7,
+      "et": 7,
+      "hi": 7,
+      "lv": 7,
+      "el": 6,
+      "so": 5,
+      "tl": 5,
+      "cs": 4,
+      "te": 4,
+      "th": 4,
+      "ta": 4,
+      "af": 3,
+      "cy": 3,
+      "ru": 3,
+      "mr": 2,
+      "hu": 2,
+      "gu": 2,
+      "ko": 2,
+      "kn": 2,
+      "sq": 2,
+      "sl": 2,
+      "ml": 1,
+      "lt": 1,
+      "sw": 1,
+      "ne": 1,
+      "bn": 1,
+      "he": 1,
+      "pa": 1
+    },
+    "likely_english_count": 3436,
+    "likely_english_pct": 68.72
+  },
+  "metrics": {
+    "overall": {
+      "record_count": 5000,
+      "pearson_r": 0.5037380969516854,
+      "pearson_p_value": 4.842e-320,
+      "pearson_95_ci": [
+        0.4827597051773412,
+        0.5241387028628807
+      ],
+      "spearman_rho": 0.46298517905143355,
+      "spearman_p_value": 3.6049976684910853e-264,
+      "label_agreement_rate": 0.606,
+      "macro_f1_agreement": 0.5850562931911137,
+      "mean_absolute_score_difference": 0.38834146619282983,
+      "confusion_matrix": [
+        [
+          911,
+          373,
+          36
+        ],
+        [
+          340,
+          1541,
+          112
+        ],
+        [
+          492,
+          617,
+          578
+        ]
+      ]
+    },
+    "likely_english": {
+      "record_count": 3436,
+      "pearson_r": 0.5452835722813709,
+      "pearson_p_value": 1.8400618797442628e-265,
+      "pearson_95_ci": [
+        0.5213509715355128,
+        0.568359048075937
+      ],
+      "spearman_rho": 0.539819595790091,
+      "spearman_p_value": 3.425752727305327e-259,
+      "label_agreement_rate": 0.5614086146682189,
+      "macro_f1_agreement": 0.5539373981931998,
+      "mean_absolute_score_difference": 0.4524282665230965,
+      "confusion_matrix": [
+        [
+          860,
+          161,
+          31
+        ],
+        [
+          280,
+          551,
+          79
+        ],
+        [
+          477,
+          479,
+          518
+        ]
+      ]
+    },
+    "candidate_metrics": {
+      "donald_trump": {
+        "record_count": 3111,
+        "pearson_r": 0.43513137487773373,
+        "pearson_p_value": 6.408828196666764e-144,
+        "pearson_95_ci": [
+          0.40620059640988704,
+          0.4631906912774643
+        ],
+        "spearman_rho": 0.4017298241017261,
+        "spearman_p_value": 5.340109523628696e-121,
+        "label_agreement_rate": 0.5818064930890389,
+        "macro_f1_agreement": 0.5399461583459866,
+        "mean_absolute_score_difference": 0.41429970891022033,
+        "confusion_matrix": [
+          [
+            645,
+            252,
+            13
+          ],
+          [
+            230,
+            947,
+            49
+          ],
+          [
+            363,
+            394,
+            218
+          ]
+        ]
+      },
+      "joe_biden": {
+        "record_count": 1889,
+        "pearson_r": 0.583524194978907,
+        "pearson_p_value": 8.440247763286743e-173,
+        "pearson_95_ci": [
+          0.5529764220655993,
+          0.6125053276004092
+        ],
+        "spearman_rho": 0.5509000648262938,
+        "spearman_p_value": 2.107849712048857e-150,
+        "label_agreement_rate": 0.6458443620963473,
+        "macro_f1_agreement": 0.6333188722022659,
+        "mean_absolute_score_difference": 0.345590755184994,
+        "confusion_matrix": [
+          [
+            266,
+            121,
+            23
+          ],
+          [
+            110,
+            594,
+            63
+          ],
+          [
+            129,
+            223,
+            360
+          ]
+        ]
+      }
+    },
+    "daily_metrics": {
+      "2020-10-15": {
+        "record_count": 96,
+        "pearson_r": 0.3619922617379482,
+        "pearson_p_value": 0.0002900349486713022,
+        "pearson_95_ci": [
+          0.17414476197005865,
+          0.5244188440036285
+        ],
+        "spearman_rho": 0.29476896453965595,
+        "spearman_p_value": 0.0035526628391046085,
+        "label_agreement_rate": 0.5625,
+        "macro_f1_agreement": 0.5266414141414142,
+        "mean_absolute_score_difference": 0.4855505132564111,
+        "confusion_matrix": [
+          [
+            29,
+            7,
+            1
+          ],
+          [
+            17,
+            19,
+            2
+          ],
+          [
+            13,
+            2,
+            6
+          ]
+        ]
+      },
+      "2020-10-16": {
+        "record_count": 125,
+        "pearson_r": 0.45552592336628517,
+        "pearson_p_value": 9.40851270496262e-08,
+        "pearson_95_ci": [
+          0.3042570767234513,
+          0.5843861844943941
+        ],
+        "spearman_rho": 0.46159171724463793,
+        "spearman_p_value": 6.025734060173099e-08,
+        "label_agreement_rate": 0.48,
+        "macro_f1_agreement": 0.4621509209744504,
+        "mean_absolute_score_difference": 0.458381064821729,
+        "confusion_matrix": [
+          [
+            30,
+            9,
+            1
+          ],
+          [
+            12,
+            19,
+            2
+          ],
+          [
+            17,
+            24,
+            11
+          ]
+        ]
+      },
+      "2020-10-17": {
+        "record_count": 81,
+        "pearson_r": 0.5425709994085854,
+        "pearson_p_value": 1.6739006255273718e-07,
+        "pearson_95_ci": [
+          0.367794193555766,
+          0.6803225534851775
+        ],
+        "spearman_rho": 0.5726272482833414,
+        "spearman_p_value": 2.3285496155069815e-08,
+        "label_agreement_rate": 0.5308641975308642,
+        "macro_f1_agreement": 0.4869750132908028,
+        "mean_absolute_score_difference": 0.4316275115823764,
+        "confusion_matrix": [
+          [
+            24,
+            5,
+            1
+          ],
+          [
+            10,
+            14,
+            0
+          ],
+          [
+            8,
+            14,
+            5
+          ]
+        ]
+      },
+      "2020-10-18": {
+        "record_count": 79,
+        "pearson_r": 0.5011731973664022,
+        "pearson_p_value": 2.5459309521847304e-06,
+        "pearson_95_ci": [
+          0.3149655828412598,
+          0.6502287551886962
+        ],
+        "spearman_rho": 0.5041991253347743,
+        "spearman_p_value": 2.1646598348926626e-06,
+        "label_agreement_rate": 0.5443037974683544,
+        "macro_f1_agreement": 0.5103452857281559,
+        "mean_absolute_score_difference": 0.4721649343775209,
+        "confusion_matrix": [
+          [
+            25,
+            5,
+            0
+          ],
+          [
+            6,
+            10,
+            2
+          ],
+          [
+            13,
+            10,
+            8
+          ]
+        ]
+      },
+      "2020-10-19": {
+        "record_count": 88,
+        "pearson_r": 0.41893657841060766,
+        "pearson_p_value": 4.859164197464358e-05,
+        "pearson_95_ci": [
+          0.22964397961019786,
+          0.5776905218317961
+        ],
+        "spearman_rho": 0.4038025812260406,
+        "spearman_p_value": 9.566074230269875e-05,
+        "label_agreement_rate": 0.6022727272727273,
+        "macro_f1_agreement": 0.559353471118177,
+        "mean_absolute_score_difference": 0.4520549498615025,
+        "confusion_matrix": [
+          [
+            24,
+            4,
+            0
+          ],
+          [
+            9,
+            23,
+            1
+          ],
+          [
+            13,
+            8,
+            6
+          ]
+        ]
+      },
+      "2020-10-20": {
+        "record_count": 87,
+        "pearson_r": 0.47579410278932377,
+        "pearson_p_value": 3.201036018731227e-06,
+        "pearson_95_ci": [
+          0.29468023443980595,
+          0.6239107754974932
+        ],
+        "spearman_rho": 0.44731905798149063,
+        "spearman_p_value": 1.4008287383489471e-05,
+        "label_agreement_rate": 0.5517241379310345,
+        "macro_f1_agreement": 0.5376984126984127,
+        "mean_absolute_score_difference": 0.4434625224942447,
+        "confusion_matrix": [
+          [
+            20,
+            6,
+            0
+          ],
+          [
+            3,
+            19,
+            0
+          ],
+          [
+            14,
+            16,
+            9
+          ]
+        ]
+      },
+      "2020-10-21": {
+        "record_count": 96,
+        "pearson_r": 0.5054145350799111,
+        "pearson_p_value": 1.5046207950242263e-07,
+        "pearson_95_ci": [
+          0.3393104088839055,
+          0.6409536054830585
+        ],
+        "spearman_rho": 0.473501619981923,
+        "spearman_p_value": 1.102990230217819e-06,
+        "label_agreement_rate": 0.5833333333333334,
+        "macro_f1_agreement": 0.55531571544896,
+        "mean_absolute_score_difference": 0.4126777914032611,
+        "confusion_matrix": [
+          [
+            26,
+            12,
+            1
+          ],
+          [
+            6,
+            22,
+            1
+          ],
+          [
+            8,
+            12,
+            8
+          ]
+        ]
+      },
+      "2020-10-22": {
+        "record_count": 109,
+        "pearson_r": 0.3597993303685994,
+        "pearson_p_value": 0.00012172665754239089,
+        "pearson_95_ci": [
+          0.18416144778024532,
+          0.5131702666909786
+        ],
+        "spearman_rho": 0.28378113205825073,
+        "spearman_p_value": 0.0027867139724943447,
+        "label_agreement_rate": 0.5045871559633027,
+        "macro_f1_agreement": 0.45980692583468524,
+        "mean_absolute_score_difference": 0.5384832706483235,
+        "confusion_matrix": [
+          [
+            23,
+            6,
+            0
+          ],
+          [
+            14,
+            27,
+            0
+          ],
+          [
+            23,
+            11,
+            5
+          ]
+        ]
+      },
+      "2020-10-23": {
+        "record_count": 263,
+        "pearson_r": 0.500626634211496,
+        "pearson_p_value": 4.334876908331167e-18,
+        "pearson_95_ci": [
+          0.40414244508243835,
+          0.5860929661810647
+        ],
+        "spearman_rho": 0.4745877435540679,
+        "spearman_p_value": 3.533233277749607e-16,
+        "label_agreement_rate": 0.5703422053231939,
+        "macro_f1_agreement": 0.5408622219327697,
+        "mean_absolute_score_difference": 0.4303481334963502,
+        "confusion_matrix": [
+          [
+            70,
+            19,
+            0
+          ],
+          [
+            30,
+            59,
+            3
+          ],
+          [
+            29,
+            32,
+            21
+          ]
+        ]
+      },
+      "2020-10-24": {
+        "record_count": 92,
+        "pearson_r": 0.4176971535935279,
+        "pearson_p_value": 3.4328776278700765e-05,
+        "pearson_95_ci": [
+          0.23279581489590256,
+          0.5734545744625169
+        ],
+        "spearman_rho": 0.5017538815821558,
+        "spearman_p_value": 3.4831940246973704e-07,
+        "label_agreement_rate": 0.6304347826086957,
+        "macro_f1_agreement": 0.584729614297917,
+        "mean_absolute_score_difference": 0.4329422162234135,
+        "confusion_matrix": [
+          [
+            32,
+            6,
+            3
+          ],
+          [
+            4,
+            19,
+            2
+          ],
+          [
+            12,
+            7,
+            7
+          ]
+        ]
+      },
+      "2020-10-25": {
+        "record_count": 94,
+        "pearson_r": 0.4277963891122618,
+        "pearson_p_value": 1.7019869900935486e-05,
+        "pearson_95_ci": [
+          0.24655009215339807,
+          0.580128507399513
+        ],
+        "spearman_rho": 0.3357063028495549,
+        "spearman_p_value": 0.0009403515402272984,
+        "label_agreement_rate": 0.5638297872340425,
+        "macro_f1_agreement": 0.5386715304103188,
+        "mean_absolute_score_difference": 0.4272617993233468,
+        "confusion_matrix": [
+          [
+            17,
+            6,
+            1
+          ],
+          [
+            9,
+            27,
+            2
+          ],
+          [
+            12,
+            11,
+            9
+          ]
+        ]
+      },
+      "2020-10-26": {
+        "record_count": 103,
+        "pearson_r": 0.5569383690816554,
+        "pearson_p_value": 1.0002681380091978e-09,
+        "pearson_95_ci": [
+          0.4073146066611904,
+          0.6774469169097825
+        ],
+        "spearman_rho": 0.5520644922610395,
+        "spearman_p_value": 1.4958720212618444e-09,
+        "label_agreement_rate": 0.6116504854368932,
+        "macro_f1_agreement": 0.5865942028985507,
+        "mean_absolute_score_difference": 0.3895876808792769,
+        "confusion_matrix": [
+          [
+            28,
+            6,
+            1
+          ],
+          [
+            8,
+            25,
+            3
+          ],
+          [
+            9,
+            13,
+            10
+          ]
+        ]
+      },
+      "2020-10-27": {
+        "record_count": 106,
+        "pearson_r": 0.4394349216176382,
+        "pearson_p_value": 2.445165724639905e-06,
+        "pearson_95_ci": [
+          0.2714322025687263,
+          0.581450485365474
+        ],
+        "spearman_rho": 0.44691172356732245,
+        "spearman_p_value": 1.567967914984633e-06,
+        "label_agreement_rate": 0.6132075471698113,
+        "macro_f1_agreement": 0.5662543221012392,
+        "mean_absolute_score_difference": 0.43862895229833454,
+        "confusion_matrix": [
+          [
+            28,
+            6,
+            1
+          ],
+          [
+            5,
+            30,
+            1
+          ],
+          [
+            15,
+            13,
+            7
+          ]
+        ]
+      },
+      "2020-10-28": {
+        "record_count": 118,
+        "pearson_r": 0.5124047611440098,
+        "pearson_p_value": 3.0030534783795152e-09,
+        "pearson_95_ci": [
+          0.3654985987109315,
+          0.6344043473456535
+        ],
+        "spearman_rho": 0.5198650881358126,
+        "spearman_p_value": 1.611439253853997e-09,
+        "label_agreement_rate": 0.6271186440677966,
+        "macro_f1_agreement": 0.5887074605530815,
+        "mean_absolute_score_difference": 0.3981207145409122,
+        "confusion_matrix": [
+          [
+            32,
+            3,
+            0
+          ],
+          [
+            16,
+            33,
+            3
+          ],
+          [
+            11,
+            11,
+            9
+          ]
+        ]
+      },
+      "2020-10-29": {
+        "record_count": 102,
+        "pearson_r": 0.5298364121840146,
+        "pearson_p_value": 1.0258963710479149e-08,
+        "pearson_95_ci": [
+          0.3738867631074554,
+          0.6566501548470791
+        ],
+        "spearman_rho": 0.48104619469100374,
+        "spearman_p_value": 3.092946692551702e-07,
+        "label_agreement_rate": 0.6372549019607843,
+        "macro_f1_agreement": 0.5975000975000975,
+        "mean_absolute_score_difference": 0.41960154547158296,
+        "confusion_matrix": [
+          [
+            30,
+            4,
+            0
+          ],
+          [
+            7,
+            27,
+            1
+          ],
+          [
+            17,
+            8,
+            8
+          ]
+        ]
+      },
+      "2020-10-30": {
+        "record_count": 106,
+        "pearson_r": 0.44567553812589605,
+        "pearson_p_value": 1.6887259679280632e-06,
+        "pearson_95_ci": [
+          0.27860580439589394,
+          0.586564183795093
+        ],
+        "spearman_rho": 0.4190718138559828,
+        "spearman_p_value": 7.78385636570652e-06,
+        "label_agreement_rate": 0.5377358490566038,
+        "macro_f1_agreement": 0.5236053171523868,
+        "mean_absolute_score_difference": 0.49651355120456736,
+        "confusion_matrix": [
+          [
+            26,
+            2,
+            1
+          ],
+          [
+            10,
+            20,
+            2
+          ],
+          [
+            18,
+            16,
+            11
+          ]
+        ]
+      },
+      "2020-10-31": {
+        "record_count": 104,
+        "pearson_r": 0.46964042547124984,
+        "pearson_p_value": 4.9200910124446e-07,
+        "pearson_95_ci": [
+          0.3046026632777711,
+          0.6073000516120982
+        ],
+        "spearman_rho": 0.46429255337051256,
+        "spearman_p_value": 6.88721956238731e-07,
+        "label_agreement_rate": 0.5769230769230769,
+        "macro_f1_agreement": 0.5597883129528699,
+        "mean_absolute_score_difference": 0.4607123765630289,
+        "confusion_matrix": [
+          [
+            24,
+            7,
+            0
+          ],
+          [
+            7,
+            25,
+            2
+          ],
+          [
+            15,
+            13,
+            11
+          ]
+        ]
+      },
+      "2020-11-01": {
+        "record_count": 137,
+        "pearson_r": 0.516501548227157,
+        "pearson_p_value": 1.0426509302478573e-10,
+        "pearson_95_ci": [
+          0.3818652563152634,
+          0.6296715438824433
+        ],
+        "spearman_rho": 0.46108276437435153,
+        "spearman_p_value": 1.4270313250318107e-08,
+        "label_agreement_rate": 0.5693430656934306,
+        "macro_f1_agreement": 0.553078161773814,
+        "mean_absolute_score_difference": 0.40100310015970725,
+        "confusion_matrix": [
+          [
+            26,
+            12,
+            1
+          ],
+          [
+            12,
+            37,
+            5
+          ],
+          [
+            15,
+            14,
+            15
+          ]
+        ]
+      },
+      "2020-11-02": {
+        "record_count": 203,
+        "pearson_r": 0.5257150191161294,
+        "pearson_p_value": 8.028863398921413e-16,
+        "pearson_95_ci": [
+          0.41828758881103467,
+          0.6186378654018715
+        ],
+        "spearman_rho": 0.490852234440038,
+        "spearman_p_value": 1.0479376103427744e-13,
+        "label_agreement_rate": 0.5911330049261084,
+        "macro_f1_agreement": 0.5625957212851332,
+        "mean_absolute_score_difference": 0.38389704669432884,
+        "confusion_matrix": [
+          [
+            43,
+            19,
+            0
+          ],
+          [
+            11,
+            59,
+            5
+          ],
+          [
+            21,
+            27,
+            18
+          ]
+        ]
+      },
+      "2020-11-03": {
+        "record_count": 301,
+        "pearson_r": 0.39332045166990975,
+        "pearson_p_value": 1.410872944506901e-12,
+        "pearson_95_ci": [
+          0.29331042560919135,
+          0.48481507356938486
+        ],
+        "spearman_rho": 0.3439609729034974,
+        "spearman_p_value": 8.747088396810649e-10,
+        "label_agreement_rate": 0.5780730897009967,
+        "macro_f1_agreement": 0.5377935789700495,
+        "mean_absolute_score_difference": 0.3808777832303283,
+        "confusion_matrix": [
+          [
+            40,
+            26,
+            4
+          ],
+          [
+            19,
+            105,
+            13
+          ],
+          [
+            27,
+            38,
+            29
+          ]
+        ]
+      },
+      "2020-11-04": {
+        "record_count": 599,
+        "pearson_r": 0.4837934884516393,
+        "pearson_p_value": 1.8178423422763486e-36,
+        "pearson_95_ci": [
+          0.41995873707980774,
+          0.5428647373088906
+        ],
+        "spearman_rho": 0.4167724516410903,
+        "spearman_p_value": 1.4329181933340027e-26,
+        "label_agreement_rate": 0.6444073455759599,
+        "macro_f1_agreement": 0.5858764507328802,
+        "mean_absolute_score_difference": 0.33690852747456523,
+        "confusion_matrix": [
+          [
+            66,
+            52,
+            4
+          ],
+          [
+            18,
+            258,
+            17
+          ],
+          [
+            37,
+            85,
+            62
+          ]
+        ]
+      },
+      "2020-11-05": {
+        "record_count": 333,
+        "pearson_r": 0.513538912992269,
+        "pearson_p_value": 8.374468947152252e-24,
+        "pearson_95_ci": [
+          0.42978423098137875,
+          0.588531840910127
+        ],
+        "spearman_rho": 0.44833403235360064,
+        "spearman_p_value": 7.181963696936419e-18,
+        "label_agreement_rate": 0.6156156156156156,
+        "macro_f1_agreement": 0.5695413850211116,
+        "mean_absolute_score_difference": 0.34291277632335254,
+        "confusion_matrix": [
+          [
+            57,
+            34,
+            0
+          ],
+          [
+            17,
+            122,
+            6
+          ],
+          [
+            23,
+            48,
+            26
+          ]
+        ]
+      },
+      "2020-11-06": {
+        "record_count": 395,
+        "pearson_r": 0.507478697264941,
+        "pearson_p_value": 3.046557651105307e-27,
+        "pearson_95_ci": [
+          0.430357134085074,
+          0.5772450752979592
+        ],
+        "spearman_rho": 0.4714594825012171,
+        "spearman_p_value": 2.98320430929443e-23,
+        "label_agreement_rate": 0.6151898734177215,
+        "macro_f1_agreement": 0.5770702407851999,
+        "mean_absolute_score_difference": 0.3653548344366545,
+        "confusion_matrix": [
+          [
+            74,
+            41,
+            2
+          ],
+          [
+            31,
+            136,
+            4
+          ],
+          [
+            34,
+            40,
+            33
+          ]
+        ]
+      },
+      "2020-11-07": {
+        "record_count": 789,
+        "pearson_r": 0.5495608760116687,
+        "pearson_p_value": 1.8426558901722153e-63,
+        "pearson_95_ci": [
+          0.49890136058624474,
+          0.5964776467823408
+        ],
+        "spearman_rho": 0.5155077288132431,
+        "spearman_p_value": 8.91420851879512e-55,
+        "label_agreement_rate": 0.6577946768060836,
+        "macro_f1_agreement": 0.6295637046604975,
+        "mean_absolute_score_difference": 0.3490774012445704,
+        "confusion_matrix": [
+          [
+            80,
+            46,
+            9
+          ],
+          [
+            40,
+            268,
+            27
+          ],
+          [
+            55,
+            93,
+            171
+          ]
+        ]
+      },
+      "2020-11-08": {
+        "record_count": 394,
+        "pearson_r": 0.5332642265659677,
+        "pearson_p_value": 2.4786343823733173e-30,
+        "pearson_95_ci": [
+          0.4586306667456808,
+          0.600427297000862
+        ],
+        "spearman_rho": 0.4574986492421055,
+        "spearman_p_value": 8.919120924192259e-22,
+        "label_agreement_rate": 0.6294416243654822,
+        "macro_f1_agreement": 0.5930667914866787,
+        "mean_absolute_score_difference": 0.3438905163635538,
+        "confusion_matrix": [
+          [
+            37,
+            30,
+            5
+          ],
+          [
+            19,
+            138,
+            8
+          ],
+          [
+            33,
+            51,
+            73
+          ]
+        ]
+      }
+    }
+  },
+  "top_disagreements_path": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\output\\results\\phase3\\sentiment_disagreements.json"
+}

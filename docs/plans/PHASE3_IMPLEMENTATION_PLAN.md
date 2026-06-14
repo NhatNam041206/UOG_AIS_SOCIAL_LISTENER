@@ -270,8 +270,8 @@ output/graphs/phase3/
 - [x] Candidate and daily sample coverage are verified.
 - [x] Every sampled record has valid RoBERTa probabilities.
 - [x] Model name, revision, preprocessing, and inference settings are recorded.
-- [ ] Pearson correlation and supporting agreement metrics are calculated.
-- [ ] Language and truncation limitations are documented.
+- [x] Pearson correlation and supporting agreement metrics are calculated.
+- [x] Language and truncation limitations are documented.
 - [ ] Reports, results, figures, and manifest agree.
 - [ ] Phase 3 tests pass.
 - [ ] The sentiment-enriched dataset is verified as ready for Phase 4.
@@ -413,3 +413,36 @@ a comparable continuous score, a label, token count, and truncation flag.
 
 All six inference checks passed. Canonical tweet text was preserved; username and
 URL placeholders were applied only within the RoBERTa adapter.
+
+### Model-Agreement Validation
+
+Completed: 2026-06-14
+
+Status: **Passed**
+
+Evidence:
+
+- `output/results/phase3/sentiment_validation_metrics.json`
+- `output/results/phase3/sentiment_disagreements.json`
+- `output/reports/phase3/sentiment_validation_report.md`
+- `.venv\Scripts\python.exe verify\phase3\run_phase3_sentiment_validation.py`
+
+Headline agreement results:
+
+| Metric | Result |
+| --- | ---: |
+| Pearson r | 0.5037 |
+| Pearson 95% CI | [0.4828, 0.5241] |
+| Spearman rho | 0.4630 |
+| Label agreement | 60.60% |
+| Macro-F1 agreement | 0.5851 |
+| Mean absolute score difference | 0.3883 |
+
+Agreement is moderate and statistically clear, but the models are not
+interchangeable. The results measure model agreement, not VADER accuracy, because
+RoBERTa is not human ground truth.
+
+The deterministic language audit classified 3,436 records (68.72%) as likely
+English. Likely-English Pearson correlation was `0.5453`. Language detection on
+short social-media text is imperfect, so language classifications are retained as a
+suitability audit rather than used as an exclusion rule.

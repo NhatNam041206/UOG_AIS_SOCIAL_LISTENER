@@ -183,3 +183,14 @@ Score the validation sample with RoBERTa:
 This appends probabilities, a comparable continuous score, label, token count, and
 truncation flag to the validation-sample Parquet file. Canonical tweet text remains
 unchanged.
+
+Calculate model-agreement and language-suitability metrics:
+
+```powershell
+.venv\Scripts\python.exe verify\phase3\run_phase3_sentiment_validation.py
+```
+
+The validation reports Pearson and Spearman correlation, label agreement, macro-F1
+agreement, confusion matrices, candidate/day metrics, likely-English sensitivity
+metrics, and the largest score disagreements. These measure agreement between two
+models; RoBERTa is not treated as human ground truth.
