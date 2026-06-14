@@ -1,0 +1,50 @@
+{
+  "phase": "phase3_sentiment",
+  "stage": "roberta_setup",
+  "status": "passed",
+  "model_id": "cardiffnlp/twitter-roberta-base-sentiment",
+  "model_revision": "daefdd1f6ae931839bce4d0f3db0a1a4265cd50f",
+  "backend": "torch",
+  "device": "cpu",
+  "versions": {
+    "torch": "2.12.0",
+    "transformers": "4.57.6",
+    "scipy": "1.17.1"
+  },
+  "labels": {
+    "0": "negative",
+    "1": "neutral",
+    "2": "positive"
+  },
+  "model_config_labels": {
+    "0": "LABEL_0",
+    "1": "LABEL_1",
+    "2": "LABEL_2"
+  },
+  "maximum_token_length": 512,
+  "checks": {
+    "torch_available": true,
+    "tokenizer_loaded": true,
+    "model_loaded": true,
+    "expected_three_labels": true,
+    "test_batch_scored": true,
+    "probabilities_sum_to_one": true
+  },
+  "test_probabilities": [
+    [
+      0.002817848464474082,
+      0.00937754474580288,
+      0.987804651260376
+    ],
+    [
+      0.9665248990058899,
+      0.029813595116138458,
+      0.003661565948277712
+    ],
+    [
+      0.09951785206794739,
+      0.8449735045433044,
+      0.05550869181752205
+    ]
+  ]
+}

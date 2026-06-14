@@ -163,3 +163,13 @@ the fixed seed `2020`. It writes:
 
 The manifest records the complete 50-stratum allocation and a stable source-row
 checksum for reproducibility.
+
+Verify the required RoBERTa model and inference backend:
+
+```powershell
+.venv\Scripts\python.exe verify\phase3\verify_roberta_setup.py
+```
+
+The setup uses `cardiffnlp/twitter-roberta-base-sentiment` with PyTorch on CPU,
+explicit negative/neutral/positive label mapping, and a maximum input length of 512
+tokens.

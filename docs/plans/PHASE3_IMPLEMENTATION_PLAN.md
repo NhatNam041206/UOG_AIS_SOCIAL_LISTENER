@@ -358,3 +358,30 @@ c3c252a98ee4111d185f28fd067fe43826a83986c170d8cbb6161e38fd62f1a4
 
 The sample is ready for RoBERTa inference. Its VADER-label distribution is
 descriptive only and was not used to construct the sample.
+
+### RoBERTa Inference Setup
+
+Completed: 2026-06-14
+
+Status: **Passed**
+
+Evidence:
+
+- `output/results/phase3/roberta_setup_validation.json`
+- `output/reports/phase3/roberta_setup_report.md`
+- `.venv\Scripts\python.exe verify\phase3\verify_roberta_setup.py`
+
+The exact `cardiffnlp/twitter-roberta-base-sentiment` model loaded and scored a
+deterministic test batch using PyTorch on CPU.
+
+| Setting | Value |
+| --- | --- |
+| Resolved model revision | `daefdd1f6ae931839bce4d0f3db0a1a4265cd50f` |
+| Backend | PyTorch `2.12.0` |
+| Transformers | `4.57.6` |
+| Device | CPU |
+| Maximum token length | 512 |
+| Label mapping | `0=negative`, `1=neutral`, `2=positive` |
+
+The model configuration exposes generic `LABEL_0`, `LABEL_1`, and `LABEL_2`
+identifiers, so the documented CardiffNLP sentiment mapping is applied explicitly.
