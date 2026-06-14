@@ -173,3 +173,13 @@ Verify the required RoBERTa model and inference backend:
 The setup uses `cardiffnlp/twitter-roberta-base-sentiment` with PyTorch on CPU,
 explicit negative/neutral/positive label mapping, and a maximum input length of 512
 tokens.
+
+Score the validation sample with RoBERTa:
+
+```powershell
+.venv\Scripts\python.exe verify\phase3\run_phase3_roberta_inference.py
+```
+
+This appends probabilities, a comparable continuous score, label, token count, and
+truncation flag to the validation-sample Parquet file. Canonical tweet text remains
+unchanged.

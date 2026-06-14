@@ -1,0 +1,43 @@
+{
+  "phase": "phase3_sentiment",
+  "stage": "roberta_sample_inference",
+  "status": "completed",
+  "sample_path": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\output\\results\\phase3\\sentiment_validation_sample.parquet",
+  "record_count": 5000,
+  "model_id": "cardiffnlp/twitter-roberta-base-sentiment",
+  "model_revision": "daefdd1f6ae931839bce4d0f3db0a1a4265cd50f",
+  "label_mapping": {
+    "0": "negative",
+    "1": "neutral",
+    "2": "positive"
+  },
+  "backend": "torch",
+  "device": "cpu",
+  "batch_size": 16,
+  "maximum_token_length": 512,
+  "versions": {
+    "torch": "2.12.0",
+    "transformers": "4.57.6"
+  },
+  "preprocessing": {
+    "usernames": "replace @-prefixed tokens with @user",
+    "urls": "replace URLs with http",
+    "canonical_tweet_text_modified": false
+  },
+  "truncated_record_count": 0,
+  "maximum_observed_token_count": 453,
+  "probability_sum_maximum_absolute_error": 1.2759119272232056e-07,
+  "label_counts": {
+    "neutral": 2531,
+    "negative": 1743,
+    "positive": 726
+  },
+  "checks": {
+    "all_sample_records_scored": true,
+    "roberta_fields_complete": true,
+    "probabilities_in_unit_interval": true,
+    "probabilities_sum_to_one": true,
+    "roberta_score_in_expected_range": true,
+    "labels_expected": true
+  }
+}

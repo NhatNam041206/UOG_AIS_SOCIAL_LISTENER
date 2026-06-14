@@ -268,8 +268,8 @@ output/graphs/phase3/
 - [x] Every cleaned tweet has valid VADER scores.
 - [x] The 5,000-record sample is reproducible with documented strata and seed.
 - [x] Candidate and daily sample coverage are verified.
-- [ ] Every sampled record has valid RoBERTa probabilities.
-- [ ] Model name, revision, preprocessing, and inference settings are recorded.
+- [x] Every sampled record has valid RoBERTa probabilities.
+- [x] Model name, revision, preprocessing, and inference settings are recorded.
 - [ ] Pearson correlation and supporting agreement metrics are calculated.
 - [ ] Language and truncation limitations are documented.
 - [ ] Reports, results, figures, and manifest agree.
@@ -385,3 +385,31 @@ deterministic test batch using PyTorch on CPU.
 
 The model configuration exposes generic `LABEL_0`, `LABEL_1`, and `LABEL_2`
 identifiers, so the documented CardiffNLP sentiment mapping is applied explicitly.
+
+### RoBERTa Sample Inference
+
+Completed: 2026-06-14
+
+Status: **Passed**
+
+Evidence:
+
+- `output/results/phase3/sentiment_validation_sample.parquet`
+- `output/results/phase3/roberta_inference_manifest.json`
+- `output/reports/phase3/roberta_inference_report.md`
+- `.venv\Scripts\python.exe verify\phase3\run_phase3_roberta_inference.py`
+
+All 5,000 validation records received negative, neutral, and positive probabilities,
+a comparable continuous score, a label, token count, and truncation flag.
+
+| Measure | Result |
+| --- | ---: |
+| Records scored | 5,000 |
+| Negative labels | 1,743 |
+| Neutral labels | 2,531 |
+| Positive labels | 726 |
+| Truncated records | 0 |
+| Maximum observed token count | 453 |
+
+All six inference checks passed. Canonical tweet text was preserved; username and
+URL placeholders were applied only within the RoBERTa adapter.
