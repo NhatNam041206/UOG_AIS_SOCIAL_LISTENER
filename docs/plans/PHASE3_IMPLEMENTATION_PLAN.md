@@ -266,8 +266,8 @@ output/graphs/phase3/
 
 - [x] Phase 2 input contract passes.
 - [x] Every cleaned tweet has valid VADER scores.
-- [ ] The 5,000-record sample is reproducible with documented strata and seed.
-- [ ] Candidate and daily sample coverage are verified.
+- [x] The 5,000-record sample is reproducible with documented strata and seed.
+- [x] Candidate and daily sample coverage are verified.
 - [ ] Every sampled record has valid RoBERTa probabilities.
 - [ ] Model name, revision, preprocessing, and inference settings are recorded.
 - [ ] Pearson correlation and supporting agreement metrics are calculated.
@@ -326,3 +326,35 @@ Descriptive full-dataset results:
 
 The mean compound score is `0.0518`. These results remain unvalidated descriptive
 VADER outputs until the planned RoBERTa comparison is complete.
+
+### Stratified Validation Sample
+
+Completed: 2026-06-14
+
+Status: **Passed**
+
+Evidence:
+
+- `output/results/phase3/sentiment_validation_sample.parquet`
+- `output/results/phase3/validation_sample_manifest.json`
+- `output/reports/phase3/validation_sample_report.md`
+- `.venv\Scripts\python.exe verify\phase3\run_phase3_validation_sample.py`
+
+The sample uses proportional Hamilton largest-remainder allocation across all 50
+candidate-by-UTC-day strata and random selection without replacement using seed
+`2020`.
+
+| Candidate stream | Source share | Sample records | Sample share |
+| --- | ---: | ---: | ---: |
+| `donald_trump` | 62.17% | 3,111 | 62.22% |
+| `joe_biden` | 37.83% | 1,889 | 37.78% |
+
+All seven sample verification checks passed. Replaying the stage produced the same
+source-row checksum:
+
+```text
+c3c252a98ee4111d185f28fd067fe43826a83986c170d8cbb6161e38fd62f1a4
+```
+
+The sample is ready for RoBERTa inference. Its VADER-label distribution is
+descriptive only and was not used to construct the sample.

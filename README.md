@@ -146,3 +146,20 @@ Run the focused Phase 3 tests:
 ```powershell
 .venv\Scripts\python.exe -m unittest discover -s verify\phase3\tests -v
 ```
+
+Create the reproducible 5,000-record Phase 3 validation sample:
+
+```powershell
+.venv\Scripts\python.exe verify\phase3\run_phase3_validation_sample.py
+```
+
+The sampler uses proportional Hamilton largest-remainder allocation across candidate
+stream by UTC-date strata, followed by random selection without replacement using
+the fixed seed `2020`. It writes:
+
+- `output/results/phase3/sentiment_validation_sample.parquet`
+- `output/results/phase3/validation_sample_manifest.json`
+- `output/reports/phase3/validation_sample_report.md`
+
+The manifest records the complete 50-stratum allocation and a stable source-row
+checksum for reproducibility.

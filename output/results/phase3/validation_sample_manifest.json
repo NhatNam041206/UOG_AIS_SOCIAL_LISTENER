@@ -1,0 +1,550 @@
+{
+  "phase": "phase3_sentiment",
+  "stage": "stratified_validation_sampling",
+  "status": "completed",
+  "input_path": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\data\\02_interim\\twitter_sentiment.parquet",
+  "output_path": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\output\\results\\phase3\\sentiment_validation_sample.parquet",
+  "source_record_count": 1331317,
+  "sample_record_count": 5000,
+  "sample_size_requested": 5000,
+  "random_seed": 2020,
+  "strata": [
+    "candidate",
+    "UTC date"
+  ],
+  "allocation_method": "proportional Hamilton largest-remainder allocation",
+  "source_strata_count": 50,
+  "sample_strata_count": 50,
+  "sample_checksum_sha256": "c3c252a98ee4111d185f28fd067fe43826a83986c170d8cbb6161e38fd62f1a4",
+  "candidate_summary": {
+    "donald_trump": {
+      "source_records": 827734,
+      "source_share_pct": 62.17407274150334,
+      "sample_records": 3111,
+      "sample_share_pct": 62.22
+    },
+    "joe_biden": {
+      "source_records": 503583,
+      "source_share_pct": 37.82592725849666,
+      "sample_records": 1889,
+      "sample_share_pct": 37.78
+    }
+  },
+  "checks": {
+    "sample_size_exact": true,
+    "source_rows_unique": true,
+    "all_source_rows_in_range": true,
+    "all_source_strata_represented": true,
+    "allocation_matches_sample": true,
+    "stored_row_count_matches": true,
+    "stored_checksum_matches": true
+  },
+  "allocation": [
+    {
+      "candidate": "donald_trump",
+      "validation_utc_day": "2020-10-15 00:00:00+00:00",
+      "source_records": 14613,
+      "exact_allocation": 54.8817449188,
+      "allocated_records": 55,
+      "fractional_remainder": 0.8817449188,
+      "source_share_pct": 1.0976348984,
+      "sample_share_pct": 1.1
+    },
+    {
+      "candidate": "donald_trump",
+      "validation_utc_day": "2020-10-16 00:00:00+00:00",
+      "source_records": 20675,
+      "exact_allocation": 77.6486742076,
+      "allocated_records": 78,
+      "fractional_remainder": 0.6486742076,
+      "source_share_pct": 1.5529734842,
+      "sample_share_pct": 1.56
+    },
+    {
+      "candidate": "donald_trump",
+      "validation_utc_day": "2020-10-17 00:00:00+00:00",
+      "source_records": 13492,
+      "exact_allocation": 50.6716281697,
+      "allocated_records": 51,
+      "fractional_remainder": 0.6716281697,
+      "source_share_pct": 1.0134325634,
+      "sample_share_pct": 1.02
+    },
+    {
+      "candidate": "donald_trump",
+      "validation_utc_day": "2020-10-18 00:00:00+00:00",
+      "source_records": 13917,
+      "exact_allocation": 52.2677919684,
+      "allocated_records": 52,
+      "fractional_remainder": 0.2677919684,
+      "source_share_pct": 1.0453558394,
+      "sample_share_pct": 1.04
+    },
+    {
+      "candidate": "donald_trump",
+      "validation_utc_day": "2020-10-19 00:00:00+00:00",
+      "source_records": 16299,
+      "exact_allocation": 61.2138206002,
+      "allocated_records": 61,
+      "fractional_remainder": 0.2138206002,
+      "source_share_pct": 1.224276412,
+      "sample_share_pct": 1.22
+    },
+    {
+      "candidate": "donald_trump",
+      "validation_utc_day": "2020-10-20 00:00:00+00:00",
+      "source_records": 15072,
+      "exact_allocation": 56.6056018214,
+      "allocated_records": 57,
+      "fractional_remainder": 0.6056018214,
+      "source_share_pct": 1.1321120364,
+      "sample_share_pct": 1.14
+    },
+    {
+      "candidate": "donald_trump",
+      "validation_utc_day": "2020-10-21 00:00:00+00:00",
+      "source_records": 16374,
+      "exact_allocation": 61.4954965647,
+      "allocated_records": 62,
+      "fractional_remainder": 0.4954965647,
+      "source_share_pct": 1.2299099313,
+      "sample_share_pct": 1.24
+    },
+    {
+      "candidate": "donald_trump",
+      "validation_utc_day": "2020-10-22 00:00:00+00:00",
+      "source_records": 18564,
+      "exact_allocation": 69.7204347274,
+      "allocated_records": 70,
+      "fractional_remainder": 0.7204347274,
+      "source_share_pct": 1.3944086945,
+      "sample_share_pct": 1.4
+    },
+    {
+      "candidate": "donald_trump",
+      "validation_utc_day": "2020-10-23 00:00:00+00:00",
+      "source_records": 41699,
+      "exact_allocation": 156.6080805698,
+      "allocated_records": 157,
+      "fractional_remainder": 0.6080805698,
+      "source_share_pct": 3.1321616114,
+      "sample_share_pct": 3.14
+    },
+    {
+      "candidate": "donald_trump",
+      "validation_utc_day": "2020-10-24 00:00:00+00:00",
+      "source_records": 15440,
+      "exact_allocation": 57.9876918871,
+      "allocated_records": 58,
+      "fractional_remainder": 0.9876918871,
+      "source_share_pct": 1.1597538377,
+      "sample_share_pct": 1.16
+    },
+    {
+      "candidate": "donald_trump",
+      "validation_utc_day": "2020-10-25 00:00:00+00:00",
+      "source_records": 14384,
+      "exact_allocation": 54.0216943072,
+      "allocated_records": 54,
+      "fractional_remainder": 0.0216943072,
+      "source_share_pct": 1.0804338861,
+      "sample_share_pct": 1.08
+    },
+    {
+      "candidate": "donald_trump",
+      "validation_utc_day": "2020-10-26 00:00:00+00:00",
+      "source_records": 18292,
+      "exact_allocation": 68.6988898962,
+      "allocated_records": 69,
+      "fractional_remainder": 0.6988898962,
+      "source_share_pct": 1.3739777979,
+      "sample_share_pct": 1.38
+    },
+    {
+      "candidate": "donald_trump",
+      "validation_utc_day": "2020-10-27 00:00:00+00:00",
+      "source_records": 19175,
+      "exact_allocation": 72.015154918,
+      "allocated_records": 72,
+      "fractional_remainder": 0.015154918,
+      "source_share_pct": 1.4403030984,
+      "sample_share_pct": 1.44
+    },
+    {
+      "candidate": "donald_trump",
+      "validation_utc_day": "2020-10-28 00:00:00+00:00",
+      "source_records": 20305,
+      "exact_allocation": 76.2590727828,
+      "allocated_records": 76,
+      "fractional_remainder": 0.2590727828,
+      "source_share_pct": 1.5251814557,
+      "sample_share_pct": 1.52
+    },
+    {
+      "candidate": "donald_trump",
+      "validation_utc_day": "2020-10-29 00:00:00+00:00",
+      "source_records": 18006,
+      "exact_allocation": 67.6247655517,
+      "allocated_records": 68,
+      "fractional_remainder": 0.6247655517,
+      "source_share_pct": 1.352495311,
+      "sample_share_pct": 1.36
+    },
+    {
+      "candidate": "donald_trump",
+      "validation_utc_day": "2020-10-30 00:00:00+00:00",
+      "source_records": 18602,
+      "exact_allocation": 69.8631505494,
+      "allocated_records": 70,
+      "fractional_remainder": 0.8631505494,
+      "source_share_pct": 1.397263011,
+      "sample_share_pct": 1.4
+    },
+    {
+      "candidate": "donald_trump",
+      "validation_utc_day": "2020-10-31 00:00:00+00:00",
+      "source_records": 18117,
+      "exact_allocation": 68.0416459791,
+      "allocated_records": 68,
+      "fractional_remainder": 0.0416459791,
+      "source_share_pct": 1.3608329196,
+      "sample_share_pct": 1.36
+    },
+    {
+      "candidate": "donald_trump",
+      "validation_utc_day": "2020-11-01 00:00:00+00:00",
+      "source_records": 25533,
+      "exact_allocation": 95.8937653466,
+      "allocated_records": 96,
+      "fractional_remainder": 0.8937653466,
+      "source_share_pct": 1.9178753069,
+      "sample_share_pct": 1.92
+    },
+    {
+      "candidate": "donald_trump",
+      "validation_utc_day": "2020-11-02 00:00:00+00:00",
+      "source_records": 38918,
+      "exact_allocation": 146.163535807,
+      "allocated_records": 146,
+      "fractional_remainder": 0.163535807,
+      "source_share_pct": 2.9232707161,
+      "sample_share_pct": 2.92
+    },
+    {
+      "candidate": "donald_trump",
+      "validation_utc_day": "2020-11-03 00:00:00+00:00",
+      "source_records": 57853,
+      "exact_allocation": 217.2773276387,
+      "allocated_records": 217,
+      "fractional_remainder": 0.2773276387,
+      "source_share_pct": 4.3455465528,
+      "sample_share_pct": 4.34
+    },
+    {
+      "candidate": "donald_trump",
+      "validation_utc_day": "2020-11-04 00:00:00+00:00",
+      "source_records": 109927,
+      "exact_allocation": 412.8505832946,
+      "allocated_records": 413,
+      "fractional_remainder": 0.8505832946,
+      "source_share_pct": 8.2570116659,
+      "sample_share_pct": 8.26
+    },
+    {
+      "candidate": "donald_trump",
+      "validation_utc_day": "2020-11-05 00:00:00+00:00",
+      "source_records": 62752,
+      "exact_allocation": 235.6764016384,
+      "allocated_records": 236,
+      "fractional_remainder": 0.6764016384,
+      "source_share_pct": 4.7135280328,
+      "sample_share_pct": 4.72
+    },
+    {
+      "candidate": "donald_trump",
+      "validation_utc_day": "2020-11-06 00:00:00+00:00",
+      "source_records": 75483,
+      "exact_allocation": 283.4899576885,
+      "allocated_records": 283,
+      "fractional_remainder": 0.4899576885,
+      "source_share_pct": 5.6697991538,
+      "sample_share_pct": 5.66
+    },
+    {
+      "candidate": "donald_trump",
+      "validation_utc_day": "2020-11-07 00:00:00+00:00",
+      "source_records": 94950,
+      "exact_allocation": 356.6017710282,
+      "allocated_records": 357,
+      "fractional_remainder": 0.6017710282,
+      "source_share_pct": 7.1320354206,
+      "sample_share_pct": 7.14
+    },
+    {
+      "candidate": "donald_trump",
+      "validation_utc_day": "2020-11-08 00:00:00+00:00",
+      "source_records": 49292,
+      "exact_allocation": 185.1249552135,
+      "allocated_records": 185,
+      "fractional_remainder": 0.1249552135,
+      "source_share_pct": 3.7024991043,
+      "sample_share_pct": 3.7
+    },
+    {
+      "candidate": "joe_biden",
+      "validation_utc_day": "2020-10-15 00:00:00+00:00",
+      "source_records": 10786,
+      "exact_allocation": 40.5087593714,
+      "allocated_records": 41,
+      "fractional_remainder": 0.5087593714,
+      "source_share_pct": 0.8101751874,
+      "sample_share_pct": 0.82
+    },
+    {
+      "candidate": "joe_biden",
+      "validation_utc_day": "2020-10-16 00:00:00+00:00",
+      "source_records": 12572,
+      "exact_allocation": 47.2164030054,
+      "allocated_records": 47,
+      "fractional_remainder": 0.2164030054,
+      "source_share_pct": 0.9443280601,
+      "sample_share_pct": 0.94
+    },
+    {
+      "candidate": "joe_biden",
+      "validation_utc_day": "2020-10-17 00:00:00+00:00",
+      "source_records": 7956,
+      "exact_allocation": 29.8801863117,
+      "allocated_records": 30,
+      "fractional_remainder": 0.8801863117,
+      "source_share_pct": 0.5976037262,
+      "sample_share_pct": 0.6
+    },
+    {
+      "candidate": "joe_biden",
+      "validation_utc_day": "2020-10-18 00:00:00+00:00",
+      "source_records": 7163,
+      "exact_allocation": 26.9019324473,
+      "allocated_records": 27,
+      "fractional_remainder": 0.9019324473,
+      "source_share_pct": 0.5380386489,
+      "sample_share_pct": 0.54
+    },
+    {
+      "candidate": "joe_biden",
+      "validation_utc_day": "2020-10-19 00:00:00+00:00",
+      "source_records": 7226,
+      "exact_allocation": 27.1385402575,
+      "allocated_records": 27,
+      "fractional_remainder": 0.1385402575,
+      "source_share_pct": 0.5427708052,
+      "sample_share_pct": 0.54
+    },
+    {
+      "candidate": "joe_biden",
+      "validation_utc_day": "2020-10-20 00:00:00+00:00",
+      "source_records": 7877,
+      "exact_allocation": 29.5834876292,
+      "allocated_records": 30,
+      "fractional_remainder": 0.5834876292,
+      "source_share_pct": 0.5916697526,
+      "sample_share_pct": 0.6
+    },
+    {
+      "candidate": "joe_biden",
+      "validation_utc_day": "2020-10-21 00:00:00+00:00",
+      "source_records": 9166,
+      "exact_allocation": 34.4245585387,
+      "allocated_records": 34,
+      "fractional_remainder": 0.4245585387,
+      "source_share_pct": 0.6884911708,
+      "sample_share_pct": 0.68
+    },
+    {
+      "candidate": "joe_biden",
+      "validation_utc_day": "2020-10-22 00:00:00+00:00",
+      "source_records": 10516,
+      "exact_allocation": 39.4947258992,
+      "allocated_records": 39,
+      "fractional_remainder": 0.4947258992,
+      "source_share_pct": 0.789894518,
+      "sample_share_pct": 0.78
+    },
+    {
+      "candidate": "joe_biden",
+      "validation_utc_day": "2020-10-23 00:00:00+00:00",
+      "source_records": 28332,
+      "exact_allocation": 106.4059123409,
+      "allocated_records": 106,
+      "fractional_remainder": 0.4059123409,
+      "source_share_pct": 2.1281182468,
+      "sample_share_pct": 2.12
+    },
+    {
+      "candidate": "joe_biden",
+      "validation_utc_day": "2020-10-24 00:00:00+00:00",
+      "source_records": 9062,
+      "exact_allocation": 34.0339678679,
+      "allocated_records": 34,
+      "fractional_remainder": 0.0339678679,
+      "source_share_pct": 0.6806793574,
+      "sample_share_pct": 0.68
+    },
+    {
+      "candidate": "joe_biden",
+      "validation_utc_day": "2020-10-25 00:00:00+00:00",
+      "source_records": 10590,
+      "exact_allocation": 39.7726461842,
+      "allocated_records": 40,
+      "fractional_remainder": 0.7726461842,
+      "source_share_pct": 0.7954529237,
+      "sample_share_pct": 0.8
+    },
+    {
+      "candidate": "joe_biden",
+      "validation_utc_day": "2020-10-26 00:00:00+00:00",
+      "source_records": 9090,
+      "exact_allocation": 34.1391268946,
+      "allocated_records": 34,
+      "fractional_remainder": 0.1391268946,
+      "source_share_pct": 0.6827825379,
+      "sample_share_pct": 0.68
+    },
+    {
+      "candidate": "joe_biden",
+      "validation_utc_day": "2020-10-27 00:00:00+00:00",
+      "source_records": 9161,
+      "exact_allocation": 34.405780141,
+      "allocated_records": 34,
+      "fractional_remainder": 0.405780141,
+      "source_share_pct": 0.6881156028,
+      "sample_share_pct": 0.68
+    },
+    {
+      "candidate": "joe_biden",
+      "validation_utc_day": "2020-10-28 00:00:00+00:00",
+      "source_records": 11307,
+      "exact_allocation": 42.4654684046,
+      "allocated_records": 42,
+      "fractional_remainder": 0.4654684046,
+      "source_share_pct": 0.8493093681,
+      "sample_share_pct": 0.84
+    },
+    {
+      "candidate": "joe_biden",
+      "validation_utc_day": "2020-10-29 00:00:00+00:00",
+      "source_records": 9175,
+      "exact_allocation": 34.4583596544,
+      "allocated_records": 34,
+      "fractional_remainder": 0.4583596544,
+      "source_share_pct": 0.6891671931,
+      "sample_share_pct": 0.68
+    },
+    {
+      "candidate": "joe_biden",
+      "validation_utc_day": "2020-10-30 00:00:00+00:00",
+      "source_records": 9539,
+      "exact_allocation": 35.825427002,
+      "allocated_records": 36,
+      "fractional_remainder": 0.825427002,
+      "source_share_pct": 0.71650854,
+      "sample_share_pct": 0.72
+    },
+    {
+      "candidate": "joe_biden",
+      "validation_utc_day": "2020-10-31 00:00:00+00:00",
+      "source_records": 9695,
+      "exact_allocation": 36.4113130081,
+      "allocated_records": 36,
+      "fractional_remainder": 0.4113130081,
+      "source_share_pct": 0.7282262602,
+      "sample_share_pct": 0.72
+    },
+    {
+      "candidate": "joe_biden",
+      "validation_utc_day": "2020-11-01 00:00:00+00:00",
+      "source_records": 10959,
+      "exact_allocation": 41.1584919294,
+      "allocated_records": 41,
+      "fractional_remainder": 0.1584919294,
+      "source_share_pct": 0.8231698386,
+      "sample_share_pct": 0.82
+    },
+    {
+      "candidate": "joe_biden",
+      "validation_utc_day": "2020-11-02 00:00:00+00:00",
+      "source_records": 15153,
+      "exact_allocation": 56.909811863,
+      "allocated_records": 57,
+      "fractional_remainder": 0.909811863,
+      "source_share_pct": 1.1381962373,
+      "sample_share_pct": 1.14
+    },
+    {
+      "candidate": "joe_biden",
+      "validation_utc_day": "2020-11-03 00:00:00+00:00",
+      "source_records": 22390,
+      "exact_allocation": 84.0896645953,
+      "allocated_records": 84,
+      "fractional_remainder": 0.0896645953,
+      "source_share_pct": 1.6817932919,
+      "sample_share_pct": 1.68
+    },
+    {
+      "candidate": "joe_biden",
+      "validation_utc_day": "2020-11-04 00:00:00+00:00",
+      "source_records": 49535,
+      "exact_allocation": 186.0375853384,
+      "allocated_records": 186,
+      "fractional_remainder": 0.0375853384,
+      "source_share_pct": 3.7207517068,
+      "sample_share_pct": 3.72
+    },
+    {
+      "candidate": "joe_biden",
+      "validation_utc_day": "2020-11-05 00:00:00+00:00",
+      "source_records": 25791,
+      "exact_allocation": 96.8627306644,
+      "allocated_records": 97,
+      "fractional_remainder": 0.8627306644,
+      "source_share_pct": 1.9372546133,
+      "sample_share_pct": 1.94
+    },
+    {
+      "candidate": "joe_biden",
+      "validation_utc_day": "2020-11-06 00:00:00+00:00",
+      "source_records": 29805,
+      "exact_allocation": 111.9380282833,
+      "allocated_records": 112,
+      "fractional_remainder": 0.9380282833,
+      "source_share_pct": 2.2387605657,
+      "sample_share_pct": 2.24
+    },
+    {
+      "candidate": "joe_biden",
+      "validation_utc_day": "2020-11-07 00:00:00+00:00",
+      "source_records": 115014,
+      "exact_allocation": 431.9557250452,
+      "allocated_records": 432,
+      "fractional_remainder": 0.9557250452,
+      "source_share_pct": 8.6391145009,
+      "sample_share_pct": 8.64
+    },
+    {
+      "candidate": "joe_biden",
+      "validation_utc_day": "2020-11-08 00:00:00+00:00",
+      "source_records": 55723,
+      "exact_allocation": 209.2777302476,
+      "allocated_records": 209,
+      "fractional_remainder": 0.2777302476,
+      "source_share_pct": 4.185554605,
+      "sample_share_pct": 4.18
+    }
+  ],
+  "notes": [
+    "Sampling is proportional to candidate-by-UTC-day source volume.",
+    "The fixed seed and source-row checksum make the sample reproducible.",
+    "Sampling is not stratified by VADER labels because VADER is the model being validated.",
+    "RoBERTa inference has not yet been applied."
+  ]
+}
