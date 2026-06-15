@@ -2,6 +2,12 @@
 
 A modular, object-oriented baseline for a 5-phase sentiment analysis pipeline over 2020 election-related data.
 
+## Experiment notebooks
+
+Quick, executable walkthroughs of the integrated Phase 2 and Phase 3 methods are
+available in `notebooks/`. See `docs/EXPERIMENT_NOTEBOOKS.md` for their scope and
+usage.
+
 ## Manual setup
 
 1. Create and activate a virtual environment:
