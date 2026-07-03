@@ -2,8 +2,8 @@
 
 - Status: **completed**.
 - Records scored: 5,000.
-- Model: `cardiffnlp/twitter-roberta-base-sentiment`.
-- Resolved revision: `daefdd1f6ae931839bce4d0f3db0a1a4265cd50f`.
+- Model: `cardiffnlp/twitter-roberta-base-sentiment-latest`.
+- Resolved revision: `3216a57f2a0d9c45a2e6c20157c20c49fb4bf9c7`.
 - Backend/device: `torch` / `cpu`.
 - Batch size: 16.
 - Maximum token length: 512.
@@ -20,9 +20,9 @@
 
 | Label | Records |
 | --- | ---: |
-| Negative | 1,743 |
-| Neutral | 2,531 |
-| Positive | 726 |
+| Negative | 1,772 |
+| Neutral | 2,287 |
+| Positive | 941 |
 
 ## Verification Checks
 

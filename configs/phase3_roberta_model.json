@@ -1,0 +1,6 @@
+{
+  "model_id": "cardiffnlp/twitter-roberta-base-sentiment-latest",
+  "maximum_token_length": 512,
+  "batch_size": 16,
+  "device": "cpu"
+}

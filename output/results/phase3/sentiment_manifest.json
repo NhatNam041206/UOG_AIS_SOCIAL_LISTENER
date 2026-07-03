@@ -51,12 +51,12 @@
   "phase_status": "completed",
   "validation_summary": {
     "sample_record_count": 5000,
-    "pearson_r": 0.5037380969516854,
+    "pearson_r": 0.47082584781283376,
     "pearson_95_ci": [
-      0.4827597051773412,
-      0.5241387028628807
+      0.4489659919096007,
+      0.49212247026104083
     ],
-    "label_agreement_rate": 0.606,
+    "label_agreement_rate": 0.5966,
     "likely_english_pct": 68.72
   }
 }

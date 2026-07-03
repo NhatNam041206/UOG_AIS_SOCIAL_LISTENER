@@ -1,0 +1,80 @@
+{
+  "phase": "phase3_sentiment",
+  "stage": "three_model_comparison",
+  "status": "completed",
+  "input_path": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\data\\02_interim\\twitter_sentiment.parquet",
+  "sample_output_path": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\output\\results\\phase3\\three_model_comparison_sample.parquet",
+  "run_mode": "sample",
+  "sample_size_requested": 100,
+  "sample_size_used": 100,
+  "seed": 2020,
+  "device_requested": "auto",
+  "device_used": "cpu",
+  "batch_size": 16,
+  "maximum_token_length": 512,
+  "models": {
+    "vader": "vaderSentiment rule/lexicon model",
+    "baseline_roberta": "cardiffnlp/twitter-roberta-base-sentiment",
+    "cardiff_roberta": "cardiffnlp/twitter-roberta-base-sentiment-latest"
+  },
+  "model_revisions": {
+    "baseline_roberta": "daefdd1f6ae931839bce4d0f3db0a1a4265cd50f",
+    "cardiff_roberta": "3216a57f2a0d9c45a2e6c20157c20c49fb4bf9c7"
+  },
+  "versions": {
+    "torch": "2.12.0",
+    "transformers": "4.57.6",
+    "scipy": "1.17.1",
+    "sklearn": "1.9.0"
+  },
+  "label_counts": {
+    "vader": {
+      "negative": 24,
+      "neutral": 37,
+      "positive": 39
+    },
+    "baseline_roberta": {
+      "negative": 37,
+      "neutral": 50,
+      "positive": 13
+    },
+    "cardiff_roberta": {
+      "negative": 38,
+      "neutral": 43,
+      "positive": 19
+    }
+  },
+  "pairwise_metrics": {
+    "vader_vs_baseline_roberta": {
+      "record_count": 100,
+      "pearson_r": 0.4922018941170241,
+      "pearson_p_value": 1.9806891082362412e-07,
+      "spearman_rho": 0.4664242292611829,
+      "spearman_p_value": 1.0030690491870232e-06,
+      "label_agreement_rate": 0.61,
+      "macro_f1_agreement": 0.5843322558981123,
+      "mean_absolute_score_difference": 0.40860155415916816
+    },
+    "vader_vs_cardiff_roberta": {
+      "record_count": 100,
+      "pearson_r": 0.4656697479770318,
+      "pearson_p_value": 1.049774765588789e-06,
+      "spearman_rho": 0.4737745254400162,
+      "spearman_p_value": 6.401495357757026e-07,
+      "label_agreement_rate": 0.61,
+      "macro_f1_agreement": 0.6009733036707453,
+      "mean_absolute_score_difference": 0.4263438568134829
+    },
+    "baseline_roberta_vs_cardiff_roberta": {
+      "record_count": 100,
+      "pearson_r": 0.9234843538706666,
+      "pearson_p_value": 1.455960999164734e-42,
+      "spearman_rho": 0.934077407740774,
+      "spearman_p_value": 1.2708731111251264e-45,
+      "label_agreement_rate": 0.89,
+      "macro_f1_agreement": 0.8758512544802867,
+      "mean_absolute_score_difference": 0.16005472514079883
+    }
+  },
+  "three_way_label_agreement_rate": 0.57
+}

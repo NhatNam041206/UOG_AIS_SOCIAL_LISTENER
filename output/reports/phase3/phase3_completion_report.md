@@ -17,9 +17,9 @@ Phase status: **COMPLETED**
 | --- | ---: |
 | Full sentiment records | 1,331,317 |
 | Validation sample records | 5,000 |
-| Pearson r | 0.5037 |
-| Pearson 95% CI | [0.4828, 0.5241] |
-| Label agreement | 60.60% |
+| Pearson r | 0.4708 |
+| Pearson 95% CI | [0.4490, 0.4921] |
+| Label agreement | 59.66% |
 | Likely-English sample share | 68.72% |
 
 ## Closure Checks

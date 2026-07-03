@@ -1,0 +1,9 @@
+criterion,limitation_examined,risk_score,phase3_affected,phase4_affected,phase5_affected,mitigation_status
+Textual usability,Insufficient usable natural language,textual_usability_risk,Yes,Yes,Indirect,Pending
+Sentiment ambiguity,Unclear or mixed polarity,sentiment_ambiguity_risk,Yes,Yes,Yes,Pending
+Sarcasm/irony,Literal meaning may differ from intended tone,sarcasm_irony_risk,Yes,Yes,Yes,Pending
+User representativeness,Hyperactive users may dominate tweet-weighted signals,user_representativeness_risk,Indirect,Yes,Yes,Pending
+Duplicate/amplification,Repeated content may inflate sentiment signals,duplicate_amplification_risk,Indirect,Yes,Yes,Pending
+Spatial validity,Weak or ambiguous state mapping,spatial_validity_risk,No,Yes,Yes,Pending
+Temporal coverage,Event spikes or gaps may distort trends,temporal_coverage_risk,No,Yes,Yes,Pending
+Model suitability,Models may disagree on difficult language,model_suitability_risk,Yes,Yes,Yes,Pending

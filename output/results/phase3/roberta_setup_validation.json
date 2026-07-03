@@ -2,8 +2,9 @@
   "phase": "phase3_sentiment",
   "stage": "roberta_setup",
   "status": "passed",
-  "model_id": "cardiffnlp/twitter-roberta-base-sentiment",
-  "model_revision": "daefdd1f6ae931839bce4d0f3db0a1a4265cd50f",
+  "config_path": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\configs\\phase3_roberta_model.json",
+  "model_id": "cardiffnlp/twitter-roberta-base-sentiment-latest",
+  "model_revision": "3216a57f2a0d9c45a2e6c20157c20c49fb4bf9c7",
   "backend": "torch",
   "device": "cpu",
   "versions": {
@@ -17,9 +18,9 @@
     "2": "positive"
   },
   "model_config_labels": {
-    "0": "LABEL_0",
-    "1": "LABEL_1",
-    "2": "LABEL_2"
+    "0": "negative",
+    "1": "neutral",
+    "2": "positive"
   },
   "maximum_token_length": 512,
   "checks": {
@@ -32,19 +33,19 @@
   },
   "test_probabilities": [
     [
-      0.002817848464474082,
-      0.00937754474580288,
-      0.987804651260376
+      0.004891520366072655,
+      0.014863202348351479,
+      0.9802452921867371
     ],
     [
-      0.9665248990058899,
-      0.029813595116138458,
-      0.003661565948277712
+      0.9146419763565063,
+      0.0720439925789833,
+      0.01331399753689766
     ],
     [
-      0.09951785206794739,
-      0.8449735045433044,
-      0.05550869181752205
+      0.01851109229028225,
+      0.9092208743095398,
+      0.07226802408695221
     ]
   ]
 }

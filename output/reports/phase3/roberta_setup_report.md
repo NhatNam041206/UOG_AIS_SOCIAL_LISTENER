@@ -1,8 +1,8 @@
 # Phase 3 RoBERTa Setup Report
 
 - Status: **passed**.
-- Model: `cardiffnlp/twitter-roberta-base-sentiment`.
-- Resolved revision: `daefdd1f6ae931839bce4d0f3db0a1a4265cd50f`.
+- Model: `cardiffnlp/twitter-roberta-base-sentiment-latest`.
+- Resolved revision: `3216a57f2a0d9c45a2e6c20157c20c49fb4bf9c7`.
 - Backend: `torch` on `cpu`.
 - Labels: `{'0': 'negative', '1': 'neutral', '2': 'positive'}`.
 

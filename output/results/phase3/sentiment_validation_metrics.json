@@ -69,126 +69,126 @@
   "metrics": {
     "overall": {
       "record_count": 5000,
-      "pearson_r": 0.5037380969516854,
-      "pearson_p_value": 4.842e-320,
+      "pearson_r": 0.47082584781283376,
+      "pearson_p_value": 2.442788227424004e-274,
       "pearson_95_ci": [
-        0.4827597051773412,
-        0.5241387028628807
+        0.4489659919096007,
+        0.49212247026104083
       ],
-      "spearman_rho": 0.46298517905143355,
-      "spearman_p_value": 3.6049976684910853e-264,
-      "label_agreement_rate": 0.606,
-      "macro_f1_agreement": 0.5850562931911137,
-      "mean_absolute_score_difference": 0.38834146619282983,
+      "spearman_rho": 0.4451633967956039,
+      "spearman_p_value": 5.066541161552764e-242,
+      "label_agreement_rate": 0.5966,
+      "macro_f1_agreement": 0.5842158171777827,
+      "mean_absolute_score_difference": 0.413607664806484,
       "confusion_matrix": [
         [
-          911,
-          373,
-          36
+          892,
+          366,
+          62
         ],
         [
-          340,
-          1541,
-          112
+          375,
+          1415,
+          203
         ],
         [
-          492,
-          617,
-          578
+          505,
+          506,
+          676
         ]
       ]
     },
     "likely_english": {
       "record_count": 3436,
-      "pearson_r": 0.5452835722813709,
-      "pearson_p_value": 1.8400618797442628e-265,
+      "pearson_r": 0.5203611932767064,
+      "pearson_p_value": 8.909527365781141e-238,
       "pearson_95_ci": [
-        0.5213509715355128,
-        0.568359048075937
+        0.49554508592402396,
+        0.5443284603465566
       ],
-      "spearman_rho": 0.539819595790091,
-      "spearman_p_value": 3.425752727305327e-259,
-      "label_agreement_rate": 0.5614086146682189,
-      "macro_f1_agreement": 0.5539373981931998,
-      "mean_absolute_score_difference": 0.4524282665230965,
+      "spearman_rho": 0.5249161003927292,
+      "spearman_p_value": 1.1521507513641123e-242,
+      "label_agreement_rate": 0.5579161816065192,
+      "macro_f1_agreement": 0.5505560774550241,
+      "mean_absolute_score_difference": 0.4782512374945682,
       "confusion_matrix": [
         [
-          860,
-          161,
-          31
+          841,
+          164,
+          47
         ],
         [
-          280,
-          551,
-          79
+          306,
+          480,
+          124
         ],
         [
-          477,
-          479,
-          518
+          486,
+          392,
+          596
         ]
       ]
     },
     "candidate_metrics": {
       "donald_trump": {
         "record_count": 3111,
-        "pearson_r": 0.43513137487773373,
-        "pearson_p_value": 6.408828196666764e-144,
+        "pearson_r": 0.40473790996596737,
+        "pearson_p_value": 5.868745190489942e-123,
         "pearson_95_ci": [
-          0.40620059640988704,
-          0.4631906912774643
+          0.37492847661109563,
+          0.4337112539623228
         ],
-        "spearman_rho": 0.4017298241017261,
-        "spearman_p_value": 5.340109523628696e-121,
-        "label_agreement_rate": 0.5818064930890389,
-        "macro_f1_agreement": 0.5399461583459866,
-        "mean_absolute_score_difference": 0.41429970891022033,
+        "spearman_rho": 0.3795628890433411,
+        "spearman_p_value": 3.567227395143959e-107,
+        "label_agreement_rate": 0.583413693346191,
+        "macro_f1_agreement": 0.5520427138584885,
+        "mean_absolute_score_difference": 0.4262792996545055,
         "confusion_matrix": [
           [
-            645,
-            252,
-            13
+            642,
+            241,
+            27
           ],
           [
-            230,
-            947,
-            49
+            251,
+            909,
+            66
           ],
           [
-            363,
-            394,
-            218
+            382,
+            329,
+            264
           ]
         ]
       },
       "joe_biden": {
         "record_count": 1889,
-        "pearson_r": 0.583524194978907,
-        "pearson_p_value": 8.440247763286743e-173,
+        "pearson_r": 0.544921818523565,
+        "pearson_p_value": 1.4607062962865008e-146,
         "pearson_95_ci": [
-          0.5529764220655993,
-          0.6125053276004092
+          0.5124144549598637,
+          0.5758696864792162
         ],
-        "spearman_rho": 0.5509000648262938,
-        "spearman_p_value": 2.107849712048857e-150,
-        "label_agreement_rate": 0.6458443620963473,
-        "macro_f1_agreement": 0.6333188722022659,
-        "mean_absolute_score_difference": 0.345590755184994,
+        "spearman_rho": 0.5370350914770825,
+        "spearman_p_value": 1.3007245643642057e-141,
+        "label_agreement_rate": 0.6183165696135522,
+        "macro_f1_agreement": 0.6098700226275873,
+        "mean_absolute_score_difference": 0.3927387097973814,
         "confusion_matrix": [
           [
-            266,
-            121,
-            23
+            250,
+            125,
+            35
           ],
           [
-            110,
-            594,
-            63
+            124,
+            506,
+            137
           ],
           [
-            129,
-            223,
-            360
+            123,
+            177,
+            412
           ]
         ]
       }
@@ -196,26 +196,26 @@
     "daily_metrics": {
       "2020-10-15": {
         "record_count": 96,
-        "pearson_r": 0.3619922617379482,
-        "pearson_p_value": 0.0002900349486713022,
+        "pearson_r": 0.33224775159374326,
+        "pearson_p_value": 0.0009423883918009054,
         "pearson_95_ci": [
-          0.17414476197005865,
-          0.5244188440036285
+          0.1411649459091043,
+          0.4994639038546938
         ],
-        "spearman_rho": 0.29476896453965595,
-        "spearman_p_value": 0.0035526628391046085,
-        "label_agreement_rate": 0.5625,
-        "macro_f1_agreement": 0.5266414141414142,
-        "mean_absolute_score_difference": 0.4855505132564111,
+        "spearman_rho": 0.2870685530449086,
+        "spearman_p_value": 0.00457129564097574,
+        "label_agreement_rate": 0.5416666666666666,
+        "macro_f1_agreement": 0.5095959595959596,
+        "mean_absolute_score_difference": 0.51099932155464,
         "confusion_matrix": [
           [
-            29,
-            7,
+            28,
+            8,
             1
           ],
           [
-            17,
-            19,
+            18,
+            18,
             2
           ],
           [
@@ -227,110 +227,110 @@
       },
       "2020-10-16": {
         "record_count": 125,
-        "pearson_r": 0.45552592336628517,
-        "pearson_p_value": 9.40851270496262e-08,
+        "pearson_r": 0.41396114998750766,
+        "pearson_p_value": 1.5961828732806081e-06,
         "pearson_95_ci": [
-          0.3042570767234513,
-          0.5843861844943941
+          0.2570390011451834,
+          0.5496146057376522
         ],
-        "spearman_rho": 0.46159171724463793,
-        "spearman_p_value": 6.025734060173099e-08,
-        "label_agreement_rate": 0.48,
-        "macro_f1_agreement": 0.4621509209744504,
-        "mean_absolute_score_difference": 0.458381064821729,
+        "spearman_rho": 0.4073369293141578,
+        "spearman_p_value": 2.4227708369861577e-06,
+        "label_agreement_rate": 0.512,
+        "macro_f1_agreement": 0.497382606705655,
+        "mean_absolute_score_difference": 0.5039247821560918,
         "confusion_matrix": [
           [
-            30,
-            9,
-            1
-          ],
-          [
-            12,
-            19,
+            32,
+            6,
             2
           ],
           [
-            17,
-            24,
-            11
+            13,
+            16,
+            4
+          ],
+          [
+            18,
+            18,
+            16
           ]
         ]
       },
       "2020-10-17": {
         "record_count": 81,
-        "pearson_r": 0.5425709994085854,
-        "pearson_p_value": 1.6739006255273718e-07,
+        "pearson_r": 0.44601392004234414,
+        "pearson_p_value": 3.0058919961356916e-05,
         "pearson_95_ci": [
-          0.367794193555766,
-          0.6803225534851775
+          0.2522282353762795,
+          0.605404839415714
         ],
-        "spearman_rho": 0.5726272482833414,
-        "spearman_p_value": 2.3285496155069815e-08,
+        "spearman_rho": 0.47794903826135066,
+        "spearman_p_value": 6.412378388421807e-06,
         "label_agreement_rate": 0.5308641975308642,
-        "macro_f1_agreement": 0.4869750132908028,
-        "mean_absolute_score_difference": 0.4316275115823764,
+        "macro_f1_agreement": 0.5010923109873634,
+        "mean_absolute_score_difference": 0.47129242456648723,
         "confusion_matrix": [
           [
-            24,
-            5,
-            1
-          ],
-          [
-            10,
-            14,
-            0
+            21,
+            7,
+            2
           ],
           [
             8,
-            14,
-            5
+            16,
+            0
+          ],
+          [
+            10,
+            11,
+            6
           ]
         ]
       },
       "2020-10-18": {
         "record_count": 79,
-        "pearson_r": 0.5011731973664022,
-        "pearson_p_value": 2.5459309521847304e-06,
+        "pearson_r": 0.5235336309492906,
+        "pearson_p_value": 7.39361746495792e-07,
         "pearson_95_ci": [
-          0.3149655828412598,
-          0.6502287551886962
+          0.34201437990100614,
+          0.6673880398554807
         ],
-        "spearman_rho": 0.5041991253347743,
-        "spearman_p_value": 2.1646598348926626e-06,
-        "label_agreement_rate": 0.5443037974683544,
-        "macro_f1_agreement": 0.5103452857281559,
-        "mean_absolute_score_difference": 0.4721649343775209,
+        "spearman_rho": 0.5717730867669332,
+        "spearman_p_value": 3.713986238993782e-08,
+        "label_agreement_rate": 0.5569620253164557,
+        "macro_f1_agreement": 0.52049786199113,
+        "mean_absolute_score_difference": 0.4700731958788264,
         "confusion_matrix": [
           [
-            25,
-            5,
-            0
+            26,
+            3,
+            1
           ],
           [
-            6,
-            10,
-            2
+            9,
+            8,
+            1
           ],
           [
-            13,
-            10,
-            8
+            12,
+            9,
+            10
           ]
         ]
       },
       "2020-10-19": {
         "record_count": 88,
-        "pearson_r": 0.41893657841060766,
-        "pearson_p_value": 4.859164197464358e-05,
+        "pearson_r": 0.35229861869135143,
+        "pearson_p_value": 0.0007620910181031664,
         "pearson_95_ci": [
-          0.22964397961019786,
-          0.5776905218317961
+          0.1542369222185647,
+          0.5231403282746545
         ],
-        "spearman_rho": 0.4038025812260406,
-        "spearman_p_value": 9.566074230269875e-05,
-        "label_agreement_rate": 0.6022727272727273,
-        "macro_f1_agreement": 0.559353471118177,
-        "mean_absolute_score_difference": 0.4520549498615025,
+        "spearman_rho": 0.36420032111917844,
+        "spearman_p_value": 0.0004861677991478097,
+        "label_agreement_rate": 0.5795454545454546,
+        "macro_f1_agreement": 0.5411255411255411,
+        "mean_absolute_score_difference": 0.4806362488959408,
         "confusion_matrix": [
           [
             24,
@@ -339,157 +339,157 @@
           ],
           [
             9,
-            23,
-            1
+            21,
+            3
           ],
           [
-            13,
-            8,
+            16,
+            5,
             6
           ]
         ]
       },
       "2020-10-20": {
         "record_count": 87,
-        "pearson_r": 0.47579410278932377,
-        "pearson_p_value": 3.201036018731227e-06,
+        "pearson_r": 0.43577609386930066,
+        "pearson_p_value": 2.456751426304558e-05,
         "pearson_95_ci": [
-          0.29468023443980595,
-          0.6239107754974932
+          0.24788231548184325,
+          0.5920745805656372
         ],
-        "spearman_rho": 0.44731905798149063,
-        "spearman_p_value": 1.4008287383489471e-05,
-        "label_agreement_rate": 0.5517241379310345,
-        "macro_f1_agreement": 0.5376984126984127,
-        "mean_absolute_score_difference": 0.4434625224942447,
+        "spearman_rho": 0.4081396353609945,
+        "spearman_p_value": 8.70421852685286e-05,
+        "label_agreement_rate": 0.5172413793103449,
+        "macro_f1_agreement": 0.5062096633525205,
+        "mean_absolute_score_difference": 0.4657426296866402,
         "confusion_matrix": [
           [
-            20,
-            6,
-            0
-          ],
-          [
-            3,
             19,
+            7,
             0
           ],
           [
-            14,
+            4,
+            17,
+            1
+          ],
+          [
             16,
+            14,
             9
           ]
         ]
       },
       "2020-10-21": {
         "record_count": 96,
-        "pearson_r": 0.5054145350799111,
-        "pearson_p_value": 1.5046207950242263e-07,
+        "pearson_r": 0.46886601366001696,
+        "pearson_p_value": 1.4491581662116275e-06,
         "pearson_95_ci": [
-          0.3393104088839055,
-          0.6409536054830585
+          0.2962255837635623,
+          0.61183849947666
         ],
-        "spearman_rho": 0.473501619981923,
-        "spearman_p_value": 1.102990230217819e-06,
-        "label_agreement_rate": 0.5833333333333334,
-        "macro_f1_agreement": 0.55531571544896,
-        "mean_absolute_score_difference": 0.4126777914032611,
+        "spearman_rho": 0.43598905028883284,
+        "spearman_p_value": 8.991515167274607e-06,
+        "label_agreement_rate": 0.5520833333333334,
+        "macro_f1_agreement": 0.5398359021547426,
+        "mean_absolute_score_difference": 0.43592425047090894,
         "confusion_matrix": [
           [
-            26,
+            24,
             12,
+            3
+          ],
+          [
+            9,
+            19,
             1
           ],
           [
-            6,
-            22,
-            1
-          ],
-          [
-            8,
-            12,
-            8
+            9,
+            9,
+            10
           ]
         ]
       },
       "2020-10-22": {
         "record_count": 109,
-        "pearson_r": 0.3597993303685994,
-        "pearson_p_value": 0.00012172665754239089,
+        "pearson_r": 0.3217693212065277,
+        "pearson_p_value": 0.0006452390861468256,
         "pearson_95_ci": [
-          0.18416144778024532,
-          0.5131702666909786
+          0.1422790930840868,
+          0.48077213496601784
         ],
-        "spearman_rho": 0.28378113205825073,
-        "spearman_p_value": 0.0027867139724943447,
+        "spearman_rho": 0.2613144167428922,
+        "spearman_p_value": 0.00605829308341336,
         "label_agreement_rate": 0.5045871559633027,
-        "macro_f1_agreement": 0.45980692583468524,
-        "mean_absolute_score_difference": 0.5384832706483235,
+        "macro_f1_agreement": 0.47600799926018406,
+        "mean_absolute_score_difference": 0.5534555117563507,
         "confusion_matrix": [
           [
-            23,
+            22,
             6,
-            0
+            1
           ],
           [
             14,
-            27,
-            0
+            26,
+            1
           ],
           [
-            23,
-            11,
-            5
+            24,
+            8,
+            7
           ]
         ]
       },
       "2020-10-23": {
         "record_count": 263,
-        "pearson_r": 0.500626634211496,
-        "pearson_p_value": 4.334876908331167e-18,
+        "pearson_r": 0.5012974402191647,
+        "pearson_p_value": 3.850863657234877e-18,
         "pearson_95_ci": [
-          0.40414244508243835,
-          0.5860929661810647
+          0.4048914592740808,
+          0.586680586952289
         ],
-        "spearman_rho": 0.4745877435540679,
-        "spearman_p_value": 3.533233277749607e-16,
-        "label_agreement_rate": 0.5703422053231939,
-        "macro_f1_agreement": 0.5408622219327697,
-        "mean_absolute_score_difference": 0.4303481334963502,
+        "spearman_rho": 0.46955738399065944,
+        "spearman_p_value": 7.925318908243472e-16,
+        "label_agreement_rate": 0.5741444866920152,
+        "macro_f1_agreement": 0.5581771763589946,
+        "mean_absolute_score_difference": 0.43833977405501834,
         "confusion_matrix": [
           [
-            70,
+            68,
             19,
-            0
+            2
           ],
           [
-            30,
-            59,
-            3
+            28,
+            55,
+            9
           ],
           [
+            25,
             29,
-            32,
-            21
+            28
           ]
         ]
       },
       "2020-10-24": {
         "record_count": 92,
-        "pearson_r": 0.4176971535935279,
-        "pearson_p_value": 3.4328776278700765e-05,
+        "pearson_r": 0.39745871787921516,
+        "pearson_p_value": 8.74297946190046e-05,
         "pearson_95_ci": [
-          0.23279581489590256,
-          0.5734545744625169
+          0.20971333465740902,
+          0.5569377866680119
         ],
-        "spearman_rho": 0.5017538815821558,
-        "spearman_p_value": 3.4831940246973704e-07,
+        "spearman_rho": 0.48095321177752753,
+        "spearman_p_value": 1.2180505966907193e-06,
         "label_agreement_rate": 0.6304347826086957,
-        "macro_f1_agreement": 0.584729614297917,
-        "mean_absolute_score_difference": 0.4329422162234135,
+        "macro_f1_agreement": 0.5926908340701443,
+        "mean_absolute_score_difference": 0.4598396073780185,
         "confusion_matrix": [
           [
-            32,
-            6,
+            31,
+            7,
             3
           ],
           [
@@ -498,474 +498,474 @@
             2
           ],
           [
-            12,
+            11,
             7,
-            7
+            8
           ]
         ]
       },
       "2020-10-25": {
         "record_count": 94,
-        "pearson_r": 0.4277963891122618,
-        "pearson_p_value": 1.7019869900935486e-05,
+        "pearson_r": 0.33221071537219005,
+        "pearson_p_value": 0.0010707766693445957,
         "pearson_95_ci": [
-          0.24655009215339807,
-          0.580128507399513
+          0.1389464484350894,
+          0.5010980079325984
         ],
-        "spearman_rho": 0.3357063028495549,
-        "spearman_p_value": 0.0009403515402272984,
-        "label_agreement_rate": 0.5638297872340425,
-        "macro_f1_agreement": 0.5386715304103188,
-        "mean_absolute_score_difference": 0.4272617993233468,
+        "spearman_rho": 0.26411858143262706,
+        "spearman_p_value": 0.010102175530403457,
+        "label_agreement_rate": 0.5319148936170213,
+        "macro_f1_agreement": 0.508611955420466,
+        "mean_absolute_score_difference": 0.482014604367938,
         "confusion_matrix": [
           [
-            17,
+            15,
             6,
-            1
+            3
           ],
           [
             9,
-            27,
-            2
+            26,
+            3
           ],
           [
-            12,
-            11,
+            15,
+            8,
             9
           ]
         ]
       },
       "2020-10-26": {
         "record_count": 103,
-        "pearson_r": 0.5569383690816554,
-        "pearson_p_value": 1.0002681380091978e-09,
+        "pearson_r": 0.544160705527365,
+        "pearson_p_value": 2.834200960471449e-09,
         "pearson_95_ci": [
-          0.4073146066611904,
-          0.6774469169097825
+          0.3919072080610554,
+          0.6674022304352594
         ],
-        "spearman_rho": 0.5520644922610395,
-        "spearman_p_value": 1.4958720212618444e-09,
-        "label_agreement_rate": 0.6116504854368932,
-        "macro_f1_agreement": 0.5865942028985507,
-        "mean_absolute_score_difference": 0.3895876808792769,
+        "spearman_rho": 0.5464728593738188,
+        "spearman_p_value": 2.3549672689284804e-09,
+        "label_agreement_rate": 0.6213592233009708,
+        "macro_f1_agreement": 0.6146051712089448,
+        "mean_absolute_score_difference": 0.41626433510599503,
         "confusion_matrix": [
           [
-            28,
-            6,
-            1
+            27,
+            8,
+            0
           ],
           [
             8,
-            25,
-            3
+            22,
+            6
           ],
           [
-            9,
-            13,
-            10
+            11,
+            6,
+            15
           ]
         ]
       },
       "2020-10-27": {
         "record_count": 106,
-        "pearson_r": 0.4394349216176382,
-        "pearson_p_value": 2.445165724639905e-06,
+        "pearson_r": 0.4533353535797515,
+        "pearson_p_value": 1.0613296313242524e-06,
         "pearson_95_ci": [
-          0.2714322025687263,
-          0.581450485365474
+          0.287436335607111,
+          0.5928254867451166
         ],
-        "spearman_rho": 0.44691172356732245,
-        "spearman_p_value": 1.567967914984633e-06,
-        "label_agreement_rate": 0.6132075471698113,
-        "macro_f1_agreement": 0.5662543221012392,
-        "mean_absolute_score_difference": 0.43862895229833454,
+        "spearman_rho": 0.4509450746756207,
+        "spearman_p_value": 1.228348451434583e-06,
+        "label_agreement_rate": 0.6037735849056604,
+        "macro_f1_agreement": 0.5851471427406864,
+        "mean_absolute_score_difference": 0.44522568438339916,
         "confusion_matrix": [
           [
-            28,
-            6,
+            27,
+            8,
+            0
+          ],
+          [
+            9,
+            26,
             1
           ],
           [
-            5,
-            30,
-            1
-          ],
-          [
-            15,
-            13,
-            7
+            16,
+            8,
+            11
           ]
         ]
       },
       "2020-10-28": {
         "record_count": 118,
-        "pearson_r": 0.5124047611440098,
-        "pearson_p_value": 3.0030534783795152e-09,
+        "pearson_r": 0.42892460009170114,
+        "pearson_p_value": 1.2592645008465297e-06,
         "pearson_95_ci": [
-          0.3654985987109315,
-          0.6344043473456535
+          0.26902318466878616,
+          0.5658151043197415
         ],
-        "spearman_rho": 0.5198650881358126,
-        "spearman_p_value": 1.611439253853997e-09,
-        "label_agreement_rate": 0.6271186440677966,
-        "macro_f1_agreement": 0.5887074605530815,
-        "mean_absolute_score_difference": 0.3981207145409122,
+        "spearman_rho": 0.4515137789332862,
+        "spearman_p_value": 2.8706799059160635e-07,
+        "label_agreement_rate": 0.5677966101694916,
+        "macro_f1_agreement": 0.5226364522417154,
+        "mean_absolute_score_difference": 0.43362795222925055,
         "confusion_matrix": [
           [
-            32,
-            3,
+            31,
+            4,
             0
           ],
           [
             16,
-            33,
-            3
+            29,
+            7
           ],
           [
+            13,
             11,
-            11,
-            9
+            7
           ]
         ]
       },
       "2020-10-29": {
         "record_count": 102,
-        "pearson_r": 0.5298364121840146,
-        "pearson_p_value": 1.0258963710479149e-08,
+        "pearson_r": 0.5469134418801334,
+        "pearson_p_value": 2.7278803135820864e-09,
         "pearson_95_ci": [
-          0.3738867631074554,
-          0.6566501548470791
+          0.3943857860291848,
+          0.6701143498202222
         ],
-        "spearman_rho": 0.48104619469100374,
-        "spearman_p_value": 3.092946692551702e-07,
-        "label_agreement_rate": 0.6372549019607843,
-        "macro_f1_agreement": 0.5975000975000975,
-        "mean_absolute_score_difference": 0.41960154547158296,
+        "spearman_rho": 0.4927755090125191,
+        "spearman_p_value": 1.430659150850035e-07,
+        "label_agreement_rate": 0.6176470588235294,
+        "macro_f1_agreement": 0.5799483204134367,
+        "mean_absolute_score_difference": 0.4159554979517033,
         "confusion_matrix": [
           [
-            30,
-            4,
+            29,
+            5,
             0
           ],
           [
             7,
-            27,
-            1
+            26,
+            2
           ],
           [
-            17,
-            8,
+            16,
+            9,
             8
           ]
         ]
       },
       "2020-10-30": {
         "record_count": 106,
-        "pearson_r": 0.44567553812589605,
-        "pearson_p_value": 1.6887259679280632e-06,
+        "pearson_r": 0.5071895526582164,
+        "pearson_p_value": 2.885127961644615e-08,
         "pearson_95_ci": [
-          0.27860580439589394,
-          0.586564183795093
+          0.3503280859084008,
+          0.6363761151253535
         ],
-        "spearman_rho": 0.4190718138559828,
-        "spearman_p_value": 7.78385636570652e-06,
-        "label_agreement_rate": 0.5377358490566038,
-        "macro_f1_agreement": 0.5236053171523868,
-        "mean_absolute_score_difference": 0.49651355120456736,
+        "spearman_rho": 0.4722099992817094,
+        "spearman_p_value": 3.2164364442950833e-07,
+        "label_agreement_rate": 0.5188679245283019,
+        "macro_f1_agreement": 0.5100144300144299,
+        "mean_absolute_score_difference": 0.48190488757371625,
         "confusion_matrix": [
           [
-            26,
-            2,
-            1
+            24,
+            5,
+            0
           ],
           [
             10,
-            20,
-            2
+            19,
+            3
           ],
           [
-            18,
-            16,
-            11
+            14,
+            19,
+            12
           ]
         ]
       },
       "2020-10-31": {
         "record_count": 104,
-        "pearson_r": 0.46964042547124984,
-        "pearson_p_value": 4.9200910124446e-07,
+        "pearson_r": 0.41735169020142027,
+        "pearson_p_value": 1.0452044422977848e-05,
         "pearson_95_ci": [
-          0.3046026632777711,
-          0.6073000516120982
+          0.24440827418705632,
+          0.5645620957031303
         ],
-        "spearman_rho": 0.46429255337051256,
-        "spearman_p_value": 6.88721956238731e-07,
-        "label_agreement_rate": 0.5769230769230769,
-        "macro_f1_agreement": 0.5597883129528699,
-        "mean_absolute_score_difference": 0.4607123765630289,
+        "spearman_rho": 0.4368377925435493,
+        "spearman_p_value": 3.5493229794034643e-06,
+        "label_agreement_rate": 0.5576923076923077,
+        "macro_f1_agreement": 0.5514288053713257,
+        "mean_absolute_score_difference": 0.5227844459003698,
         "confusion_matrix": [
           [
             24,
-            7,
-            0
+            6,
+            1
           ],
           [
-            7,
-            25,
-            2
+            9,
+            20,
+            5
           ],
           [
-            15,
-            13,
-            11
+            16,
+            9,
+            14
           ]
         ]
       },
       "2020-11-01": {
         "record_count": 137,
-        "pearson_r": 0.516501548227157,
-        "pearson_p_value": 1.0426509302478573e-10,
+        "pearson_r": 0.4630001201906775,
+        "pearson_p_value": 1.2209637966826372e-08,
         "pearson_95_ci": [
-          0.3818652563152634,
-          0.6296715438824433
+          0.3201445935571998,
+          0.5852681920071573
         ],
-        "spearman_rho": 0.46108276437435153,
-        "spearman_p_value": 1.4270313250318107e-08,
-        "label_agreement_rate": 0.5693430656934306,
-        "macro_f1_agreement": 0.553078161773814,
-        "mean_absolute_score_difference": 0.40100310015970725,
+        "spearman_rho": 0.41612413472331644,
+        "spearman_p_value": 4.253084071196031e-07,
+        "label_agreement_rate": 0.5912408759124088,
+        "macro_f1_agreement": 0.581084551187644,
+        "mean_absolute_score_difference": 0.443210192416641,
         "confusion_matrix": [
           [
-            26,
-            12,
-            1
+            28,
+            9,
+            2
           ],
           [
-            12,
-            37,
-            5
+            16,
+            36,
+            2
           ],
           [
-            15,
             14,
-            15
+            13,
+            17
           ]
         ]
       },
       "2020-11-02": {
         "record_count": 203,
-        "pearson_r": 0.5257150191161294,
-        "pearson_p_value": 8.028863398921413e-16,
+        "pearson_r": 0.46993019519953755,
+        "pearson_p_value": 1.5111672821058964e-12,
         "pearson_95_ci": [
-          0.41828758881103467,
-          0.6186378654018715
+          0.35520724832121287,
+          0.5707072718228935
         ],
-        "spearman_rho": 0.490852234440038,
-        "spearman_p_value": 1.0479376103427744e-13,
-        "label_agreement_rate": 0.5911330049261084,
-        "macro_f1_agreement": 0.5625957212851332,
-        "mean_absolute_score_difference": 0.38389704669432884,
+        "spearman_rho": 0.448765278147414,
+        "spearman_p_value": 1.8806198254626972e-11,
+        "label_agreement_rate": 0.5763546798029556,
+        "macro_f1_agreement": 0.556187621698219,
+        "mean_absolute_score_difference": 0.41009889414500394,
         "confusion_matrix": [
           [
-            43,
-            19,
-            0
+            40,
+            20,
+            2
           ],
           [
-            11,
-            59,
-            5
+            10,
+            56,
+            9
           ],
           [
-            21,
-            27,
-            18
+            23,
+            22,
+            21
           ]
         ]
       },
       "2020-11-03": {
         "record_count": 301,
-        "pearson_r": 0.39332045166990975,
-        "pearson_p_value": 1.410872944506901e-12,
+        "pearson_r": 0.34478379061394626,
+        "pearson_p_value": 7.927428065682638e-10,
         "pearson_95_ci": [
-          0.29331042560919135,
-          0.48481507356938486
+          0.24113041312295969,
+          0.440659791890023
         ],
-        "spearman_rho": 0.3439609729034974,
-        "spearman_p_value": 8.747088396810649e-10,
-        "label_agreement_rate": 0.5780730897009967,
-        "macro_f1_agreement": 0.5377935789700495,
-        "mean_absolute_score_difference": 0.3808777832303283,
+        "spearman_rho": 0.31450129013409617,
+        "spearman_p_value": 2.4637996175745318e-08,
+        "label_agreement_rate": 0.5647840531561462,
+        "macro_f1_agreement": 0.5298566738523366,
+        "mean_absolute_score_difference": 0.40818671737000023,
         "confusion_matrix": [
           [
-            40,
-            26,
-            4
+            36,
+            24,
+            10
           ],
           [
-            19,
-            105,
-            13
+            20,
+            100,
+            17
           ],
           [
             27,
-            38,
-            29
+            33,
+            34
           ]
         ]
       },
       "2020-11-04": {
         "record_count": 599,
-        "pearson_r": 0.4837934884516393,
-        "pearson_p_value": 1.8178423422763486e-36,
+        "pearson_r": 0.4621434603146295,
+        "pearson_p_value": 5.0096968496113396e-33,
         "pearson_95_ci": [
-          0.41995873707980774,
-          0.5428647373088906
+          0.39671996213308947,
+          0.5228955749252913
         ],
-        "spearman_rho": 0.4167724516410903,
-        "spearman_p_value": 1.4329181933340027e-26,
-        "label_agreement_rate": 0.6444073455759599,
-        "macro_f1_agreement": 0.5858764507328802,
-        "mean_absolute_score_difference": 0.33690852747456523,
+        "spearman_rho": 0.3926219966852245,
+        "spearman_p_value": 1.631772400835368e-23,
+        "label_agreement_rate": 0.6510851419031719,
+        "macro_f1_agreement": 0.6071515151515151,
+        "mean_absolute_score_difference": 0.34308961585948433,
         "confusion_matrix": [
           [
-            66,
-            52,
+            72,
+            46,
             4
           ],
           [
-            18,
-            258,
-            17
+            19,
+            246,
+            28
           ],
           [
             37,
-            85,
-            62
+            75,
+            72
           ]
         ]
       },
       "2020-11-05": {
         "record_count": 333,
-        "pearson_r": 0.513538912992269,
-        "pearson_p_value": 8.374468947152252e-24,
+        "pearson_r": 0.44319299457393013,
+        "pearson_p_value": 1.8717153287854128e-17,
         "pearson_95_ci": [
-          0.42978423098137875,
-          0.588531840910127
+          0.3525080807848507,
+          0.525631601899027
         ],
-        "spearman_rho": 0.44833403235360064,
-        "spearman_p_value": 7.181963696936419e-18,
-        "label_agreement_rate": 0.6156156156156156,
-        "macro_f1_agreement": 0.5695413850211116,
-        "mean_absolute_score_difference": 0.34291277632335254,
+        "spearman_rho": 0.40903779531167994,
+        "spearman_p_value": 7.302935412833534e-15,
+        "label_agreement_rate": 0.5645645645645646,
+        "macro_f1_agreement": 0.5354042805886504,
+        "mean_absolute_score_difference": 0.3822977464715248,
         "confusion_matrix": [
           [
-            57,
+            56,
             34,
-            0
+            1
           ],
           [
-            17,
-            122,
-            6
+            28,
+            102,
+            15
           ],
           [
-            23,
-            48,
-            26
+            32,
+            35,
+            30
           ]
         ]
       },
       "2020-11-06": {
         "record_count": 395,
-        "pearson_r": 0.507478697264941,
-        "pearson_p_value": 3.046557651105307e-27,
+        "pearson_r": 0.48999667257891855,
+        "pearson_p_value": 3.0190396423361403e-25,
         "pearson_95_ci": [
-          0.430357134085074,
-          0.5772450752979592
+          0.41120687050049637,
+          0.5615191072379068
         ],
-        "spearman_rho": 0.4714594825012171,
-        "spearman_p_value": 2.98320430929443e-23,
-        "label_agreement_rate": 0.6151898734177215,
-        "macro_f1_agreement": 0.5770702407851999,
-        "mean_absolute_score_difference": 0.3653548344366545,
+        "spearman_rho": 0.4523614653704906,
+        "spearman_p_value": 2.5501230526861104e-21,
+        "label_agreement_rate": 0.6329113924050633,
+        "macro_f1_agreement": 0.6069100724473381,
+        "mean_absolute_score_difference": 0.3760895682632414,
         "confusion_matrix": [
           [
-            74,
-            41,
-            2
+            73,
+            39,
+            5
           ],
           [
+            28,
+            134,
+            9
+          ],
+          [
+            33,
             31,
-            136,
-            4
-          ],
-          [
-            34,
-            40,
-            33
+            43
           ]
         ]
       },
       "2020-11-07": {
         "record_count": 789,
-        "pearson_r": 0.5495608760116687,
-        "pearson_p_value": 1.8426558901722153e-63,
+        "pearson_r": 0.5054426287324876,
+        "pearson_p_value": 2.1561699454346452e-52,
         "pearson_95_ci": [
-          0.49890136058624474,
-          0.5964776467823408
+          0.4515773711574739,
+          0.5556368913056735
         ],
-        "spearman_rho": 0.5155077288132431,
-        "spearman_p_value": 8.91420851879512e-55,
-        "label_agreement_rate": 0.6577946768060836,
-        "macro_f1_agreement": 0.6295637046604975,
-        "mean_absolute_score_difference": 0.3490774012445704,
+        "spearman_rho": 0.505687707373457,
+        "spearman_p_value": 1.8905357200594076e-52,
+        "label_agreement_rate": 0.6425855513307985,
+        "macro_f1_agreement": 0.6192297144968456,
+        "mean_absolute_score_difference": 0.3924551355389819,
         "confusion_matrix": [
           [
             80,
-            46,
-            9
+            43,
+            12
           ],
           [
-            40,
-            268,
-            27
+            48,
+            235,
+            52
           ],
           [
-            55,
-            93,
-            171
+            54,
+            73,
+            192
           ]
         ]
       },
       "2020-11-08": {
         "record_count": 394,
-        "pearson_r": 0.5332642265659677,
-        "pearson_p_value": 2.4786343823733173e-30,
+        "pearson_r": 0.4969760139203092,
+        "pearson_p_value": 5.739570071429369e-26,
         "pearson_95_ci": [
-          0.4586306667456808,
-          0.600427297000862
+          0.4187395697425804,
+          0.5678892970594698
         ],
-        "spearman_rho": 0.4574986492421055,
-        "spearman_p_value": 8.919120924192259e-22,
-        "label_agreement_rate": 0.6294416243654822,
-        "macro_f1_agreement": 0.5930667914866787,
-        "mean_absolute_score_difference": 0.3438905163635538,
+        "spearman_rho": 0.4690451712736215,
+        "spearman_p_value": 6.027750202941743e-23,
+        "label_agreement_rate": 0.616751269035533,
+        "macro_f1_agreement": 0.5851850552944753,
+        "mean_absolute_score_difference": 0.3701111025385275,
         "confusion_matrix": [
           [
-            37,
+            35,
             30,
-            5
+            7
           ],
           [
-            19,
-            138,
-            8
+            22,
+            123,
+            20
           ],
           [
-            33,
-            51,
-            73
+            30,
+            42,
+            85
           ]
         ]
       }

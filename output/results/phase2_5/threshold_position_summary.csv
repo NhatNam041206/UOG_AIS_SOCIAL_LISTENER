@@ -1,0 +1,11 @@
+threshold_type,threshold_value,percentile_position,users_above_threshold,users_above_threshold_pct,tweets_from_users_above_threshold_pct,mitigation_status
+fixed_tweets_per_active_day,9.0,0.9999937347284005,3,0.0006265271599523839,0.00292943003056372,pending
+fixed_tweets_per_active_day,25.0,1.0,0,0.0,0.0,pending
+fixed_tweets_per_active_day,50.0,1.0,0,0.0,0.0,pending
+fixed_tweets_per_active_day,75.0,1.0,0,0.0,0.0,pending
+fixed_tweets_per_active_day,100.0,1.0,0,0.0,0.0,pending
+fixed_tweets_per_active_day,175.0,1.0,0,0.0,0.0,pending
+empirical_percentile,1.0,0.75,99192,,,pending
+empirical_percentile,2.0,0.9,25655,,,pending
+empirical_percentile,2.25,0.95,23430,,,pending
+empirical_percentile,4.0,0.99,4539,,,pending

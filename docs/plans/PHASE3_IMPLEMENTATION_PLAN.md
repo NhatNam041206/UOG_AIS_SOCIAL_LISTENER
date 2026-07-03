@@ -16,7 +16,7 @@ Phase 3 will:
 1. validate the Phase 2 cleaned-data input contract;
 2. score all cleaned tweets with VADER;
 3. create a reproducible stratified random sample of 5,000 tweets;
-4. score the validation sample with `cardiffnlp/twitter-roberta-base-sentiment`;
+4. score the validation sample with `cardiffnlp/twitter-roberta-base-sentiment-latest`;
 5. compare VADER and RoBERTa using Pearson correlation and supporting agreement
    metrics;
 6. produce auditable results, reports, and a small set of research figures.
@@ -184,7 +184,8 @@ Supporting metrics:
 
 ## RoBERTa Processing Requirements
 
-- Use `cardiffnlp/twitter-roberta-base-sentiment`.
+- Use the ready CardiffNLP model configured in `configs/phase3_roberta_model.json`,
+  currently `cardiffnlp/twitter-roberta-base-sentiment-latest`.
 - Pin and record the resolved model revision.
 - Normalize usernames to `@user` only inside the RoBERTa input adapter.
 - Do not overwrite canonical tweet text or VADER input.

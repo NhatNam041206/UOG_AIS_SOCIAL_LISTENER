@@ -176,9 +176,10 @@ Verify the required RoBERTa model and inference backend:
 .venv\Scripts\python.exe verify\phase3\verify_roberta_setup.py
 ```
 
-The setup uses `cardiffnlp/twitter-roberta-base-sentiment` with PyTorch on CPU,
-explicit negative/neutral/positive label mapping, and a maximum input length of 512
-tokens.
+The setup uses the ready CardiffNLP model configured in
+`configs/phase3_roberta_model.json`, currently
+`cardiffnlp/twitter-roberta-base-sentiment-latest`, with PyTorch on CPU, explicit
+negative/neutral/positive label mapping, and a maximum input length of 512 tokens.
 
 Score the validation sample with RoBERTa:
 

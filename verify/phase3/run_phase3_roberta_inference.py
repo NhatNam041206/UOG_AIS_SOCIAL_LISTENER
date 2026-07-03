@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import importlib.metadata
+import argparse
 import json
 import sys
 from pathlib import Path
@@ -15,15 +16,24 @@ if str(PROJECT_ROOT) not in sys.path:
     sys.path.insert(0, str(PROJECT_ROOT))
 
 from src.phase3_sentiment.sentiment_models_model import RobertaSentimentModel
+from src.phase3_sentiment.sentiment_models_model import load_roberta_model_config
+
+
+DEFAULT_CONFIG = PROJECT_ROOT / "configs" / "phase3_roberta_model.json"
 
 
 def run_phase3_roberta_inference(
     project_root: str | Path = ".",
-    batch_size: int = 16,
-    maximum_token_length: int = 512,
+    batch_size: int | None = None,
+    maximum_token_length: int | None = None,
+    config_path: str | Path | None = None,
 ) -> Dict[str, Any]:
     """Score every validation-sample record and write inference evidence."""
     root = Path(project_root).resolve()
+    resolved_config = Path(config_path or root / "configs" / "phase3_roberta_model.json")
+    config = load_roberta_model_config(resolved_config)
+    resolved_batch_size = batch_size or config.batch_size
+    resolved_maximum_token_length = maximum_token_length or config.maximum_token_length
     sample_path = root / "output" / "results" / "phase3" / "sentiment_validation_sample.parquet"
     manifest_path = root / "output" / "results" / "phase3" / "roberta_inference_manifest.json"
     report_path = root / "output" / "reports" / "phase3" / "roberta_inference_report.md"
@@ -34,8 +44,12 @@ def run_phase3_roberta_inference(
     conflicts = [column for column in dataframe.columns if column.startswith("roberta_")]
     if conflicts:
         dataframe = dataframe.drop(columns=conflicts)
-    model = RobertaSentimentModel.load(maximum_token_length=maximum_token_length)
-    scores = pd.DataFrame(model.score_many(dataframe["tweet"].tolist(), batch_size=batch_size))
+    model = RobertaSentimentModel.load(
+        model_id=config.model_id,
+        maximum_token_length=resolved_maximum_token_length,
+        device=config.device,
+    )
+    scores = pd.DataFrame(model.score_many(dataframe["tweet"].tolist(), batch_size=resolved_batch_size))
     scored = pd.concat([dataframe.reset_index(drop=True), scores], axis=1)
     scored.to_parquet(sample_path, index=False)
 
@@ -65,13 +79,14 @@ def run_phase3_roberta_inference(
         "status": "completed" if all(checks.values()) else "failed",
         "sample_path": str(sample_path),
         "record_count": len(scored),
-        "model_id": RobertaSentimentModel.MODEL_ID,
+        "config_path": str(resolved_config),
+        "model_id": model.model_id,
         "model_revision": revision,
         "label_mapping": {str(index): label for index, label in enumerate(RobertaSentimentModel.LABELS)},
         "backend": "torch",
         "device": model.device,
-        "batch_size": batch_size,
-        "maximum_token_length": maximum_token_length,
+        "batch_size": resolved_batch_size,
+        "maximum_token_length": resolved_maximum_token_length,
         "versions": {
             "torch": importlib.metadata.version("torch"),
             "transformers": importlib.metadata.version("transformers"),
@@ -128,5 +143,24 @@ def _render_report(manifest: Dict[str, Any]) -> str:
 
 
 if __name__ == "__main__":
-    result = run_phase3_roberta_inference(PROJECT_ROOT)
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--config",
+        default=DEFAULT_CONFIG,
+        help="Path to the RoBERTa model JSON config.",
+    )
+    parser.add_argument("--batch-size", type=int, default=None, help="Override config batch size.")
+    parser.add_argument(
+        "--maximum-token-length",
+        type=int,
+        default=None,
+        help="Override config maximum token length.",
+    )
+    args = parser.parse_args()
+    result = run_phase3_roberta_inference(
+        PROJECT_ROOT,
+        batch_size=args.batch_size,
+        maximum_token_length=args.maximum_token_length,
+        config_path=args.config,
+    )
     print(json.dumps(result, indent=2))

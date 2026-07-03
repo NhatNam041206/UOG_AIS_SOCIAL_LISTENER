@@ -9,27 +9,27 @@ These metrics measure agreement between VADER and RoBERTa. RoBERTa is not human 
 | Metric | Result |
 | --- | ---: |
 | Records | 5,000 |
-| Pearson r | 0.5037 |
-| Pearson 95% CI | [0.4828, 0.5241] |
-| Pearson p-value | 4.842e-320 |
-| Spearman rho | 0.4630 |
-| Label agreement | 60.60% |
-| Macro-F1 agreement | 0.5851 |
-| Mean absolute score difference | 0.3883 |
+| Pearson r | 0.4708 |
+| Pearson 95% CI | [0.4490, 0.4921] |
+| Pearson p-value | 2.443e-274 |
+| Spearman rho | 0.4452 |
+| Label agreement | 59.66% |
+| Macro-F1 agreement | 0.5842 |
+| Mean absolute score difference | 0.4136 |
 
 ## Language Suitability Audit
 
 - Likely-English records: 3,436 (68.72%).
 - Language identification uses deterministic `langdetect`; short social-media text may be misclassified.
-- Likely-English Pearson r: 0.5453.
-- Likely-English label agreement: 56.14%.
+- Likely-English Pearson r: 0.5204.
+- Likely-English label agreement: 55.79%.
 
 ## Candidate-Level Agreement
 
 | Candidate stream | Records | Pearson r | Label agreement |
 | --- | ---: | ---: | ---: |
-| `donald_trump` | 3,111 | 0.4351 | 58.18% |
-| `joe_biden` | 1,889 | 0.5835 | 64.58% |
+| `donald_trump` | 3,111 | 0.4047 | 58.34% |
+| `joe_biden` | 1,889 | 0.5449 | 61.83% |
 
 ## Disagreement Audit
 

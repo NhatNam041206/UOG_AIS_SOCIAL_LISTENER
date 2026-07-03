@@ -3,6 +3,9 @@
 from __future__ import annotations
 
 import re
+import json
+from dataclasses import dataclass
+from pathlib import Path
 from typing import Any, Dict, Iterable, List
 
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
@@ -10,6 +13,43 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 
 _MENTION_PATTERN = re.compile(r"@\S+")
 _URL_PATTERN = re.compile(r"https?://\S+|www\.\S+", flags=re.IGNORECASE)
+DEFAULT_TWITTER_ROBERTA_MODEL_ID = "cardiffnlp/twitter-roberta-base-sentiment-latest"
+
+
+@dataclass(frozen=True)
+class RobertaModelConfig:
+    """Configuration for the ready-to-use CardiffNLP Twitter-RoBERTa model."""
+
+    model_id: str = DEFAULT_TWITTER_ROBERTA_MODEL_ID
+    maximum_token_length: int = 512
+    batch_size: int = 16
+    device: str = "cpu"
+
+    @classmethod
+    def from_dict(cls, values: Dict[str, Any]) -> "RobertaModelConfig":
+        """Create a config while rejecting misspelled or unsupported keys."""
+        allowed = {"model_id", "maximum_token_length", "batch_size", "device"}
+        unknown = sorted(set(values) - allowed)
+        if unknown:
+            raise ValueError(f"Unknown RoBERTa model config keys: {unknown}")
+        config = cls(**values)
+        if not config.model_id.strip():
+            raise ValueError("model_id must be non-empty")
+        if config.maximum_token_length <= 0:
+            raise ValueError("maximum_token_length must be positive")
+        if config.batch_size <= 0:
+            raise ValueError("batch_size must be positive")
+        if not config.device.strip():
+            raise ValueError("device must be non-empty")
+        return config
+
+
+def load_roberta_model_config(path: str | Path) -> RobertaModelConfig:
+    """Load RoBERTa model settings from a JSON config file."""
+    values = json.loads(Path(path).read_text(encoding="utf-8"))
+    if not isinstance(values, dict):
+        raise ValueError("RoBERTa model config must be a JSON object")
+    return RobertaModelConfig.from_dict(values)
 
 
 class VaderSentimentModel:
@@ -52,20 +92,24 @@ class VaderSentimentModel:
 class RobertaSentimentModel:
     """Score tweets with the configured CardiffNLP Twitter-RoBERTa model."""
 
-    MODEL_ID = "cardiffnlp/twitter-roberta-base-sentiment"
+    MODEL_ID = DEFAULT_TWITTER_ROBERTA_MODEL_ID
     LABELS = ("negative", "neutral", "positive")
 
     def __init__(
         self,
         tokenizer: Any,
         model: Any,
+        model_id: str = MODEL_ID,
         maximum_token_length: int = 512,
         device: str = "cpu",
     ) -> None:
         if maximum_token_length <= 0:
             raise ValueError("maximum_token_length must be positive")
+        if not model_id.strip():
+            raise ValueError("model_id must be non-empty")
         self.tokenizer = tokenizer
         self.model = model
+        self.model_id = model_id
         self.maximum_token_length = maximum_token_length
         self.device = device
 
@@ -83,7 +127,7 @@ class RobertaSentimentModel:
         model = AutoModelForSequenceClassification.from_pretrained(model_id)
         model.to(device)
         model.eval()
-        return cls(tokenizer, model, maximum_token_length, device)
+        return cls(tokenizer, model, model_id, maximum_token_length, device)
 
     @staticmethod
     def normalize(text: Any) -> str:
