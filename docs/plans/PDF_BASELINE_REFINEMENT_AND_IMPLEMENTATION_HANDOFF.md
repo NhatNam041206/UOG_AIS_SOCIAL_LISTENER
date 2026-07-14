@@ -39,9 +39,9 @@ If the files disagree, prefer verified live data and newer dataset-grounded note
 ## 3. Non-negotiable research guardrails
 
 - The currently verified raw Twitter window is `2020-10-15` through
-  `2020-11-08`. The approved target for Phase 1 v2 is extension through
-  `2020-11-15`, but the target dates must not be described as observed until a
-  compatible source is acquired, validated, and ingested.
+  `2020-11-08`. Phase 1 v2 is approved to proceed on this verified window. The
+  former target extension through `2020-11-15` remains a documented limitation and
+  deferred acquisition option, not observed project coverage.
 - The Twitter data is candidate-hashtag-centered, not a Twitter firehose or a
   population-representative public-opinion sample.
 - Donald Trump's positive COVID-19 test was announced on October 2, 2020, not
@@ -112,7 +112,7 @@ Allowed values: `approved`, `pending discussion`, `rejected`, `superseded`.
 
 | Decision ID | Decision | Recommendation | Status | Consequence |
 | --- | --- | --- | --- | --- |
-| D1 | Target time window | Preserve verified `2020-10-15` to `2020-11-08` as current evidence and acquire compatible coverage through `2020-11-15` before Phase 1 v2 | **Approved; direct public extension not identified; hydration/proceed-with-v1 decision pending** | Phase 1 v2 remains blocked until the user approves a hydration/filtering attempt or revises the time-window decision |
+| D1 | Target time window | Proceed with Phase 1 v2 on the verified `2020-10-15` to `2020-11-08` Twitter window; treat `2020-11-09` through `2020-11-15` as deferred acquisition, not current coverage | **Approved: proceed on verified window** | Phase 1 v2 is no longer blocked by Nov 9-15 acquisition; reports must document the narrower window |
 | D2 | Phase 1 v2 rerun | Re-ingest Streams A/B/C with revised schemas before downstream implementation | **Approved** | Phase 1 v2 is the first implementation work package |
 | D3 | Stream A retained fields | Retain all useful available account, engagement, geographic, collection, source, and lineage fields | **Inspected; schema contract pending approval** | Determines Phase 2, 2.5, 3, and 4 inputs |
 | D4 | Stream B event protocol | Use sourced UTC events with explicit eligibility, window, overlap, and boundary rules | Pending discussion | Determines H1 events and Phase 4 event matrices |
@@ -138,7 +138,7 @@ prototype, then return the evidence for instructor/user approval.
 
 | PDF requirement | Current mismatch | Planned mitigation | Expected result | Decision dependency |
 | --- | --- | --- | --- | --- |
-| Oct 8-Nov 15 Twitter window | Current source covers Oct 15-Nov 8 | Add a source-acquisition and compatibility gate for Nov 9-15; never imply preprocessing removed those dates | A validated extension is merged, or Phase 1 remains blocked pending an explicit scope decision | D1 |
+| Oct 8-Nov 15 Twitter window | Current source covers Oct 15-Nov 8 | Proceed with the verified Oct 15-Nov 8 window for Phase 1 v2; never imply preprocessing removed Nov 9-15 | Phase 1 v2 can proceed with a documented source-window limitation | D1 |
 | Broad election discourse | Candidate hashtag streams with possible overlap | Preserve stream membership, measure overlap, narrow claims | Candidate-stream-centered analysis population is explicit | D3 |
 | Rich Stream A schema | v1 drops useful raw metadata | Build versioned v2 canonical and lineage schemas | Downstream phases receive all available, supportable fields | D2, D3 |
 | Event shocks with UTC timing and indicators | Four events but no inclusion/window contract | Versioned event registry and observation-level window construction | Only eligible, sourced events enter H1 | D4, D9 |
@@ -225,12 +225,10 @@ R1A result:
 
 ```text
 No validated, directly mergeable November 9-15 extension is available from the
-evidence checked. Phase 1 v2 remains blocked under D1 unless the user approves
-one of these next decisions:
+evidence checked. On 2026-07-14, the user resolved D1 by approving Phase 1 v2 to
+proceed on the verified `2020-10-15` through `2020-11-08` window.
 
-1. attempt #Election2020 tweet-ID hydration and candidate-stream filtering;
-2. keep the verified 2020-10-15 through 2020-11-08 window and revise D1;
-3. provide or authorize another compatible source.
+Nov 9-15 remains a deferred acquisition option, not current project evidence.
 ```
 
 ## 7.2.2 Evidence note: R1 Phase 1 v2 source/schema inspection
@@ -305,13 +303,12 @@ R1 result:
 
 ```text
 R1 evidence supports a richer Phase 1 v2 Stream A schema from existing raw files,
-but the schema is not frozen. D1 remains unresolved after R1A, D4-D6 remain
-pending, and no Phase 1 v2 implementation should begin until the user approves:
+but the schema is not frozen. D1 is resolved for the verified window, while D4-D6
+remain pending. No Phase 1 v2 implementation should begin until the user approves:
 
-1. whether to proceed with the verified 2020-10-15 through 2020-11-08 window;
-2. the retained Stream A v2 field contract;
-3. the Stream B event inclusion/window protocol;
-4. the Stream C historical-classification and demographic-control source plan.
+1. the retained Stream A v2 field contract;
+2. the Stream B event inclusion/window protocol;
+3. the Stream C historical-classification and demographic-control source plan.
 ```
 
 ## 7.3 Why Phase 3 uses 5,000 RoBERTa records
@@ -1287,6 +1284,32 @@ the proposed Stream A/B/C schema contracts.
 **Progress update:** R1 changed from not started to inspected/not frozen. No data
 was ingested and no pipeline phase was rerun.
 
+### 2026-07-14 - D1 verified-window decision
+
+**Question or instruction:** Phase 1 v2 proceeds on the verified 2020-10-15 to
+2020-11-08 Twitter window.
+
+**Evidence inspected:**
+
+- R1A source search and compatibility result;
+- raw Stream A timestamp endpoints;
+- R1 Stream A/B/C source-schema inspection.
+
+**Instructor analysis:** Because no directly mergeable Nov 9-15 extension was
+identified and the user explicitly approved the verified-window path, Phase 1 v2
+should preserve the current Oct 15-Nov 8 source scope and document the narrower
+coverage as a limitation. Nov 9-15 must not be described as observed data.
+
+**Decision:** D1 changed from hydration/proceed-with-v1 decision pending to
+approved: proceed on the verified `2020-10-15` through `2020-11-08` window.
+
+**Implementation consequence:** Phase 1 v2 is no longer blocked by Nov 9-15
+acquisition. R2 still requires approval or revision of D3 retained fields, D4 event
+protocol, D5 historical classification, and D6 demographic-control source plan.
+
+**Progress update:** R1A source acquisition is closed for the Phase 1 v2 path and
+Nov 9-15 is deferred as a later acquisition option.
+
 ## 14. Implementation log
 
 | Date | Work package | Action | Evidence | Status |
@@ -1296,8 +1319,8 @@ was ingested and no pipeline phase was rerun.
 | 2026-07-13 | R1A | November 9-15 acquisition and compatibility gate added | Raw timestamp audit, Kaggle Version 19, decision D1 | Approved, not started; blocks Phase 1 v2 |
 | 2026-07-13 | R6 | Phase 2.5 moved after the Phase 1-5 MVP | Decision D8; existing v1 full-run manifest preserved | Deferred until after R9 |
 | 2026-07-14 | N0-N5 | Novelty candidate and experiment ladder documented | Section 7.4 and decisions D13-D17 | Proposed; awaiting discussion/approval |
-| 2026-07-14 | R1A | Source search and compatibility gate executed | Section 7.2.1; raw headers; Phase 1 manifest; #Election2020 and VoterFraud2020 source checks | Blocked pending user decision: hydrate/filter #Election2020, provide another source, or revise D1 to proceed on v1 window |
-| 2026-07-14 | R1 | Phase 1 v2 source/schema inspection executed without mutation | Section 7.2.2; raw Stream A/B/C profiling; Phase 1 source code inspection | Inspected, not frozen; blocked pending D1 and schema/protocol approvals |
+| 2026-07-14 | R1A | Source search and compatibility gate executed | Section 7.2.1; raw headers; Phase 1 manifest; #Election2020 and VoterFraud2020 source checks | Closed for Phase 1 v2 after D1 verified-window decision; Nov 9-15 deferred |
+| 2026-07-14 | R1 | Phase 1 v2 source/schema inspection executed without mutation | Section 7.2.2; raw Stream A/B/C profiling; Phase 1 source code inspection | Inspected, not frozen; blocked pending schema/protocol approvals |
 
 ## 15. Future update template
 
