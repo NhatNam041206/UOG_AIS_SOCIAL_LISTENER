@@ -112,7 +112,7 @@ Allowed values: `approved`, `pending discussion`, `rejected`, `superseded`.
 
 | Decision ID | Decision | Recommendation | Status | Consequence |
 | --- | --- | --- | --- | --- |
-| D1 | Target time window | Preserve verified `2020-10-15` to `2020-11-08` as current evidence and acquire compatible coverage through `2020-11-15` before Phase 1 v2 | **Approved, acquisition pending** | Phase 1 v2 is blocked until extension compatibility is resolved |
+| D1 | Target time window | Preserve verified `2020-10-15` to `2020-11-08` as current evidence and acquire compatible coverage through `2020-11-15` before Phase 1 v2 | **Approved; direct public extension not identified; hydration/proceed-with-v1 decision pending** | Phase 1 v2 remains blocked until the user approves a hydration/filtering attempt or revises the time-window decision |
 | D2 | Phase 1 v2 rerun | Re-ingest Streams A/B/C with revised schemas before downstream implementation | **Approved** | Phase 1 v2 is the first implementation work package |
 | D3 | Stream A retained fields | Retain all useful available account, engagement, geographic, collection, source, and lineage fields | Pending schema inspection | Determines Phase 2, 2.5, 3, and 4 inputs |
 | D4 | Stream B event protocol | Use sourced UTC events with explicit eligibility, window, overlap, and boundary rules | Pending discussion | Determines H1 events and Phase 4 event matrices |
@@ -186,6 +186,52 @@ as ending on November 8:
 
 The seven missing calendar dates may contain a large number of tweets, but their
 volume must not be estimated or claimed before compatible data is acquired.
+
+## 7.2.1 Evidence note: R1A November 9-15 source search
+
+R1A was executed as a source-acquisition and compatibility gate on 2026-07-14. It
+did not ingest data or rerun Phase 1.
+
+Local evidence remains unchanged:
+
+| Raw file | File size | Header status | Verified endpoint |
+| --- | ---:| --- | --- |
+| `data/01_raw/twitter/hashtag_donaldtrump.csv` | 483,859,793 bytes | Kaggle 21-column raw schema present | 2020-11-08 23:59:56 UTC |
+| `data/01_raw/twitter/hashtag_joebiden.csv` | 380,820,416 bytes | Kaggle 21-column raw schema present | 2020-11-08 23:59:58 UTC |
+
+Both raw files expose the same raw Stream A header:
+
+```text
+created_at,tweet_id,tweet,likes,retweet_count,source,user_id,user_name,user_screen_name,user_description,user_join_date,user_followers_count,user_location,lat,long,city,country,continent,state,state_code,collected_at
+```
+
+Web source search result:
+
+| Candidate source | Coverage evidence | Compatibility result | Decision implication |
+| --- | --- | --- | --- |
+| Same Kaggle/Manch Hui CSV extension | No direct public continuation of `hashtag_donaldtrump.csv` / `hashtag_joebiden.csv` through 2020-11-15 was identified in targeted web search. | Not available for direct merge. | Cannot complete R1A through same-source CSV acquisition. |
+| `#Election2020` GitHub dataset | Repository states collection starts 2019-05-20 and continues through 6 months post-inauguration; data are released as tweet IDs, organized by UTC year/month/day/hour; collection follows many accounts and keywords. | Plausible Nov 9-15 coverage, but not directly compatible. It is broader than the current candidate-hashtag population, tweet-ID-only, and requires hydration plus reproducible filtering before schema comparison. | Candidate only if the user approves a hydration/filtering work package and accepts API/deletion-bias risk. |
+| `VoterFraud2020` | Dataset focuses on election-fraud claims rather than candidate hashtag streams. | Incompatible population for extending the current Trump/Biden candidate-hashtag streams. | Do not merge as Phase 1 v2 Stream A extension. |
+| Broad election Twitter papers/datasets | Several datasets use broader election hashtags, candidate mentions, graph communities, or pre-election windows. | Not merge-ready without recreating a comparable candidate-stream sampling rule. | Use as literature/method context only unless a reproducible candidate-stream subset is proven. |
+
+Primary source references checked:
+
+- `#Election2020` repository: https://github.com/echen102/us-pres-elections-2020
+- `#Election2020` paper: https://arxiv.org/abs/2010.00600
+- `VoterFraud2020` paper: https://arxiv.org/abs/2101.08210
+- Twitter/YouTube election dataset paper: https://arxiv.org/abs/2010.08183
+
+R1A result:
+
+```text
+No validated, directly mergeable November 9-15 extension is available from the
+evidence checked. Phase 1 v2 remains blocked under D1 unless the user approves
+one of these next decisions:
+
+1. attempt #Election2020 tweet-ID hydration and candidate-stream filtering;
+2. keep the verified 2020-10-15 through 2020-11-08 window and revise D1;
+3. provide or authorize another compatible source.
+```
 
 ## 7.3 Why Phase 3 uses 5,000 RoBERTa records
 
@@ -1096,6 +1142,39 @@ external dataset, or fine-tuning run is approved yet.
 **Progress update:** Literature and method options were reviewed and documented.
 No annotation, training, full inference, or benchmark experiment was executed.
 
+### 2026-07-14 - R1A November 9-15 source gate execution
+
+**Question or instruction:** Implement R1A by searching for compatible November
+9-15 Twitter coverage before Phase 1 v2.
+
+**Evidence inspected:**
+
+- current raw Stream A headers and file sizes;
+- Phase 1 manifest endpoints for both candidate streams;
+- targeted web searches for same-source Kaggle/Manch Hui continuation files;
+- `#Election2020` paper and GitHub repository;
+- `VoterFraud2020` and other broad 2020 election Twitter dataset references.
+
+**Instructor analysis:** No directly mergeable continuation of the current
+candidate-hashtag Kaggle CSV files was identified. The `#Election2020` repository
+is the only plausible public Nov 9-15 candidate found, but it is broader,
+tweet-ID-only, and would require hydration, deletion-bias measurement, and a
+reproducible Trump/Biden candidate-stream filter before compatibility could be
+accepted. Fraud-claim or broad-election datasets cannot be merged directly without
+changing the study population.
+
+**Decision:** D1 remains approved as a target extension, but its status changes
+from acquisition pending to direct public extension not identified; hydration or
+time-window revision is pending user decision.
+
+**Implementation consequence:** R1A did not clear the Phase 1 v2 gate. Phase 1 v2
+remains blocked until the user approves hydration/filtering, provides another
+compatible source, or revises D1 to proceed with the verified `2020-10-15` through
+`2020-11-08` window.
+
+**Progress update:** R1A changed from approved/not started to executed/blocked by
+source compatibility decision. No data was ingested and no pipeline phase was rerun.
+
 ## 14. Implementation log
 
 | Date | Work package | Action | Evidence | Status |
@@ -1105,6 +1184,7 @@ No annotation, training, full inference, or benchmark experiment was executed.
 | 2026-07-13 | R1A | November 9-15 acquisition and compatibility gate added | Raw timestamp audit, Kaggle Version 19, decision D1 | Approved, not started; blocks Phase 1 v2 |
 | 2026-07-13 | R6 | Phase 2.5 moved after the Phase 1-5 MVP | Decision D8; existing v1 full-run manifest preserved | Deferred until after R9 |
 | 2026-07-14 | N0-N5 | Novelty candidate and experiment ladder documented | Section 7.4 and decisions D13-D17 | Proposed; awaiting discussion/approval |
+| 2026-07-14 | R1A | Source search and compatibility gate executed | Section 7.5; raw headers; Phase 1 manifest; #Election2020 and VoterFraud2020 source checks | Blocked pending user decision: hydrate/filter #Election2020, provide another source, or revise D1 to proceed on v1 window |
 
 ## 15. Future update template
 
