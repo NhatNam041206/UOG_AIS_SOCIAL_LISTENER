@@ -114,7 +114,7 @@ Allowed values: `approved`, `pending discussion`, `rejected`, `superseded`.
 | --- | --- | --- | --- | --- |
 | D1 | Target time window | Preserve verified `2020-10-15` to `2020-11-08` as current evidence and acquire compatible coverage through `2020-11-15` before Phase 1 v2 | **Approved; direct public extension not identified; hydration/proceed-with-v1 decision pending** | Phase 1 v2 remains blocked until the user approves a hydration/filtering attempt or revises the time-window decision |
 | D2 | Phase 1 v2 rerun | Re-ingest Streams A/B/C with revised schemas before downstream implementation | **Approved** | Phase 1 v2 is the first implementation work package |
-| D3 | Stream A retained fields | Retain all useful available account, engagement, geographic, collection, source, and lineage fields | Pending schema inspection | Determines Phase 2, 2.5, 3, and 4 inputs |
+| D3 | Stream A retained fields | Retain all useful available account, engagement, geographic, collection, source, and lineage fields | **Inspected; schema contract pending approval** | Determines Phase 2, 2.5, 3, and 4 inputs |
 | D4 | Stream B event protocol | Use sourced UTC events with explicit eligibility, window, overlap, and boundary rules | Pending discussion | Determines H1 events and Phase 4 event matrices |
 | D5 | Historical state classification | Use continuous 2012/2016 competitiveness plus a pre-registered binary battleground/safe rule | Pending discussion | Prevents leakage from using 2020 outcomes to define subgroups |
 | D6 | State controls | Add a small, pre-election, source-traceable set covering age, income, and urbanization | Pending source and vintage decision | Determines H2 control vector |
@@ -231,6 +231,87 @@ one of these next decisions:
 1. attempt #Election2020 tweet-ID hydration and candidate-stream filtering;
 2. keep the verified 2020-10-15 through 2020-11-08 window and revise D1;
 3. provide or authorize another compatible source.
+```
+
+## 7.2.2 Evidence note: R1 Phase 1 v2 source/schema inspection
+
+R1 source/schema inspection was executed on 2026-07-14 as a non-mutating
+inspection. It did not freeze schemas, change ingestion code, ingest new data, or
+rerun downstream phases.
+
+Stream A raw Twitter files expose the same 21-column Kaggle schema:
+
+```text
+created_at,tweet_id,tweet,likes,retweet_count,source,user_id,user_name,user_screen_name,user_description,user_join_date,user_followers_count,user_location,lat,long,city,country,continent,state,state_code,collected_at
+```
+
+Stream A profile:
+
+| Stream | Valid rows | Invalid CSV rows | Unique tweet IDs | Duplicate tweet-ID rows | Unique user IDs | UTC coverage |
+| --- | ---: | ---: | ---: | ---: | ---: | --- |
+| Donald Trump | 970,765 | 323 | 969,423 | 1,342 | 301,350 | 2020-10-15 00:00:01 to 2020-11-08 23:59:56 |
+| Joe Biden | 776,777 | 296 | 774,923 | 1,854 | 316,051 | 2020-10-15 00:00:01 to 2020-11-08 23:59:58 |
+
+Cross-stream overlap:
+
+| Measure | Result |
+| --- | ---: |
+| Overlapping tweet IDs | 221,686 |
+| Share of Donald Trump valid rows | 22.84% |
+| Share of Joe Biden valid rows | 28.54% |
+
+Raw Stream A missingness:
+
+| Field group | Donald Trump missing | Joe Biden missing | R1 implication |
+| --- | ---: | ---: | --- |
+| Required IDs/text/time: `created_at`, `tweet_id`, `tweet`, `user_id` | 0 each | 0 each | Suitable canonical fields. Preserve IDs as strings and timestamps as UTC. |
+| Engagement: `likes`, `retweet_count` | 0 each | 0 each | Retain for v2 engagement/amplification evidence. |
+| Account age/followers: `user_join_date`, `user_followers_count` | 0 each | 0 each | Retain for supportable account-age and follower-count diagnostics; do not infer unavailable following/friend counts. |
+| Profile/source: `source`, `user_name`, `user_screen_name`, `user_description` | source 876; user_name 17; screen_name 0; description 101,267 | source 713; user_name 18; screen_name 0; description 82,006 | Retain as lineage/profile evidence with explicit missingness; avoid stance inference from profile text. |
+| Free-text location: `user_location` | 295,110 | 233,872 | Retain and classify missingness; do not treat missing location as invalid for national temporal analysis. |
+| Coordinates: `lat`, `long` | 525,065 each | 421,495 each | Retain when present; require confidence and ambiguity categories before state analysis. |
+| Geocoded place: `city`, `country`, `continent`, `state`, `state_code` | city 743,590; country 528,036; continent 528,019; state 650,158; state_code 670,351 | city 589,910; country 423,009; continent 422,991; state 516,589; state_code 532,174 | Retain as source geocoding evidence; publish coverage before Phase 4/5. |
+| Collection time: `collected_at` | 0 | 0 | Retain as collection lineage and possible latency audit evidence. |
+
+R1 preliminary Stream A field classification:
+
+| Classification | Fields |
+| --- | --- |
+| Canonical tweet identity and content | `tweet_id`, `created_at`, `tweet`, `candidate_stream`, `source_file` |
+| Engagement and amplification | `likes`, `retweet_count` |
+| Account diagnostics | `user_id`, `user_join_date`, `user_followers_count` |
+| Profile lineage/profile evidence | `user_name`, `user_screen_name`, `user_description`, `source` |
+| Location evidence | `user_location`, `lat`, `long`, `city`, `country`, `continent`, `state`, `state_code` |
+| Collection lineage | `collected_at` |
+| Unavailable PDF field | `replies` remains unavailable in the raw Kaggle files and must stay null or excluded by contract. |
+
+Stream B source inspection:
+
+| Source | Rows | Columns | Missingness | UTC event range |
+| --- | ---: | --- | --- | --- |
+| `political_events.csv` | 4 | `event_id`, `event_timestamp_local`, `event_timezone`, `event_name`, `event_category`, `event_description`, `source_url` | 0 missing in every column | 2020-10-16 00:00:00 to 2020-11-07 16:26:00 |
+
+Stream B remains structurally usable but methodologically incomplete: the current
+four-event registry still needs an inclusion rule, event-window contract, overlap
+handling, and Phase 4 observation-level indicator construction.
+
+Stream C source inspection:
+
+| Source | Rows | Columns | Missingness | R1 implication |
+| --- | ---: | --- | --- | --- |
+| `electoral_returns.csv` | 51 | `state_code`, `biden_votes`, `trump_votes`, `total_votes`, `source_url` | 0 missing in every column | Current source supports 2020 margins, but has no 2012/2016 historical classification fields and no demographic controls. |
+
+R1 result:
+
+```text
+R1 evidence supports a richer Phase 1 v2 Stream A schema from existing raw files,
+but the schema is not frozen. D1 remains unresolved after R1A, D4-D6 remain
+pending, and no Phase 1 v2 implementation should begin until the user approves:
+
+1. whether to proceed with the verified 2020-10-15 through 2020-11-08 window;
+2. the retained Stream A v2 field contract;
+3. the Stream B event inclusion/window protocol;
+4. the Stream C historical-classification and demographic-control source plan.
 ```
 
 ## 7.3 Why Phase 3 uses 5,000 RoBERTa records
@@ -1175,6 +1256,37 @@ compatible source, or revises D1 to proceed with the verified `2020-10-15` throu
 **Progress update:** R1A changed from approved/not started to executed/blocked by
 source compatibility decision. No data was ingested and no pipeline phase was rerun.
 
+### 2026-07-14 - R1 Phase 1 v2 source/schema inspection
+
+**Question or instruction:** Proceed to the next plan after committing R1A.
+
+**Evidence inspected:**
+
+- Stream A raw Trump/Biden CSV headers, file sizes, row validity, missingness,
+  timestamp ranges, unique tweet IDs, unique user IDs, and cross-stream overlap;
+- Phase 1 ingestion runner and controller code;
+- Stream B `political_events.csv`;
+- Stream C `electoral_returns.csv`.
+
+**Instructor analysis:** Existing raw Stream A files support a richer v2 schema
+than the v1 interim outputs because all 21 Kaggle columns are present. Account-age,
+follower-count, engagement, source, geocoding, and collection-lineage fields can be
+retained with explicit missingness. The two candidate streams overlap by 221,686
+tweet IDs and must preserve stream lineage rather than interpreting stream
+membership as stance. Stream B is complete at the field level but still lacks an
+event inclusion/window protocol. Stream C has 2020 returns but lacks the planned
+2012/2016 historical classification fields and demographic controls.
+
+**Decision:** D3 changed from pending schema inspection to inspected/schema
+contract pending approval. D1, D4, D5, and D6 remain unresolved.
+
+**Implementation consequence:** R1 did not authorize Phase 1 v2 code changes.
+The next required action is an approval decision on the verified-window path and
+the proposed Stream A/B/C schema contracts.
+
+**Progress update:** R1 changed from not started to inspected/not frozen. No data
+was ingested and no pipeline phase was rerun.
+
 ## 14. Implementation log
 
 | Date | Work package | Action | Evidence | Status |
@@ -1184,7 +1296,8 @@ source compatibility decision. No data was ingested and no pipeline phase was re
 | 2026-07-13 | R1A | November 9-15 acquisition and compatibility gate added | Raw timestamp audit, Kaggle Version 19, decision D1 | Approved, not started; blocks Phase 1 v2 |
 | 2026-07-13 | R6 | Phase 2.5 moved after the Phase 1-5 MVP | Decision D8; existing v1 full-run manifest preserved | Deferred until after R9 |
 | 2026-07-14 | N0-N5 | Novelty candidate and experiment ladder documented | Section 7.4 and decisions D13-D17 | Proposed; awaiting discussion/approval |
-| 2026-07-14 | R1A | Source search and compatibility gate executed | Section 7.5; raw headers; Phase 1 manifest; #Election2020 and VoterFraud2020 source checks | Blocked pending user decision: hydrate/filter #Election2020, provide another source, or revise D1 to proceed on v1 window |
+| 2026-07-14 | R1A | Source search and compatibility gate executed | Section 7.2.1; raw headers; Phase 1 manifest; #Election2020 and VoterFraud2020 source checks | Blocked pending user decision: hydrate/filter #Election2020, provide another source, or revise D1 to proceed on v1 window |
+| 2026-07-14 | R1 | Phase 1 v2 source/schema inspection executed without mutation | Section 7.2.2; raw Stream A/B/C profiling; Phase 1 source code inspection | Inspected, not frozen; blocked pending D1 and schema/protocol approvals |
 
 ## 15. Future update template
 
