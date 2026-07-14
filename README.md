@@ -12,7 +12,7 @@ than voter sentiment ground truth or election predictions.
 
 | Workstream | Current status |
 | --- | --- |
-| Phase 1 ingestion | v1 closed operationally; v2 target extension through Nov 15 approved, compatible Nov 9-15 source pending |
+| Phase 1 ingestion | v1 closed operationally; v2 implemented/executed on verified Oct 15-Nov 8 with complete available Stream A fields |
 | Phase 2 preprocessing | Closed; complete-dataset artifacts and 12 tests verified |
 | Phase 2.5 reliability examination | v1 sample and 1,331,317-row full examination artifacts exist with no mitigation; deferred until after the Phase 1-5 MVP |
 | Phase 3 sentiment | Closed; complete VADER data, 5,000-record RoBERTa comparison, 29 tests and 7 closure checks verified |
@@ -93,6 +93,34 @@ and separate-agent prompts are maintained in
 It writes aligned Parquet outputs to `data/02_interim/`, PNG research figures to
 `output/graphs/phase1/`, a manifest to `output/results/phase1/`, and an ingestion
 report to `output/reports/phase1/`.
+
+## Phase 1 v2 verified-window ingestion
+
+Phase 1 v2 preserves v1 artifacts and writes versioned outputs using the approved
+verified Twitter window, `2020-10-15` through `2020-11-08`:
+
+```powershell
+.venv\Scripts\python.exe verify\phase1\run_phase1_v2.py
+```
+
+The v2 runner keeps all 21 available Kaggle Stream A columns and adds compatibility
+aliases for downstream regeneration: `id`, `date`, `retweets`, `user_loc`, and
+`candidate`. It writes:
+
+- `data/02_interim/phase1_v2/twitter_donald_trump_v2.parquet`
+- `data/02_interim/phase1_v2/twitter_joe_biden_v2.parquet`
+- `data/02_interim/phase1_v2/political_events_v2.parquet`
+- `data/02_interim/phase1_v2/electoral_returns_v2.parquet`
+- `output/results/phase1/v2/ingestion_manifest_v2.json`
+- `output/reports/phase1/v2/ingestion_report_v2.md`
+- `output/graphs/phase1/v2/twitter_daily_volume_v2.png`
+- `output/graphs/phase1/v2/twitter_location_coverage_v2.png`
+
+Current v2 execution keeps `1,747,542` valid Twitter records, records `221,686`
+overlapping tweet IDs across candidate streams as lineage evidence, and explicitly
+marks replies, following counts, November 9-15 observations, event-window protocol,
+historical 2012/2016 state classification, and demographic controls as unavailable
+or pending rather than inferred.
 
 ## Phase 2 preprocessing
 
@@ -182,7 +210,7 @@ Run the focused Phase 2.5 tests:
 .venv\Scripts\python.exe -m unittest discover -s verify\phase2_5\tests -v
 ```
 
-The current suite contains 16 Phase 2.5 tests. Across Phases 1, 2, 3, and 2.5, 70
+The current suite contains 17 Phase 2.5 tests. Across Phases 1, 2, 3, and 2.5, 75
 tests pass.
 
 ## Phase 3 VADER scoring

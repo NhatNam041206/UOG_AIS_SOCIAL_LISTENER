@@ -114,7 +114,7 @@ Allowed values: `approved`, `pending discussion`, `rejected`, `superseded`.
 | --- | --- | --- | --- | --- |
 | D1 | Target time window | Proceed with Phase 1 v2 on the verified `2020-10-15` to `2020-11-08` Twitter window; treat `2020-11-09` through `2020-11-15` as deferred acquisition, not current coverage | **Approved: proceed on verified window** | Phase 1 v2 is no longer blocked by Nov 9-15 acquisition; reports must document the narrower window |
 | D2 | Phase 1 v2 rerun | Re-ingest Streams A/B/C with revised schemas before downstream implementation | **Approved** | Phase 1 v2 is the first implementation work package |
-| D3 | Stream A retained fields | Retain all useful available account, engagement, geographic, collection, source, and lineage fields | **Inspected; schema contract pending approval** | Determines Phase 2, 2.5, 3, and 4 inputs |
+| D3 | Stream A retained fields | Retain all useful available account, engagement, geographic, collection, source, and lineage fields | **Approved and implemented for Phase 1 v2 available fields** | Phase 1 v2 keeps all 21 raw Kaggle Stream A columns plus downstream compatibility aliases |
 | D4 | Stream B event protocol | Use sourced UTC events with explicit eligibility, window, overlap, and boundary rules | Pending discussion | Determines H1 events and Phase 4 event matrices |
 | D5 | Historical state classification | Use continuous 2012/2016 competitiveness plus a pre-registered binary battleground/safe rule | Pending discussion | Prevents leakage from using 2020 outcomes to define subgroups |
 | D6 | State controls | Add a small, pre-election, source-traceable set covering age, income, and urbanization | Pending source and vintage decision | Determines H2 control vector |
@@ -303,12 +303,12 @@ R1 result:
 
 ```text
 R1 evidence supports a richer Phase 1 v2 Stream A schema from existing raw files,
-but the schema is not frozen. D1 is resolved for the verified window, while D4-D6
-remain pending. No Phase 1 v2 implementation should begin until the user approves:
+and D3 is now implemented in the Phase 1 v2 runner. D1 is resolved for the verified
+window, while D4-D6 remain pending. No downstream Phase 2 v2 regeneration should
+begin until the user approves:
 
-1. the retained Stream A v2 field contract;
-2. the Stream B event inclusion/window protocol;
-3. the Stream C historical-classification and demographic-control source plan.
+1. the Stream B event inclusion/window protocol;
+2. the Stream C historical-classification and demographic-control source plan.
 ```
 
 ## 7.3 Why Phase 3 uses 5,000 RoBERTa records
@@ -1310,17 +1310,50 @@ protocol, D5 historical classification, and D6 demographic-control source plan.
 **Progress update:** R1A source acquisition is closed for the Phase 1 v2 path and
 Nov 9-15 is deferred as a later acquisition option.
 
+### 2026-07-14 - R2 Phase 1 v2 implementation and run
+
+**Question or instruction:** Include Phase 1 v2 code implementation and update
+Phase 1 v2 data with complete available fields and the other aspects stated in the
+docs.
+
+**Evidence inspected:**
+
+- Phase 1 v1 runner, controller, serializer, and tests;
+- R1 Stream A/B/C source-schema profile;
+- v2 run manifest, report, graphs, and Parquet outputs.
+
+**Instructor analysis:** Phase 1 v2 can be implemented on the verified
+`2020-10-15` through `2020-11-08` window without overwriting v1 evidence. Stream A
+can retain all 21 raw Kaggle fields and add compatibility aliases for downstream
+regeneration. Stream B and Stream C can be versioned and made explicit, but D4-D6
+remain pending because the current sources do not define event-window rules,
+historical 2012/2016 classification, or demographic controls.
+
+**Decision:** D3 changed from inspected/pending approval to approved and
+implemented for all available Phase 1 v2 Stream A fields. D4-D6 remain pending.
+
+**Implementation consequence:** `verify/phase1/run_phase1_v2.py` now executes a
+versioned Phase 1 v2 run. It writes v2 Parquet data under
+`data/02_interim/phase1_v2/`, v2 evidence under `output/results/phase1/v2/`,
+`output/reports/phase1/v2/`, and `output/graphs/phase1/v2/`, and preserves v1
+artifacts.
+
+**Progress update:** R2 changed from approved/not started to implemented and
+executed for source-backed v2 ingestion. Phase 2 v2 regeneration remains pending
+review of the v2 manifest and the D4-D6 protocol/source decisions.
+
 ## 14. Implementation log
 
 | Date | Work package | Action | Evidence | Status |
 | --- | --- | --- | --- | --- |
 | 2026-07-13 | R0 | Living discussion and implementation handoff created | This document | In progress |
-| 2026-07-13 | R2 | Phase 1 v2 rerun selected as critical path | Decision D2 | Approved, not started |
+| 2026-07-13 | R2 | Phase 1 v2 rerun selected as critical path | Decision D2 | Superseded by 2026-07-14 implementation entry |
 | 2026-07-13 | R1A | November 9-15 acquisition and compatibility gate added | Raw timestamp audit, Kaggle Version 19, decision D1 | Approved, not started; blocks Phase 1 v2 |
 | 2026-07-13 | R6 | Phase 2.5 moved after the Phase 1-5 MVP | Decision D8; existing v1 full-run manifest preserved | Deferred until after R9 |
 | 2026-07-14 | N0-N5 | Novelty candidate and experiment ladder documented | Section 7.4 and decisions D13-D17 | Proposed; awaiting discussion/approval |
 | 2026-07-14 | R1A | Source search and compatibility gate executed | Section 7.2.1; raw headers; Phase 1 manifest; #Election2020 and VoterFraud2020 source checks | Closed for Phase 1 v2 after D1 verified-window decision; Nov 9-15 deferred |
-| 2026-07-14 | R1 | Phase 1 v2 source/schema inspection executed without mutation | Section 7.2.2; raw Stream A/B/C profiling; Phase 1 source code inspection | Inspected, not frozen; blocked pending schema/protocol approvals |
+| 2026-07-14 | R1 | Phase 1 v2 source/schema inspection executed without mutation | Section 7.2.2; raw Stream A/B/C profiling; Phase 1 source code inspection | Completed; D3 implemented, D4-D6 pending |
+| 2026-07-14 | R2 | Phase 1 v2 runner implemented and executed | `verify/phase1/run_phase1_v2.py`; `output/results/phase1/v2/ingestion_manifest_v2.json`; `output/reports/phase1/v2/ingestion_report_v2.md` | Implemented/executed for verified-window source-backed v2; downstream regeneration pending review |
 
 ## 15. Future update template
 

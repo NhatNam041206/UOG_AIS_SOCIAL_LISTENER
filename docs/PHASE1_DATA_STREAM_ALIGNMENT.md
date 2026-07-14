@@ -1,6 +1,6 @@
 # Phase 1 Data-Stream Alignment Audit
 
-Status: first PDF-alignment cleanup action completed on 2026-07-13.
+Status: Phase 1 v2 source-backed ingestion implemented on 2026-07-14.
 
 ## Purpose
 
@@ -12,9 +12,9 @@ still has alignment gaps.
 
 | PDF stream | Live source and output | Current evidence | Alignment status |
 | --- | --- | --- | --- |
-| Stream A - Social media | `data/01_raw/twitter/hashtag_donaldtrump.csv`, `hashtag_joebiden.csv`; outputs `data/02_interim/twitter_donald_trump.parquet`, `twitter_joe_biden.parquet` | 1,747,542 valid records; verified UTC window 2020-10-15 through 2020-11-08 | Available with gaps |
-| Stream B - Exogenous events | `data/01_raw/political_events/political_events.csv`; output `data/02_interim/political_events.parquet` | 4 timestamped and sourced events with categories | Available with gaps |
-| Stream C - Electoral benchmarks | `data/01_raw/electoral_returns/electoral_returns.csv`; output `data/02_interim/electoral_returns.parquet` | 51 state/DC rows with candidate totals, shares, margins, winner, and source URL | Available with gaps |
+| Stream A - Social media | v1 outputs `data/02_interim/twitter_donald_trump.parquet`, `twitter_joe_biden.parquet`; v2 outputs `data/02_interim/phase1_v2/twitter_donald_trump_v2.parquet`, `twitter_joe_biden_v2.parquet` | 1,747,542 valid records; verified UTC window 2020-10-15 through 2020-11-08; all 21 raw Kaggle fields retained in v2 | Available for verified window with documented limitations |
+| Stream B - Exogenous events | v1 output `data/02_interim/political_events.parquet`; v2 output `data/02_interim/phase1_v2/political_events_v2.parquet` | 4 timestamped and sourced events with categories; v2 marks event-window protocol pending D4 | Available with protocol gap |
+| Stream C - Electoral benchmarks | v1 output `data/02_interim/electoral_returns.parquet`; v2 output `data/02_interim/phase1_v2/electoral_returns_v2.parquet` | 51 state/DC rows with 2020 vote totals and margins; historical 2012/2016 classification and demographic controls remain pending D5/D6 | Available with historical/control gaps |
 
 Streams B and C are therefore not absent. They were previously listed by their
 implementation names rather than by the PDF's Stream B and Stream C labels.
@@ -27,12 +27,14 @@ implementation names rather than by the PDF's Stream B and Stream C labels.
   the original planned 2020-10-08 through 2020-11-15 window.
 - October 2, including Donald Trump's COVID-19 diagnosis, is outside both the
   verified dataset and the original planned range.
-- The source does not provide usable reply counts; `replies` is null.
-- The Phase 1 interim schema drops raw fields such as `user_join_date`,
-  `user_followers_count`, and source-provided geographic columns. Their selective
-  preservation must be designed before re-running downstream phases.
+- The source does not provide usable reply counts; `replies` remains null in v2.
+- Phase 1 v2 retains raw fields such as `user_join_date`, `user_followers_count`,
+  and source-provided geographic columns, plus compatibility aliases for downstream
+  regeneration.
 - The two files are candidate-hashtag-centered streams, not a complete sample of
   election Twitter discourse.
+- V2 records 221,686 overlapping tweet IDs across candidate streams as lineage
+  evidence, not stance.
 
 ### Stream B - Exogenous events
 
@@ -75,7 +77,8 @@ Phase 1 can be called PDF-aligned only when all of the following are true:
 
 ## Next Phase 1 action
 
-Design the revised Stream A canonical schema before changing data. The decision
-should identify which existing raw account/geographic fields are retained, how
-missing fields such as replies and following counts are represented, and which
-Phase 2/2.5/3 artifacts must be regenerated.
+Review `output/results/phase1/v2/ingestion_manifest_v2.json` and
+`output/reports/phase1/v2/ingestion_report_v2.md`, then decide whether to approve
+Phase 2 v2 regeneration from the versioned Stream A outputs. Before Phase 4/5,
+resolve the D4 event-window protocol and the D5/D6 historical-classification and
+demographic-control source plan.
