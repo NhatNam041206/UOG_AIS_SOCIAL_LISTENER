@@ -177,6 +177,7 @@ def run_phase1(project_root: str | Path = ".") -> Dict[str, Any]:
 
     manifest["phase"] = "phase1_ingestion"
     manifest["status"] = "completed"
+    manifest["original_pdf_alignment"] = _build_original_pdf_alignment(manifest)
     manifest["notes"] = [
         "Malformed Kaggle CSV rows were rejected and counted during Arrow streaming.",
         "The Kaggle source has no replies field; canonical replies values are null.",
@@ -194,6 +195,56 @@ def run_phase1(project_root: str | Path = ".") -> Dict[str, Any]:
     _write_daily_volume_graph(daily_volume, graph_dir / "twitter_daily_volume.png")
     _write_report(manifest, returns, report_dir / "ingestion_report.md")
     return manifest
+
+
+def _build_original_pdf_alignment(manifest: Dict[str, Any]) -> Dict[str, Any]:
+    """Describe Phase 1 using the Stream A/B/C contract in the original PDF."""
+    streams = manifest["streams"]
+    return {
+        "reference": "SL_2020_ori.pdf",
+        "overall_status": "available_with_alignment_gaps",
+        "verified_twitter_window_utc": {
+            "start": "2020-10-15",
+            "end": "2020-11-08",
+        },
+        "streams": {
+            "A_social_media": {
+                "status": "available_with_gaps",
+                "manifest_streams": [
+                    "twitter_donald_trump",
+                    "twitter_joe_biden",
+                ],
+                "record_count": (
+                    streams["twitter_donald_trump"]["record_count"]
+                    + streams["twitter_joe_biden"]["record_count"]
+                ),
+                "gaps": [
+                    "Verified coverage is 2020-10-15 through 2020-11-08, not the PDF-planned 2020-10-08 through 2020-11-15.",
+                    "The source does not provide reply counts, so replies is null.",
+                    "The interim schema omits useful raw account and geospatial metadata needed by later PDF checks.",
+                    "The sources are candidate-hashtag-centered and do not represent all election Twitter discourse.",
+                ],
+            },
+            "B_exogenous_events": {
+                "status": "available_with_gaps",
+                "manifest_streams": ["political_events"],
+                "record_count": streams["political_events"]["record_count"],
+                "gaps": [
+                    "Only four curated milestones are currently registered.",
+                    "The stored post_event_dummy is a source attribute; analysis-ready pre/post indicators must be derived against each tweet timestamp in Phase 4.",
+                ],
+            },
+            "C_electoral_benchmarks": {
+                "status": "available_with_gaps",
+                "manifest_streams": ["electoral_returns"],
+                "record_count": streams["electoral_returns"]["record_count"],
+                "gaps": [
+                    "Swing/safe classification currently uses the 2020 absolute vote margin, not the PDF-planned historical 2012/2016 classification.",
+                    "The demographic control variables planned for Phase 5 are not part of the current Phase 1 dataset.",
+                ],
+            },
+        },
+    }
 
 
 def _observe_twitter_batches(
@@ -382,6 +433,16 @@ def _write_report(
     ].tolist()
     lines = [
         "# Phase 1 Ingestion Report",
+        "",
+        "## Original PDF Data-Stream Contract",
+        "",
+        "| PDF stream | Current inputs | Status |",
+        "|---|---|---|",
+        "| Stream A - Social media | `twitter_donald_trump`, `twitter_joe_biden` | Available with gaps |",
+        "| Stream B - Exogenous events | `political_events` | Available with gaps |",
+        "| Stream C - Electoral benchmarks | `electoral_returns` | Available with gaps |",
+        "",
+        "All three PDF stream families are present. `Available with gaps` means that ingestion exists but the current dataset does not yet satisfy every original-PDF requirement. The controlling audit is `docs/PHASE1_DATA_STREAM_ALIGNMENT.md`.",
         "",
         "## Summary",
         "",

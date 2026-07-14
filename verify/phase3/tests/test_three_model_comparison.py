@@ -3,11 +3,16 @@
 from __future__ import annotations
 
 import unittest
+from pathlib import Path
+from tempfile import TemporaryDirectory
 
 import pandas as pd
 
 from verify.phase3.run_three_model_comparison import (
+    build_execution_manifest,
     pairwise_metrics,
+    Phase3ArtifactPaths,
+    resolve_phase3_artifact_paths,
     resolve_device,
     select_comparison_records,
 )
@@ -61,6 +66,48 @@ class ThreeModelComparisonTests(unittest.TestCase):
 
         self.assertEqual(len(result), 10)
         self.assertEqual(result["source_row"].tolist(), list(range(10)))
+
+    def test_sample_and_full_paths_are_non_overlapping(self) -> None:
+        with TemporaryDirectory() as directory:
+            sample = resolve_phase3_artifact_paths(directory, "three_model_sample", "sample_run")
+            full = resolve_phase3_artifact_paths(directory, "three_model_full", "full_run")
+
+        self.assertNotEqual(sample.data_path, full.data_path)
+        self.assertEqual(sample.data_path.parent.name, "sample_run")
+        self.assertEqual(sample.data_path.parent.parent.name, "three_model_sample")
+        self.assertEqual(full.data_path.parent.name, "full_run")
+        self.assertEqual(full.data_path.parent.parent.name, "three_model_full")
+
+    def test_primary_validation_remains_distinct(self) -> None:
+        with TemporaryDirectory() as directory:
+            primary = resolve_phase3_artifact_paths(directory, "primary_5000_validation")
+
+        self.assertEqual(primary.data_path.name, "sentiment_validation_sample.parquet")
+        self.assertIsNone(primary.run_id)
+
+    def test_manifest_contains_required_contract_fields(self) -> None:
+        paths = Phase3ArtifactPaths(
+            namespace="three_model_sample",
+            run_id="test_run",
+            data_path=Path("data.parquet"),
+            metrics_path=Path("metrics.json"),
+            manifest_path=Path("manifest.json"),
+            report_path=Path("report.md"),
+        )
+        result = {
+            "run_id": "test_run", "run_mode": "sample", "input_path": "input.parquet",
+            "input_row_count": 10, "output_row_count": 2, "sample_size_requested": 2,
+            "seed": 2020, "models": {"vader": "vader", "baseline_roberta": "a", "cardiff_roberta": "b"},
+            "model_revisions": {"baseline_roberta": "r1", "cardiff_roberta": "r2"},
+            "device_used": "cpu", "batch_size": 4, "maximum_token_length": 128,
+        }
+
+        manifest = build_execution_manifest(result, paths)
+
+        required = {"run_id", "run_mode", "input_path", "input_row_count", "output_row_count",
+                    "sample_size", "seed", "model_ids", "model_revisions", "device",
+                    "batch_size", "maximum_token_length", "timestamp", "output_paths"}
+        self.assertEqual(required, set(manifest))
 
 
 if __name__ == "__main__":

@@ -2,6 +2,9 @@
 
 Plan date: 2026-06-14
 
+Execution record reconciled: 2026-07-10. The July 3 generated manifests and reports
+are the controlling evidence for the current configured model.
+
 ## Purpose
 
 This plan is the implementation and verification reference for Phase 3. During
@@ -362,7 +365,7 @@ descriptive only and was not used to construct the sample.
 
 ### RoBERTa Inference Setup
 
-Completed: 2026-06-14
+Completed: 2026-07-03 rerun
 
 Status: **Passed**
 
@@ -372,24 +375,24 @@ Evidence:
 - `output/reports/phase3/roberta_setup_report.md`
 - `.venv\Scripts\python.exe verify\phase3\verify_roberta_setup.py`
 
-The exact `cardiffnlp/twitter-roberta-base-sentiment` model loaded and scored a
-deterministic test batch using PyTorch on CPU.
+The configured `cardiffnlp/twitter-roberta-base-sentiment-latest` model loaded and
+scored a deterministic test batch using PyTorch on CPU.
 
 | Setting | Value |
 | --- | --- |
-| Resolved model revision | `daefdd1f6ae931839bce4d0f3db0a1a4265cd50f` |
+| Resolved model revision | `3216a57f2a0d9c45a2e6c20157c20c49fb4bf9c7` |
 | Backend | PyTorch `2.12.0` |
 | Transformers | `4.57.6` |
 | Device | CPU |
 | Maximum token length | 512 |
 | Label mapping | `0=negative`, `1=neutral`, `2=positive` |
 
-The model configuration exposes generic `LABEL_0`, `LABEL_1`, and `LABEL_2`
-identifiers, so the documented CardiffNLP sentiment mapping is applied explicitly.
+The current model configuration exposes the expected negative, neutral, and positive
+labels directly.
 
 ### RoBERTa Sample Inference
 
-Completed: 2026-06-14
+Completed: 2026-07-03 rerun
 
 Status: **Passed**
 
@@ -406,9 +409,9 @@ a comparable continuous score, a label, token count, and truncation flag.
 | Measure | Result |
 | --- | ---: |
 | Records scored | 5,000 |
-| Negative labels | 1,743 |
-| Neutral labels | 2,531 |
-| Positive labels | 726 |
+| Negative labels | 1,772 |
+| Neutral labels | 2,287 |
+| Positive labels | 941 |
 | Truncated records | 0 |
 | Maximum observed token count | 453 |
 
@@ -417,7 +420,7 @@ URL placeholders were applied only within the RoBERTa adapter.
 
 ### Model-Agreement Validation
 
-Completed: 2026-06-14
+Completed: 2026-07-03 rerun
 
 Status: **Passed**
 
@@ -432,25 +435,25 @@ Headline agreement results:
 
 | Metric | Result |
 | --- | ---: |
-| Pearson r | 0.5037 |
-| Pearson 95% CI | [0.4828, 0.5241] |
-| Spearman rho | 0.4630 |
-| Label agreement | 60.60% |
-| Macro-F1 agreement | 0.5851 |
-| Mean absolute score difference | 0.3883 |
+| Pearson r | 0.4708 |
+| Pearson 95% CI | [0.4490, 0.4921] |
+| Spearman rho | 0.4452 |
+| Label agreement | 59.66% |
+| Macro-F1 agreement | 0.5842 |
+| Mean absolute score difference | 0.4136 |
 
 Agreement is moderate and statistically clear, but the models are not
 interchangeable. The results measure model agreement, not VADER accuracy, because
 RoBERTa is not human ground truth.
 
 The deterministic language audit classified 3,436 records (68.72%) as likely
-English. Likely-English Pearson correlation was `0.5453`. Language detection on
+English. Likely-English Pearson correlation was `0.5204`. Language detection on
 short social-media text is imperfect, so language classifications are retained as a
 suitability audit rather than used as an exclusion rule.
 
 ### Phase 3 Closure
 
-Completed: 2026-06-14
+Completed: 2026-07-03 rerun
 
 Status: **Closed**
 
@@ -462,6 +465,15 @@ Evidence:
 - `output/graphs/phase3/vader_roberta_confusion_matrix.png`
 - `.venv\Scripts\python.exe verify\phase3\close_phase3.py`
 
-All seven closure checks and all 18 Phase 3 automated tests passed. The
+All seven closure checks passed. The current Phase 3 suite contains 29 automated
+tests, all of which passed during the 2026-07-10 repository audit. The
 sentiment-enriched dataset at `data/02_interim/twitter_sentiment.parquet` is
 verified as the primary Twitter input for Phase 4.
+
+### Artifact-contract addendum
+
+The July 10 A1-A5 package inventories the model evidence and separates
+`primary_5000_validation`, `three_model_sample`, and `three_model_full`. Future
+three-model executions write under a run-ID directory and include a dedicated
+manifest. The preserved legacy 100-row sample remains unchanged. No full
+three-model inference was executed, and no verified full artifact currently exists.

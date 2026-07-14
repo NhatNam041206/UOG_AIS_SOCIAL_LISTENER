@@ -1,0 +1,78 @@
+{
+  "contract_version": "1.0.0",
+  "scope": {
+    "dataset_definition": "candidate-hashtag-centered discourse",
+    "verified_start_date": "2020-10-15",
+    "verified_end_date": "2020-11-08",
+    "examination_only": true
+  },
+  "inputs": {
+    "required": {
+      "sentiment_tweets": "data/02_interim/twitter_sentiment.parquet",
+      "user_activity_metrics": "output/results/phase2/user_activity_metrics.parquet",
+      "user_activity_threshold_audit": "output/results/phase2/user_activity_threshold_audit.json",
+      "roberta_validation_sample": "output/results/phase3/sentiment_validation_sample.parquet",
+      "political_events": "data/02_interim/political_events.parquet"
+    },
+    "optional": {
+      "verified_full_three_model_output": null,
+      "original_text_url_evidence": null
+    }
+  },
+  "columns": {
+    "tweet_id": "id",
+    "text": "tweet",
+    "timestamp": "date",
+    "user_id": "user_id",
+    "user_location": "user_loc",
+    "candidate": "candidate"
+  },
+  "execution": {
+    "mode": "sample",
+    "smoke_size": 100,
+    "sample_size": 50000,
+    "include_roberta_validation_rows_in_sample": true,
+    "seed": 2020,
+    "execute_mitigation": false
+  },
+  "provenance": {
+    "phase1_record_count": 1747542,
+    "phase2_prefilter_user_count": 483175,
+    "approved_activity_threshold": 9.0,
+    "users_removed_by_activity_threshold": 2227,
+    "tweets_removed_by_activity_threshold": 222366,
+    "phase2_exact_duplicates_removed": 193831,
+    "phase2_final_record_count": 1331317
+  },
+  "duplicate_proxy": {
+    "maximum_signature_length": 160
+  },
+  "temporal": {
+    "event_window_hours": 24,
+    "event_risk_horizon_hours": 48
+  },
+  "outputs": {
+    "data_root": "data/02_5_reliability",
+    "results_root": "output/results/phase2_5",
+    "reports_root": "output/reports/phase2_5"
+  },
+  "output_schema": {
+    "availability_fields": [
+      "prior_url_evidence_available",
+      "language_diagnostic_available",
+      "roberta_diagnostic_available",
+      "baseline_roberta_diagnostic_available",
+      "location_mapping_available"
+    ],
+    "authoritative_dimensions": [
+      "textual_evidence_risk",
+      "sentiment_ambiguity_risk",
+      "sarcasm_irony_risk",
+      "user_representativeness_risk",
+      "duplicate_amplification_risk",
+      "spatial_validity_risk",
+      "temporal_coverage_risk",
+      "model_suitability_risk"
+    ]
+  }
+}

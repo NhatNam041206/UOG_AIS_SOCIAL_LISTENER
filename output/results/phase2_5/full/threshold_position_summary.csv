@@ -1,0 +1,9 @@
+method,threshold,users_removed,users_removed_pct,tweets_removed,tweets_removed_pct,approved,provenance
+p95,3.0,19558,4.0478087649,636787,36.4390097634,False,Phase 2 pre-filter user audit
+p97_5,4.0,10218,2.1147617323,491261,28.1115418113,False,Phase 2 pre-filter user audit
+p99,6.0,4610,0.9541056553,332815,19.0447497113,False,Phase 2 pre-filter user audit
+p99_5,9.0,2227,0.4609096083,222366,12.724501042,True,Phase 2 pre-filter user audit
+iqr_upper_fence,2.6666666667,30928,6.4009934289,730824,41.8201107613,False,Phase 2 pre-filter user audit
+extreme_iqr_upper_fence,3.6666666667,15838,3.2779013815,550319,31.491031403,False,Phase 2 pre-filter user audit
+log_z_threshold,4.5501005,8904,1.8428105759,445847,25.5128059869,False,Phase 2 pre-filter user audit
+mad_threshold,1.0,159599,33.031303358,1354893,77.5313554696,False,Phase 2 pre-filter user audit

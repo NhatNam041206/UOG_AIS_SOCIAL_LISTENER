@@ -5,7 +5,10 @@ from __future__ import annotations
 import argparse
 import importlib.metadata
 import json
+import re
 import sys
+from dataclasses import dataclass
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Dict
 
@@ -26,6 +29,63 @@ from src.phase3_sentiment.sentiment_models_model import (
 BASELINE_ROBERTA_MODEL_ID = "cardiffnlp/twitter-roberta-base-sentiment"
 CARDIFF_LATEST_MODEL_ID = DEFAULT_TWITTER_ROBERTA_MODEL_ID
 LABELS = list(RobertaSentimentModel.LABELS)
+ARTIFACT_NAMESPACES = {
+    "primary_5000_validation",
+    "three_model_sample",
+    "three_model_full",
+}
+
+
+@dataclass(frozen=True)
+class Phase3ArtifactPaths:
+    """Non-overlapping output paths for one Phase 3 artifact namespace."""
+
+    namespace: str
+    run_id: str | None
+    data_path: Path
+    metrics_path: Path
+    manifest_path: Path
+    report_path: Path
+
+
+def resolve_phase3_artifact_paths(
+    project_root: str | Path,
+    namespace: str,
+    run_id: str | None = None,
+) -> Phase3ArtifactPaths:
+    """Resolve paths so primary, sample, and full evidence cannot collide."""
+    if namespace not in ARTIFACT_NAMESPACES:
+        raise ValueError(f"Unknown Phase 3 artifact namespace: {namespace}")
+    root = Path(project_root).resolve()
+    if namespace == "primary_5000_validation":
+        if run_id is not None:
+            raise ValueError("primary_5000_validation uses the preserved canonical paths")
+        return Phase3ArtifactPaths(
+            namespace=namespace,
+            run_id=None,
+            data_path=root / "output" / "results" / "phase3" / "sentiment_validation_sample.parquet",
+            metrics_path=root / "output" / "results" / "phase3" / "sentiment_validation_metrics.json",
+            manifest_path=root / "output" / "results" / "phase3" / "roberta_inference_manifest.json",
+            report_path=root / "output" / "reports" / "phase3" / "sentiment_validation_report.md",
+        )
+    if not run_id or not re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9_.-]{0,127}", run_id):
+        raise ValueError("three-model artifacts require a filesystem-safe run_id")
+    result_dir = root / "output" / "results" / "phase3" / namespace / run_id
+    report_dir = root / "output" / "reports" / "phase3" / namespace / run_id
+    return Phase3ArtifactPaths(
+        namespace=namespace,
+        run_id=run_id,
+        data_path=result_dir / "three_model_comparison.parquet",
+        metrics_path=result_dir / "three_model_comparison_metrics.json",
+        manifest_path=result_dir / "three_model_comparison_manifest.json",
+        report_path=report_dir / "three_model_comparison_report.md",
+    )
+
+
+def default_run_id(run_mode: str, seed: int) -> str:
+    """Create a UTC run identifier; callers may inject one for deterministic tests."""
+    timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+    return f"{timestamp}_{run_mode}_seed{seed}"
 
 
 def run_three_model_comparison(
@@ -39,6 +99,7 @@ def run_three_model_comparison(
     device: str = "auto",
     baseline_model_id: str = BASELINE_ROBERTA_MODEL_ID,
     cardiff_model_id: str = CARDIFF_LATEST_MODEL_ID,
+    run_id: str | None = None,
 ) -> Dict[str, Any]:
     """Sample the sentiment dataset and compare all three sentiment models."""
     if not full_dataset and sample_size <= 0:
@@ -51,13 +112,15 @@ def run_three_model_comparison(
     if not source_path.exists():
         raise FileNotFoundError(f"Input dataset is missing: {source_path}")
 
-    result_dir = root / "output" / "results" / "phase3"
-    report_dir = root / "output" / "reports" / "phase3"
-    result_dir.mkdir(parents=True, exist_ok=True)
-    report_dir.mkdir(parents=True, exist_ok=True)
-    sample_output_path = result_dir / "three_model_comparison_sample.parquet"
-    metrics_path = result_dir / "three_model_comparison_metrics.json"
-    report_path = report_dir / "three_model_comparison_report.md"
+    run_mode = "full" if full_dataset else "sample"
+    resolved_run_id = run_id or default_run_id(run_mode, seed)
+    paths = resolve_phase3_artifact_paths(
+        root,
+        f"three_model_{run_mode}",
+        resolved_run_id,
+    )
+    paths.data_path.parent.mkdir(parents=True, exist_ok=False)
+    paths.report_path.parent.mkdir(parents=True, exist_ok=False)
 
     dataframe = pd.read_parquet(source_path)
     required = {"tweet", "vader_compound", "vader_label"}
@@ -102,15 +165,18 @@ def run_three_model_comparison(
         scored["vader_label"].eq(scored["baseline_roberta_label"])
         & scored["vader_label"].eq(scored["cardiff_roberta_label"])
     )
-    scored.to_parquet(sample_output_path, index=False)
+    scored.to_parquet(paths.data_path, index=False)
 
     result: Dict[str, Any] = {
         "phase": "phase3_sentiment",
         "stage": "three_model_comparison",
         "status": "completed",
         "input_path": str(source_path),
-        "sample_output_path": str(sample_output_path),
-        "run_mode": "full" if full_dataset else "sample",
+        "sample_output_path": str(paths.data_path),
+        "run_id": resolved_run_id,
+        "run_mode": run_mode,
+        "input_row_count": int(len(dataframe)),
+        "output_row_count": int(len(scored)),
         "sample_size_requested": None if full_dataset else sample_size,
         "sample_size_used": len(scored),
         "seed": seed,
@@ -163,9 +229,41 @@ def run_three_model_comparison(
         },
         "three_way_label_agreement_rate": float(scored["all_three_labels_agree"].mean()),
     }
-    metrics_path.write_text(json.dumps(result, indent=2), encoding="utf-8")
-    report_path.write_text(_render_report(result), encoding="utf-8")
+    manifest = build_execution_manifest(result, paths)
+    paths.metrics_path.write_text(json.dumps(result, indent=2), encoding="utf-8")
+    paths.manifest_path.write_text(json.dumps(manifest, indent=2), encoding="utf-8")
+    paths.report_path.write_text(_render_report(result), encoding="utf-8")
+    result["manifest_path"] = str(paths.manifest_path)
+    result["output_paths"] = manifest["output_paths"]
     return result
+
+
+def build_execution_manifest(
+    result: Dict[str, Any],
+    paths: Phase3ArtifactPaths,
+) -> Dict[str, Any]:
+    """Build the required reproducibility manifest without running inference."""
+    return {
+        "run_id": result["run_id"],
+        "run_mode": result["run_mode"],
+        "input_path": result["input_path"],
+        "input_row_count": result["input_row_count"],
+        "output_row_count": result["output_row_count"],
+        "sample_size": result["sample_size_requested"],
+        "seed": result["seed"],
+        "model_ids": result["models"],
+        "model_revisions": result["model_revisions"],
+        "device": result["device_used"],
+        "batch_size": result["batch_size"],
+        "maximum_token_length": result["maximum_token_length"],
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "output_paths": {
+            "data": str(paths.data_path),
+            "metrics": str(paths.metrics_path),
+            "manifest": str(paths.manifest_path),
+            "report": str(paths.report_path),
+        },
+    }
 
 
 def resolve_device(device: str) -> str:
@@ -348,6 +446,11 @@ def parse_args() -> argparse.Namespace:
         default=CARDIFF_LATEST_MODEL_ID,
         help="Latest CardiffNLP RoBERTa model id.",
     )
+    parser.add_argument(
+        "--run-id",
+        default=None,
+        help="Optional filesystem-safe run identifier. A UTC identifier is generated by default.",
+    )
     return parser.parse_args()
 
 
@@ -364,5 +467,6 @@ if __name__ == "__main__":
         device=arguments.device,
         baseline_model_id=arguments.baseline_model_id,
         cardiff_model_id=arguments.cardiff_model_id,
+        run_id=arguments.run_id,
     )
     print(json.dumps(output, indent=2))

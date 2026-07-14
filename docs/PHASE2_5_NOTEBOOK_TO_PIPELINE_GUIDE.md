@@ -1,8 +1,11 @@
 # Phase 2.5 Notebook-to-Pipeline Transfer Guide
 
-This guide explains how to transfer the experimental notebook
-`notebooks/phase2_5_dataset_limitation_experiment.ipynb` into the production
-Phase 2.5 Python implementation.
+Last reconciled with the live codebase: 2026-07-14
+
+This guide records how the experimental notebook
+`notebooks/phase2_5_dataset_limitation_experiment.ipynb` was transferred into the
+production Phase 2.5 Python implementation. A1-A5 are implemented and sample-verified,
+and a later v1 full run exists as refinement evidence.
 
 Phase 2.5 is examination-only. It measures dataset limitations and writes
 diagnostic evidence. It must not delete records, correct sentiment, route models,
@@ -27,6 +30,42 @@ The notebook defaults to a bounded sample for speed. Set `RUN_FULL_DATASET = Tru
 inside the configuration cell when the scoring logic is ready to run across the
 complete cleaned dataset.
 
+The current recorded notebook artifacts are not a full-run baseline. They contain
+54,812 distinct evaluated records after a 50,000-record random sample was combined
+with the 5,000-record Phase 3 validation sample and duplicate tweet IDs were
+reconciled.
+
+## Corrections Required Before Extraction
+
+Do not copy the notebook into production unchanged. The repository audit identified
+these required corrections:
+
+1. **User-threshold provenance:** the notebook recomputes threshold positions from
+   `twitter_sentiment.parquet`, which is already filtered at `9.0` tweets per active
+   day. Production threshold summaries must reuse
+   `output/results/phase2/user_activity_metrics.parquet` and
+   `user_activity_threshold_audit.json`, which cover the 483,175-user pre-filter
+   audit.
+2. **URL availability:** Phase 2 removes URLs from canonical cleaned text. URL-based
+   indicators must use preserved original text when a defensible join is available;
+   otherwise they must be marked unavailable rather than scored as zero risk.
+3. **Language availability:** `detected_language` currently exists only in the
+   5,000-record Phase 3 comparison sample. Do not treat ASCII-character share as a
+   validated language detector or impute English suitability to other records.
+4. **Model-suitability availability:** RoBERTa probability, entropy, confidence, and
+   disagreement scores apply only to the 5,000 compared records. Full-run reports
+   must retain nulls and publish availability counts.
+5. **Duplicate-stage provenance:** exact duplicates were removed during Phase 2.
+   Phase 2.5 should report the Phase 2 removal baseline separately from residual
+   normalized or near-duplicate amplification in the cleaned data.
+6. **Heuristic validation:** location confidence and rule-based sarcasm indicators
+   are provisional proxies. They must not become confirmed locations, confirmed
+   sarcasm labels, exclusion rules, or sentiment corrections.
+7. **Global score:** the notebook's global mean risk is reporting-only. Production
+   decisions must use separate, task-specific risk dimensions.
+
+These corrections are production entry gates, not mitigation actions.
+
 ## Transfer Map
 
 Move notebook sections into production modules as follows:
@@ -42,13 +81,13 @@ Move notebook sections into production modules as follows:
 | Duplicate and near-duplicate proxies | `duplicate_amplification_profiler.py` |
 | Location confidence heuristics | `spatial_validity_profiler.py` |
 | Hourly volume and event-window diagnostics | `temporal_coverage_profiler.py` |
-| VADER/RoBERTa disagreement placeholders | `model_suitability_placeholder.py` |
+| VADER/RoBERTa disagreement diagnostics | `model_suitability_profiler.py` |
 | Summary CSVs, phase linkage, mitigation register | `phase_linkage_builder.py` and `mitigation_register_builder.py` |
 | Markdown report | `reliability_report_generator.py` |
 | PNG figures | `reliability_visualizer.py` |
 | End-to-end orchestration | `reliability_runner_controller.py` |
 
-## Production Directory Target
+## Implemented Production Directory
 
 Create this module package:
 
@@ -56,7 +95,7 @@ Create this module package:
 src/phase2_5_reliability/
 ```
 
-Expected files:
+Implemented files:
 
 ```text
 __init__.py
@@ -69,13 +108,11 @@ user_representativeness_profiler.py
 duplicate_amplification_profiler.py
 spatial_validity_profiler.py
 temporal_coverage_profiler.py
-model_suitability_placeholder.py
+model_suitability_profiler.py
 risk_score_normalizer.py
-threshold_position_analyzer.py
 phase_linkage_builder.py
 mitigation_register_builder.py
 reliability_report_generator.py
-reliability_visualizer.py
 ```
 
 Create the runner:
@@ -90,98 +127,53 @@ Create focused tests:
 verify/phase2_5/tests/
 ```
 
-## Configuration Target
+## Implemented Configuration
 
-Move notebook constants into:
+The production contract uses the existing project JSON style and adds no YAML
+dependency:
 
 ```text
-configs/phase2_5_reliability.yaml
+configs/phase2_5_reliability.json
 ```
 
-Recommended keys:
-
-```yaml
-input:
-  cleaned_tweets_path: data/02_interim/twitter_cleaned.parquet
-  sentiment_tweets_path: data/02_interim/twitter_sentiment.parquet
-  roberta_validation_sample_path: output/results/phase3/sentiment_validation_sample.parquet
-  prefer_phase3_sentiment_if_available: true
-
-output:
-  data_dir: data/02_5_reliability
-  results_dir: output/results/phase2_5
-  reports_dir: output/reports/phase2_5
-  graphs_dir: output/graphs/phase2_5
-
-columns:
-  tweet_id: id
-  text: tweet
-  timestamp: date
-  user_id: user_id
-  user_location: user_loc
-  candidate: candidate
-
-execution:
-  run_full_dataset: true
-  random_seed: 2020
-
-normalization:
-  default_method: percentile_rank
-  provisional_tier_bands: [0.25, 0.50, 0.75]
-
-threshold_analysis:
-  candidate_fixed_tweets_per_active_day: [9, 25, 50, 75, 100, 175]
-  candidate_percentiles: [0.75, 0.90, 0.95, 0.99]
-  mark_thresholds_as_provisional: true
-
-mitigation:
-  execute_mitigation: false
-  mitigation_status_default: pending
-```
-
-Do not hard-code notebook paths in source modules once the YAML file exists.
+It declares the five required inputs, two optional evidence inputs, the `smoke`,
+`sample`, and `full` modes, explicit availability fields, output schemas, Phase 2
+provenance, and `execute_mitigation: false`. Validation rejects attempts to enable
+mitigation. Full mode was defined in A1-A5 and later executed as a v1 full
+examination after review.
 
 ## Output Contract
 
-The production runner should write these data files:
+Each mode writes to a labelled directory. The approved sample writes:
 
 ```text
-data/02_5_reliability/tweet_dataset_limitation_scores.parquet
-data/02_5_reliability/user_activity_diagnostics.parquet
-data/02_5_reliability/location_confidence_diagnostics.parquet
-data/02_5_reliability/temporal_coverage_diagnostics.parquet
-data/02_5_reliability/duplicate_amplification_diagnostics.parquet
-data/02_5_reliability/phase2_5_schema_manifest.json
+data/02_5_reliability/sample/tweet_reliability_scores.parquet
+data/02_5_reliability/sample/user_activity_diagnostics.parquet
+data/02_5_reliability/sample/location_confidence_diagnostics.parquet
+data/02_5_reliability/sample/temporal_coverage_diagnostics.parquet
+data/02_5_reliability/sample/duplicate_amplification_diagnostics.parquet
 ```
 
 It should write these result files:
 
 ```text
-output/results/phase2_5/dataset_limitation_summary.csv
-output/results/phase2_5/criterion_score_summary.csv
-output/results/phase2_5/threshold_position_summary.csv
-output/results/phase2_5/risk_correlation_matrix.csv
-output/results/phase2_5/candidate_balance_by_risk.csv
-output/results/phase2_5/phase_linkage_matrix.csv
-output/results/phase2_5/mitigation_decision_register.csv
+output/results/phase2_5/sample/criterion_score_summary.csv
+output/results/phase2_5/sample/evidence_availability_summary.csv
+output/results/phase2_5/sample/threshold_position_summary.csv
+output/results/phase2_5/sample/phase_linkage_matrix.csv
+output/results/phase2_5/sample/mitigation_decision_register.csv
+output/results/phase2_5/sample/phase2_5_schema_manifest.json
+output/results/phase2_5/sample/phase2_5_run_manifest.json
 ```
 
 It should write this report:
 
 ```text
-output/reports/phase2_5/phase2_5_dataset_limitation_report.md
+output/reports/phase2_5/sample/phase2_5_reliability_report.md
 ```
 
-It should write the core figures:
-
-```text
-output/graphs/phase2_5/01_user_activity_distribution.png
-output/graphs/phase2_5/02_textual_usability_risk_distribution.png
-output/graphs/phase2_5/03_location_confidence_distribution.png
-output/graphs/phase2_5/04_temporal_volume_and_event_windows.png
-output/graphs/phase2_5/05_duplicate_amplification_distribution.png
-output/graphs/phase2_5/06_criterion_risk_heatmap.png
-```
+The older unlabelled notebook artifacts remain historical prototype evidence and were
+not overwritten.
 
 ## Extraction Order
 
@@ -230,16 +222,28 @@ Add tests for:
   and joke locations;
 - event-window and hourly spike calculations;
 - mitigation register defaulting every decision to `pending`.
+- source row preservation for the full tweet-level output;
+- null preservation and availability counts for language and RoBERTa-only fields;
+- pre-filter Phase 2 provenance for activity-threshold summaries;
+- proof that no profiler deletes, relabels, corrects, weights, or routes records;
+- deterministic sample-mode parity before the complete-dataset run.
 
 Then run:
 
 ```powershell
 .venv\Scripts\python.exe -m unittest discover -s verify\phase2_5\tests -v
-.venv\Scripts\python.exe verify\phase2_5\run_phase2_5.py
+.venv\Scripts\python.exe verify\phase2_5\run_phase2_5.py --mode sample --seed 2020
 ```
+
+Current verification: 16 Phase 2.5 tests pass. Two production sample executions
+produced 54,812 rows and the same checksum
+`254420133e8e9dd1785776dd539903f6a6da967f2faf290bf1ffdb402460c1ab`.
+A later v1 full-mode run evaluated 1,331,317 rows with `execute_mitigation=false`.
+Those outputs are preserved as refinement evidence and do not change the current
+Phase 1-5 MVP ordering.
 
 ## Notebook Decommission Rule
 
-After the production runner and tests are complete, keep the notebook as an
-explanatory artifact only. The authoritative Phase 2.5 execution path should be
+The notebook is now an explanatory historical artifact. The authoritative Phase 2.5
+execution path is
 `verify/phase2_5/run_phase2_5.py`, not manual notebook execution.

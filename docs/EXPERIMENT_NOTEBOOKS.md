@@ -7,6 +7,7 @@ rerunning every full-data stage.
 
 | Notebook | Purpose |
 | --- | --- |
+| `notebooks/phase1_database_eda.ipynb` | Quickly audits the Phase 1 database, including A/B/C stream presence, Twitter coverage, missingness, period splits, event-window coverage, electoral benchmarks, and early keyword/hashtag reconnaissance. |
 | `notebooks/phase2_preprocessing_experiment.ipynb` | Explains the activity audit, filtering order, cleaning rules, production results, and a small integrated-controller experiment. |
 | `notebooks/phase2_5_dataset_limitation_experiment.ipynb` | Prototypes the examination-only dataset limitation profiling layer, writes provisional Phase 2.5 diagnostics, and supports quick evaluation before module extraction. |
 | `notebooks/phase3_sentiment_experiment.ipynb` | Explains VADER scoring, stratified validation sampling, VADER/RoBERTa comparison, production results, and disagreements. |
@@ -25,9 +26,11 @@ Install Jupyter separately if it is not already available:
 
 The notebooks reuse code from `src/` and read completed artifacts from `output/`.
 They deliberately avoid rerunning the expensive full-data preprocessing and
-RoBERTa inference stages. The Phase 2.5 notebook is currently a prototype for
-the future production runner; see `docs/PHASE2_5_NOTEBOOK_TO_PIPELINE_GUIDE.md`
-for the extraction path. The authoritative completed-phase runners remain:
+RoBERTa inference stages. The Phase 1 EDA notebook reads full ingestion artifacts
+for completeness checks, then samples text for fast keyword and hashtag
+reconnaissance. The Phase 2.5 notebook is currently a prototype for the future
+production runner; see `docs/PHASE2_5_NOTEBOOK_TO_PIPELINE_GUIDE.md` for the
+extraction path. The authoritative completed-phase runners remain:
 
 ```powershell
 .venv\Scripts\python.exe verify\phase2\run_phase2.py
@@ -39,3 +42,5 @@ for the extraction path. The authoritative completed-phase runners remain:
 The notebooks summarize integrated implementation behavior and recorded results.
 They do not replace the detailed phase reports, automated tests, or reproducibility
 manifests. RoBERTa is treated as a comparison model rather than human ground truth.
+The Phase 1 EDA notebook is also descriptive only: top terms and hashtags are
+reconnaissance, not final topic dominance claims.

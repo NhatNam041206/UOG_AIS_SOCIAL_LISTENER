@@ -1,0 +1,6 @@
+evidence,available_count,unavailable_count
+prior_url_evidence_available,0,1331317
+language_diagnostic_available,5000,1326317
+roberta_diagnostic_available,5000,1326317
+baseline_roberta_diagnostic_available,0,1331317
+location_mapping_available,926969,404348

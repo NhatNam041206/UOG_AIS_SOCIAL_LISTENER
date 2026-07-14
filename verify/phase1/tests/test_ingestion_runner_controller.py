@@ -10,6 +10,7 @@ from src.phase1_ingestion.ingestion_runner_controller import IngestionRunnerCont
 from src.phase1_ingestion.stream_readers_model import CsvStreamReader
 from src.shared.data_interfaces_model import SchemaMapperInterface
 from src.shared.pipeline_orchestrator_controller import PipelineControllerError
+from verify.phase1.run_phase1 import _build_original_pdf_alignment
 
 
 class RenameMapper(SchemaMapperInterface):
@@ -100,6 +101,39 @@ class IngestionRunnerControllerTests(unittest.TestCase):
         self.assertEqual(
             dataframe.iloc[0].to_dict(),
             {"id": 1, "text": "hello", "stream": "twitter"},
+        )
+
+    def test_original_pdf_alignment_names_all_three_streams_and_gaps(self) -> None:
+        manifest = {
+            "streams": {
+                "twitter_donald_trump": {"record_count": 10},
+                "twitter_joe_biden": {"record_count": 8},
+                "political_events": {"record_count": 4},
+                "electoral_returns": {"record_count": 51},
+            }
+        }
+
+        alignment = _build_original_pdf_alignment(manifest)
+
+        self.assertEqual(
+            set(alignment["streams"]),
+            {
+                "A_social_media",
+                "B_exogenous_events",
+                "C_electoral_benchmarks",
+            },
+        )
+        self.assertEqual(alignment["streams"]["A_social_media"]["record_count"], 18)
+        self.assertEqual(
+            alignment["streams"]["B_exogenous_events"]["record_count"],
+            4,
+        )
+        self.assertEqual(
+            alignment["streams"]["C_electoral_benchmarks"]["record_count"],
+            51,
+        )
+        self.assertTrue(
+            all(stream["gaps"] for stream in alignment["streams"].values())
         )
 
 

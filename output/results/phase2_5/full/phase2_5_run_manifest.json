@@ -1,0 +1,39 @@
+{
+  "run_id": "phase2_5_full_seed2020",
+  "run_mode": "full",
+  "input_path": "data/02_interim/twitter_sentiment.parquet",
+  "input_row_count": 1331317,
+  "output_row_count": 1331317,
+  "sample_size": null,
+  "seed": 2020,
+  "timestamp": "2026-07-11T19:28:08.547667+00:00",
+  "sample_row_checksum": "c055fd637bc021e82648696a9318826b07fb3ac7d1eddf5a818032dd96321136",
+  "execute_mitigation": false,
+  "canonical_columns_preserved": true,
+  "all_mitigation_decisions": "pending",
+  "phase2_prefilter_user_count": 483175,
+  "approved_activity_threshold": 9.0,
+  "availability_counts": {
+    "prior_url_evidence_available": 0,
+    "language_diagnostic_available": 5000,
+    "roberta_diagnostic_available": 5000,
+    "baseline_roberta_diagnostic_available": 0,
+    "location_mapping_available": 926969
+  },
+  "output_paths": {
+    "scores": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\data\\02_5_reliability\\full\\tweet_reliability_scores.parquet",
+    "user_diagnostics": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\data\\02_5_reliability\\full\\user_activity_diagnostics.parquet",
+    "duplicate_diagnostics": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\data\\02_5_reliability\\full\\duplicate_amplification_diagnostics.parquet",
+    "location_diagnostics": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\data\\02_5_reliability\\full\\location_confidence_diagnostics.parquet",
+    "temporal_diagnostics": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\data\\02_5_reliability\\full\\temporal_coverage_diagnostics.parquet",
+    "criterion_summary": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\output\\results\\phase2_5\\full\\criterion_score_summary.csv",
+    "availability_summary": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\output\\results\\phase2_5\\full\\evidence_availability_summary.csv",
+    "threshold_summary": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\output\\results\\phase2_5\\full\\threshold_position_summary.csv",
+    "phase_linkage": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\output\\results\\phase2_5\\full\\phase_linkage_matrix.csv",
+    "mitigation_register": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\output\\results\\phase2_5\\full\\mitigation_decision_register.csv",
+    "schema_manifest": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\output\\results\\phase2_5\\full\\phase2_5_schema_manifest.json",
+    "run_manifest": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\output\\results\\phase2_5\\full\\phase2_5_run_manifest.json",
+    "report": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\output\\reports\\phase2_5\\full\\phase2_5_reliability_report.md"
+  },
+  "scope_note": "Full mode contract defined."
+}

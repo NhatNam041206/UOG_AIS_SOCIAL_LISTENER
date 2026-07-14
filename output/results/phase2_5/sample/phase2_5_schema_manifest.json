@@ -1,0 +1,47 @@
+{
+  "row_count": 1331317,
+  "columns": {
+    "id": "object",
+    "date": "datetime64[ms, UTC]",
+    "tweet": "object",
+    "user_id": "object",
+    "user_loc": "object",
+    "retweets": "float64",
+    "replies": "object",
+    "candidate": "object",
+    "source_file": "object",
+    "vader_negative": "float64",
+    "vader_neutral": "float64",
+    "vader_positive": "float64",
+    "vader_compound": "float64",
+    "vader_label": "object"
+  },
+  "required_columns": [
+    "id",
+    "tweet",
+    "date",
+    "user_id",
+    "candidate"
+  ],
+  "missing_optional_columns": [],
+  "run_mode": "sample",
+  "canonical_columns_preserved": true,
+  "availability_fields": [
+    "prior_url_evidence_available",
+    "language_diagnostic_available",
+    "roberta_diagnostic_available",
+    "baseline_roberta_diagnostic_available",
+    "location_mapping_available"
+  ],
+  "risk_columns": [
+    "textual_evidence_risk",
+    "sentiment_ambiguity_risk",
+    "sarcasm_irony_risk",
+    "user_representativeness_risk",
+    "duplicate_amplification_risk",
+    "spatial_validity_risk",
+    "temporal_coverage_risk",
+    "model_suitability_risk"
+  ],
+  "missing_evidence_policy": "null"
+}

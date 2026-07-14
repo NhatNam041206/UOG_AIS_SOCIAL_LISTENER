@@ -1,5 +1,15 @@
 # Phase 1 Ingestion Report
 
+## Original PDF Data-Stream Contract
+
+| PDF stream | Current inputs | Status |
+|---|---|---|
+| Stream A - Social media | `twitter_donald_trump`, `twitter_joe_biden` | Available with gaps |
+| Stream B - Exogenous events | `political_events` | Available with gaps |
+| Stream C - Electoral benchmarks | `electoral_returns` | Available with gaps |
+
+All three PDF stream families are present. `Available with gaps` means that ingestion exists but the current dataset does not yet satisfy every original-PDF requirement. The controlling audit is `docs/PHASE1_DATA_STREAM_ALIGNMENT.md`.
+
 ## Summary
 
 | Stream | Records | Invalid CSV Rows |
