@@ -1,0 +1,29 @@
+{
+  "phase": "phase3_sentiment_v3",
+  "run_id": "phase3_v3_roberta_inference_20260801",
+  "device_used": "cuda",
+  "torch_version": "2.13.0+cu126",
+  "cuda_device_name": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+  "precision": "fp16",
+  "batch_size_final": 128,
+  "oom_backoffs": 0,
+  "model_id": "cardiffnlp/twitter-roberta-base-sentiment-latest",
+  "model_revision_sha": "3216a57f2a0d9c45a2e6c20157c20c49fb4bf9c7",
+  "total_scored_tweets": 1297753,
+  "truncated_at_128_tokens_count": 27086,
+  "wall_clock_seconds": 2165.281949520111,
+  "throughput_tweets_per_sec": 599.3459652160401,
+  "roberta_inference_status": "completed",
+  "roberta_label_distribution": {
+    "neutral": 594112,
+    "negative": 462817,
+    "positive": 240824
+  },
+  "vader_label_distribution": {
+    "neutral": 511939,
+    "positive": 444537,
+    "negative": 341277
+  },
+  "primary_sentiment_model": "cardiffnlp/twitter-roberta-base-sentiment-latest",
+  "randomness_used": "none"
+}

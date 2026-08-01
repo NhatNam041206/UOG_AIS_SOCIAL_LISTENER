@@ -1,0 +1,13 @@
+{
+  "pearson_heuristic_vs_irony": 0.03535906419073575,
+  "spearman_heuristic_vs_irony": 0.005670820934499983,
+  "share_gt_0.5": 0.21205807268409319,
+  "share_gt_0.7": 0.09450796877371888,
+  "mean_roberta_score_high_irony": -0.16127534165788754,
+  "mean_roberta_score_low_irony": -0.10993118744963498,
+  "share_high_irony_per_roberta_label": {
+    "neutral": 0.11949430410427664,
+    "negative": 0.2888290620266758,
+    "positive": 0.29287363385709064
+  }
+}

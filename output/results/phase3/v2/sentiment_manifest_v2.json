@@ -1,0 +1,25 @@
+{
+  "phase": "phase3_sentiment_v2",
+  "run_id": "phase3_v2_vader_baseline_20260801",
+  "total_scored_tweets": 1280784,
+  "primary_sentiment_model": "VADER (vader_compound is authoritative sentiment score)",
+  "roberta_status": "deferred_requires_gpu_torch_environment",
+  "pretrained_sarcasm_model_status": "deferred_requires_gpu_torch_environment",
+  "sarcasm_risk_method": "heuristic_linguistic_proxy",
+  "metrics": {
+    "vader_mean_compound": 0.052676034366450554,
+    "vader_label_distribution": {
+      "neutral": 488163,
+      "positive": 446283,
+      "negative": 346338
+    },
+    "mean_sarcasm_risk_score_heuristic": 0.0542543492111082
+  },
+  "gemini_annotation_prompt_structure_valid": true,
+  "gemini_annotation_api_called": false,
+  "output_paths": {
+    "sentiment_parquet": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\data\\02_interim\\phase3_v2\\twitter_sentiment_v2.parquet",
+    "manifest": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\output\\results\\phase3\\v2\\sentiment_manifest_v2.json",
+    "report": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\output\\reports\\phase3\\v2\\sentiment_report_v2.md"
+  }
+}
