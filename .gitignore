@@ -7,9 +7,21 @@ __pycache__/
 data/**
 !data/.gitkeep
 
-# Notebook metadata
+# Pretrained model binaries
+models/
+
+# Large intermediate parquet files in output/
+output/results/phase2/user_activity_metrics.parquet
+output/results/phase3/sentiment_validation_sample.parquet
+output/results/phase3/three_model_comparison_sample.parquet
+
+# Notebook metadata and HTML exports
 notebooks/.ipynb_checkpoints/
+notebooks/*.html
 
 # Local project tracking
 docs/PROJECT_JOURNAL.md
 docs/AGENT_WORK_JOURNAL.md
+
+# Scratch / throwaway scripts
+scratch_*.py
