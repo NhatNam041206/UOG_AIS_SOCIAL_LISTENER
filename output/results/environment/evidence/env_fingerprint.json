@@ -1,0 +1,29 @@
+{
+  "status": "passed",
+  "timestamp_utc": "2026-08-01T12:24:44.416813+00:00",
+  "python_version": "3.11.0 (main, Oct 24 2022, 18:26:48) [MSC v.1933 64 bit (AMD64)]",
+  "cpu_count": 16,
+  "torch_version": "2.13.0+cu126",
+  "torch_cuda_version": "12.6",
+  "cuda_available": true,
+  "cuda_device_name": "NVIDIA GeForce RTX 3050 Ti Laptop GPU",
+  "cuda_total_memory_gib": 3.99951171875,
+  "cuda_install_index_url": "https://download.pytorch.org/whl/cu126",
+  "transformers_version": "4.57.6",
+  "vader_backend": "vaderSentiment",
+  "vader_provenance_check": {
+    "verdict": "mismatch",
+    "sample_size": 5000,
+    "max_abs_diff": 1.8386,
+    "mean_abs_diff": 0.06905516,
+    "n_rows_differing": 813
+  },
+  "language_id_backend": "fasttext_lid176",
+  "language_id_model_path": "models/lid.176.ftz",
+  "packages": {
+    "vaderSentiment": "3.3.2",
+    "fasttext-wheel": "0.9.2",
+    "nltk": "3.10.1",
+    "langdetect": "1.0.9"
+  }
+}

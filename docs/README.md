@@ -87,12 +87,40 @@ explicitly changes the phase scope.
 - Start by reading the required sources in the Start Here section and the phase plan
   or report for the work being changed.
 - Inspect current code, tests, manifests, and reports before deciding the next step.
+- For assigned tasks or implementation plans, propose the method first and wait for
+  user approval before implementation. The proposal should include scope, steps,
+  expected files/artifacts, verification, risks or open decisions, and a proposed
+  commit message.
+- Implement approved plans step by step. If a step uncovers a new blocker or changes
+  the scope, stop and ask for approval before continuing.
 - Keep work phase-scoped. If a dependency from another phase is missing, document
   the blocker rather than inventing data or changing the other phase casually.
 - Update tests or verification scripts for behavior changes.
 - Update `PROJECT_JOURNAL.md` for material phase status changes when it is present
   locally. Update `AGENT_WORK_JOURNAL.md` after material work with evidence checked,
   files changed, verification, blockers, and next action.
+
+### Commit Style
+
+Use basic conventional commit keywords for proposed GitHub commit messages:
+
+```text
+feat, fix, docs, refactor, test, chore, build, ci, perf, revert
+```
+
+Format:
+
+```text
+<keyword>: <short imperative summary>
+```
+
+Examples:
+
+```text
+docs: update agent workflow rules
+feat: add phase 1 v2 ingestion runner
+fix: preserve missing metadata in phase 2 output
+```
 
 ### Verification
 
@@ -118,6 +146,6 @@ When the user says `commit` after reviewing work:
 
 1. Update `AGENT_WORK_JOURNAL.md` and, when appropriate, `PROJECT_JOURNAL.md`.
 2. Verify the working tree status and mention any unrelated existing changes.
-3. Provide a concise proposed GitHub commit message.
+3. Provide a concise proposed GitHub commit message using the Commit Style section.
 4. Report the files changed, verification performed, and updated progress tracker.
 5. Do not push. The user pushes updates.
