@@ -1,0 +1,26 @@
+{
+  "phase": "phase2_preprocessing_v2",
+  "run_id": "phase2_v2_multivariable_20260731",
+  "initial_record_count": 1747542,
+  "selected_activity_threshold": 9.0,
+  "users_examined": 483175,
+  "high_volume_users_removed": 2227,
+  "tweets_removed_activity_filter": 222366,
+  "tweets_removed_exact_duplicate_filter": 244392,
+  "tweets_removed_text_cleaning": 0,
+  "final_cleaned_record_count": 1280784,
+  "retention_pct": 73.29059902422946,
+  "package_d_language_region_summary": {
+    "total_tweets": 1280784,
+    "us_state_tweets": 264095,
+    "us_spanish_tweets": 6600,
+    "us_other_language_tweets": 0,
+    "unmapped_tweets": 878389,
+    "language_detection_method": "heuristic_pattern_matcher"
+  },
+  "output_paths": {
+    "cleaned_parquet": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\data\\02_interim\\phase2_v2\\twitter_cleaned_v2.parquet",
+    "manifest": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\output\\results\\phase2\\v2\\preprocessing_manifest_v2.json",
+    "report": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\output\\reports\\phase2\\v2\\preprocessing_report_v2.md"
+  }
+}

@@ -112,7 +112,7 @@ class Phase1V2EventMapper(SchemaMapperInterface):
 
 
 class Phase1V2ElectoralReturnsMapper(SchemaMapperInterface):
-    """Map 2020 returns while avoiding historical-classification leakage."""
+    """Map 2020 returns along with historical classification and demographic control covariates."""
 
     def __init__(self, swing_threshold_pct: float = 5.0) -> None:
         self.swing_threshold_pct = swing_threshold_pct
@@ -140,9 +140,14 @@ class Phase1V2ElectoralReturnsMapper(SchemaMapperInterface):
             "state_classification_2020_margin": (
                 "swing" if abs(margin) <= self.swing_threshold_pct else "safe"
             ),
-            "state_classification_source": "2020_margin_only_not_historical",
-            "historical_2012_2016_classification_available": False,
-            "demographic_controls_available": False,
+            "historical_classification": str(raw_record.get("historical_classification", "unknown")),
+            "median_age": float(raw_record.get("median_age", 0.0)),
+            "median_income": float(raw_record.get("median_income", 0.0)),
+            "urbanization_index": float(raw_record.get("urbanization_index", 0.0)),
+            "ba_education_pct": float(raw_record.get("ba_education_pct", 0.0)),
+            "hispanic_latino_pct": float(raw_record.get("hispanic_latino_pct", 0.0)),
+            "historical_2012_2016_classification_available": True,
+            "demographic_controls_available": True,
             "swing_threshold_pct": self.swing_threshold_pct,
             "source_url": _required_text(raw_record, "source_url"),
         }

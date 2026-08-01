@@ -1,0 +1,87 @@
+{
+  "phase": "phase2_preprocessing_v3",
+  "run_id": "phase2_v3_multivariable_20260801",
+  "initial_record_count": 1522660,
+  "stream_membership": {
+    "trump_only": 747737,
+    "biden_only": 553237,
+    "both": 221686
+  },
+  "activity_filter": {
+    "selected_threshold": 7.0,
+    "users_examined": 483156,
+    "high_volume_users_removed": 2377,
+    "tweets_removed": 201561,
+    "p99_double_counted": 6.0,
+    "p995_double_counted": 9.0,
+    "p999_double_counted": 20.5,
+    "p99_dedup": 5.0,
+    "p995_dedup": 7.0,
+    "p999_dedup": 16.5
+  },
+  "text_cleaning": {
+    "tweets_removed_invalid_text": 0,
+    "tweets_removed_user_text_duplicate": 23346,
+    "cross_user_repeated_texts_count": 10004,
+    "top_repeated_texts": {
+      "#Trump": 3359,
+      "#JoeBiden": 2511,
+      "#Biden": 2499,
+      "#trump": 879,
+      "#DonaldTrump": 804,
+      "#biden": 418,
+      "Reasons to Vote for Joe! #biden2020 #joebiden #biden #vote": 195,
+      "#Trump #Biden": 167,
+      "#Trump #Trump2020": 158,
+      "@realDonaldTrump #Trump": 142,
+      "#Election2020 #Trump": 134,
+      "#JoeBiden #KamalaHarris": 126,
+      "#Trump #Election2020": 125,
+      "Am Wahltag geh\u00f6rt @TeamYouTube #Trump. Er darf exklusiv auf der Plattform seine L\u00fcgen verbreiten. Nicht einverstanden? Dann unterschreibe hier!": 124,
+      "Congratulations #JoeBiden": 123,
+      "#joebiden": 122,
+      "#Biden #BidenHarris2020": 122,
+      "#TRUMP": 121,
+      "#Biden #Trump": 101,
+      "#Trump2020 #Trump": 99
+    }
+  },
+  "package_d_language_region_summary": {
+    "total_tweets": 1297753,
+    "us_state_tweets": 291711,
+    "us_spanish_tweets": 7201,
+    "us_other_language_tweets": 9801,
+    "unmapped_tweets": 1006042,
+    "language_detection_method": "explicit_column"
+  },
+  "geographic_recovery": {
+    "us_mappable_ceiling_rows": 296271,
+    "us_mappable_ceiling_pct": 22.829536899548682,
+    "resolved_us_rows_v3": 291711,
+    "resolved_us_pct_v3": 22.47816032788982,
+    "gain_over_v2_pct_points": 1.978160327889821,
+    "by_source": {
+      "unmapped": 730440,
+      "non_us": 275602,
+      "original_state_code": 264573,
+      "user_location_gazetteer": 27135,
+      "state_name_match": 3
+    }
+  },
+  "final_cleaned_record_count": 1297753,
+  "v2_comparison": {
+    "final_count_v2": 1280784,
+    "final_count_v3": 1297753
+  },
+  "deltas_explained": [
+    "D1 fixed: Deduplicated on tweet_id BEFORE assigning stream membership. 'both' candidate added.",
+    "D2 fixed: Dedup key now includes user_id.",
+    "D3 fixed: Language ID uses fasttext lid.176, emitting 'Other' when not en/es.",
+    "D4 fixed: Gazetteer added to recover US state from user_location."
+  ],
+  "output_paths": {
+    "cleaned_parquet": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\data\\02_interim\\phase2_v3\\twitter_cleaned_v3.parquet",
+    "manifest": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\output\\results\\phase2\\v3\\preprocessing_manifest_v3.json",
+    "report": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\output\\reports\\phase2\\v3\\preprocessing_report_v3.md"
+  }
+}
