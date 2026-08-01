@@ -1,0 +1,268 @@
+{
+  "H2_spatial_primary": {
+    "roberta": {
+      "national": {
+        "status": "success",
+        "beta_1": 29.39319403323814,
+        "p_value": 0.10888321903576534,
+        "r_squared": 0.8050953770190725,
+        "N": 51
+      },
+      "battleground": {
+        "status": "success",
+        "beta_1": -6.237826075094033,
+        "p_value": 0.7384509568711837,
+        "r_squared": 0.9120385393292145,
+        "N": 10
+      },
+      "safe": {
+        "status": "success",
+        "beta_1": 21.715571382069015,
+        "p_value": 0.2766534482658166,
+        "r_squared": 0.8331852556957217,
+        "N": 41
+      }
+    },
+    "roberta_filtered_min100": {
+      "national": {
+        "status": "success",
+        "beta_1": 29.39319403323814,
+        "p_value": 0.10888321903576534,
+        "r_squared": 0.8050953770190725,
+        "N": 51
+      },
+      "battleground": {
+        "status": "success",
+        "beta_1": -6.237826075094033,
+        "p_value": 0.7384509568711837,
+        "r_squared": 0.9120385393292145,
+        "N": 10
+      },
+      "safe": {
+        "status": "success",
+        "beta_1": 21.715571382069015,
+        "p_value": 0.2766534482658166,
+        "r_squared": 0.8331852556957217,
+        "N": 41
+      }
+    },
+    "vader": {
+      "national": {
+        "status": "success",
+        "beta_1": 113.71640175053072,
+        "p_value": 0.0022892700799668052,
+        "r_squared": 0.8249187981640931,
+        "N": 51
+      },
+      "battleground": {
+        "status": "success",
+        "beta_1": 53.727261119165746,
+        "p_value": 0.2510138601241253,
+        "r_squared": 0.9301473946311825,
+        "N": 10
+      },
+      "safe": {
+        "status": "success",
+        "beta_1": 96.73173741384682,
+        "p_value": 0.017994793318925773,
+        "r_squared": 0.8480071916900402,
+        "N": 41
+      }
+    },
+    "vader_filtered_min100": {
+      "national": {
+        "status": "success",
+        "beta_1": 113.71640175053072,
+        "p_value": 0.0022892700799668052,
+        "r_squared": 0.8249187981640931,
+        "N": 51
+      },
+      "battleground": {
+        "status": "success",
+        "beta_1": 53.727261119165746,
+        "p_value": 0.2510138601241253,
+        "r_squared": 0.9301473946311825,
+        "N": 10
+      },
+      "safe": {
+        "status": "success",
+        "beta_1": 96.73173741384682,
+        "p_value": 0.017994793318925773,
+        "r_squared": 0.8480071916900402,
+        "N": 41
+      }
+    }
+  },
+  "H2_spatial_split": {
+    "roberta": {
+      "national": {
+        "status": "success",
+        "beta_1": 35.62992928545968,
+        "p_value": 0.09414709414020148,
+        "r_squared": 0.8065492475056087,
+        "N": 51
+      },
+      "battleground": {
+        "status": "success",
+        "beta_1": -4.181977935671796,
+        "p_value": 0.7873546845445297,
+        "r_squared": 0.9112592125038489,
+        "N": 10
+      },
+      "safe": {
+        "status": "success",
+        "beta_1": 26.333538069916735,
+        "p_value": 0.2675953298153877,
+        "r_squared": 0.8336135838524248,
+        "N": 41
+      }
+    },
+    "roberta_filtered_min100": {
+      "national": {
+        "status": "success",
+        "beta_1": 35.62992928545968,
+        "p_value": 0.09414709414020148,
+        "r_squared": 0.8065492475056087,
+        "N": 51
+      },
+      "battleground": {
+        "status": "success",
+        "beta_1": -4.181977935671796,
+        "p_value": 0.7873546845445297,
+        "r_squared": 0.9112592125038489,
+        "N": 10
+      },
+      "safe": {
+        "status": "success",
+        "beta_1": 26.333538069916735,
+        "p_value": 0.2675953298153877,
+        "r_squared": 0.8336135838524248,
+        "N": 41
+      }
+    },
+    "vader": {
+      "national": {
+        "status": "success",
+        "beta_1": 137.3458837125367,
+        "p_value": 0.0021192765500804953,
+        "r_squared": 0.8269286982557205,
+        "N": 51
+      },
+      "battleground": {
+        "status": "success",
+        "beta_1": 28.06623220473044,
+        "p_value": 0.15342396243147377,
+        "r_squared": 0.9172202329095771,
+        "N": 10
+      },
+      "safe": {
+        "status": "success",
+        "beta_1": 116.29141504408017,
+        "p_value": 0.021265674489121773,
+        "r_squared": 0.8483649442049772,
+        "N": 41
+      }
+    },
+    "vader_filtered_min100": {
+      "national": {
+        "status": "success",
+        "beta_1": 137.3458837125367,
+        "p_value": 0.0021192765500804953,
+        "r_squared": 0.8269286982557205,
+        "N": 51
+      },
+      "battleground": {
+        "status": "success",
+        "beta_1": 28.06623220473044,
+        "p_value": 0.15342396243147377,
+        "r_squared": 0.9172202329095771,
+        "N": 10
+      },
+      "safe": {
+        "status": "success",
+        "beta_1": 116.29141504408017,
+        "p_value": 0.021265674489121773,
+        "r_squared": 0.8483649442049772,
+        "N": 41
+      }
+    }
+  },
+  "H1_temporal": {
+    "roberta": {
+      "2020 presidential election day": {
+        "beta_2_shock": 0.14367451156663688,
+        "raw_p_value": 6.689406448737782e-29,
+        "bonferroni_adj_p_value": 2.6757625794951127e-28,
+        "pre_period_N": 48,
+        "post_period_N": 49,
+        "meets_min_N": true,
+        "significant_at_adj_alpha_0.0125": true
+      },
+      "AP projects Joe Biden as president-elect": {
+        "beta_2_shock": 0.2820724633517073,
+        "raw_p_value": 9.517658123472932e-09,
+        "bonferroni_adj_p_value": 3.807063249389173e-08,
+        "pre_period_N": 48,
+        "post_period_N": 31,
+        "meets_min_N": true,
+        "significant_at_adj_alpha_0.0125": true
+      },
+      "Dueling presidential town halls": {
+        "beta_2_shock": 0.06423381710744654,
+        "raw_p_value": 0.00592047169224811,
+        "bonferroni_adj_p_value": 0.02368188676899244,
+        "pre_period_N": 23,
+        "post_period_N": 49,
+        "meets_min_N": true,
+        "significant_at_adj_alpha_0.0125": true
+      },
+      "Final presidential debate": {
+        "beta_2_shock": 0.0155781170073395,
+        "raw_p_value": 0.30888998525419464,
+        "bonferroni_adj_p_value": 1.0,
+        "pre_period_N": 48,
+        "post_period_N": 49,
+        "meets_min_N": true,
+        "significant_at_adj_alpha_0.0125": false
+      }
+    },
+    "vader": {
+      "2020 presidential election day": {
+        "beta_2_shock": 0.04216096471609463,
+        "raw_p_value": 1.5518944411285172e-09,
+        "bonferroni_adj_p_value": 6.207577764514069e-09,
+        "pre_period_N": 48,
+        "post_period_N": 49,
+        "meets_min_N": true,
+        "significant_at_adj_alpha_0.0125": true
+      },
+      "AP projects Joe Biden as president-elect": {
+        "beta_2_shock": 0.1225865221295073,
+        "raw_p_value": 1.892362181542353e-11,
+        "bonferroni_adj_p_value": 7.569448726169412e-11,
+        "pre_period_N": 48,
+        "post_period_N": 31,
+        "meets_min_N": true,
+        "significant_at_adj_alpha_0.0125": true
+      },
+      "Dueling presidential town halls": {
+        "beta_2_shock": 0.03687153949318072,
+        "raw_p_value": 0.001451481386783764,
+        "bonferroni_adj_p_value": 0.005805925547135056,
+        "pre_period_N": 23,
+        "post_period_N": 49,
+        "meets_min_N": true,
+        "significant_at_adj_alpha_0.0125": true
+      },
+      "Final presidential debate": {
+        "beta_2_shock": 0.00809951325489291,
+        "raw_p_value": 0.2729980374494575,
+        "bonferroni_adj_p_value": 1.0,
+        "pre_period_N": 48,
+        "post_period_N": 49,
+        "meets_min_N": true,
+        "significant_at_adj_alpha_0.0125": false
+      }
+    }
+  }
+}

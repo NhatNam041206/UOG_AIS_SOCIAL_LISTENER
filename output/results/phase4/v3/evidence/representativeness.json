@@ -1,0 +1,468 @@
+{
+  "per_state_stats": [
+    {
+      "state_code": "AK",
+      "n_tweets": 553,
+      "n_users": 183,
+      "share_of_geocoded": 0.0018957118517985267,
+      "share_of_votes": 0.002269997949216939,
+      "ratio_geo_to_votes": 0.8351161076830371,
+      "low_confidence": false
+    },
+    {
+      "state_code": "AL",
+      "n_tweets": 1803,
+      "n_users": 699,
+      "share_of_geocoded": 0.006180774807943479,
+      "share_of_votes": 0.014668721317977996,
+      "ratio_geo_to_votes": 0.421357436272807,
+      "low_confidence": false
+    },
+    {
+      "state_code": "AR",
+      "n_tweets": 964,
+      "n_users": 425,
+      "share_of_geocoded": 0.003304640551778987,
+      "share_of_votes": 0.007696949155714251,
+      "ratio_geo_to_votes": 0.42934420962435565,
+      "low_confidence": false
+    },
+    {
+      "state_code": "AZ",
+      "n_tweets": 5564,
+      "n_users": 1858,
+      "share_of_geocoded": 0.01907367223039241,
+      "share_of_votes": 0.02138687473459577,
+      "ratio_geo_to_votes": 0.8918400873007647,
+      "low_confidence": false
+    },
+    {
+      "state_code": "CA",
+      "n_tweets": 46970,
+      "n_users": 14623,
+      "share_of_geocoded": 0.1610155256401027,
+      "share_of_votes": 0.11049693761157538,
+      "ratio_geo_to_votes": 1.45719446276523,
+      "low_confidence": false
+    },
+    {
+      "state_code": "CO",
+      "n_tweets": 4663,
+      "n_users": 1622,
+      "share_of_geocoded": 0.01598499885160313,
+      "share_of_votes": 0.020563897089646444,
+      "ratio_geo_to_votes": 0.7773331475993084,
+      "low_confidence": false
+    },
+    {
+      "state_code": "CT",
+      "n_tweets": 3429,
+      "n_users": 1328,
+      "share_of_geocoded": 0.011754784701296832,
+      "share_of_votes": 0.011515455315731535,
+      "ratio_geo_to_votes": 1.0207833193741236,
+      "low_confidence": false
+    },
+    {
+      "state_code": "DC",
+      "n_tweets": 10727,
+      "n_users": 2610,
+      "share_of_geocoded": 0.036772696264453515,
+      "share_of_votes": 0.0021741924562638675,
+      "ratio_geo_to_votes": 16.913266421521726,
+      "low_confidence": false
+    },
+    {
+      "state_code": "DE",
+      "n_tweets": 665,
+      "n_users": 242,
+      "share_of_geocoded": 0.0022796534926691142,
+      "share_of_votes": 0.003184336176941469,
+      "ratio_geo_to_votes": 0.7158959877341544,
+      "low_confidence": false
+    },
+    {
+      "state_code": "FL",
+      "n_tweets": 23459,
+      "n_users": 6840,
+      "share_of_geocoded": 0.08041863351056354,
+      "share_of_votes": 0.06987762474076908,
+      "ratio_geo_to_votes": 1.1508495574785107,
+      "low_confidence": false
+    },
+    {
+      "state_code": "GA",
+      "n_tweets": 5876,
+      "n_users": 2074,
+      "share_of_geocoded": 0.02014322394424619,
+      "share_of_votes": 0.03156871177973111,
+      "ratio_geo_to_votes": 0.6380755757407647,
+      "low_confidence": false
+    },
+    {
+      "state_code": "HI",
+      "n_tweets": 1288,
+      "n_users": 354,
+      "share_of_geocoded": 0.004415328870011758,
+      "share_of_votes": 0.0036270782741042633,
+      "ratio_geo_to_votes": 1.2173238447968593,
+      "low_confidence": false
+    },
+    {
+      "state_code": "IA",
+      "n_tweets": 1454,
+      "n_users": 512,
+      "share_of_geocoded": 0.0049843852305878076,
+      "share_of_votes": 0.010675809257615207,
+      "ratio_geo_to_votes": 0.46688593907130505,
+      "low_confidence": false
+    },
+    {
+      "state_code": "ID",
+      "n_tweets": 1075,
+      "n_users": 269,
+      "share_of_geocoded": 0.0036851541422846584,
+      "share_of_votes": 0.005480460601039113,
+      "ratio_geo_to_votes": 0.6724168661272634,
+      "low_confidence": false
+    },
+    {
+      "state_code": "IL",
+      "n_tweets": 10230,
+      "n_users": 3363,
+      "share_of_geocoded": 0.03506895523309028,
+      "share_of_votes": 0.038095809824214975,
+      "ratio_geo_to_votes": 0.9205462594156294,
+      "low_confidence": false
+    },
+    {
+      "state_code": "IN",
+      "n_tweets": 2994,
+      "n_users": 1055,
+      "share_of_geocoded": 0.010263582792558389,
+      "share_of_votes": 0.01915049773239182,
+      "ratio_geo_to_votes": 0.5359433961446447,
+      "low_confidence": false
+    },
+    {
+      "state_code": "KS",
+      "n_tweets": 1778,
+      "n_users": 588,
+      "share_of_geocoded": 0.00609507354882058,
+      "share_of_votes": 0.008664436891787202,
+      "ratio_geo_to_votes": 0.7034587042347719,
+      "low_confidence": false
+    },
+    {
+      "state_code": "KY",
+      "n_tweets": 2184,
+      "n_users": 768,
+      "share_of_geocoded": 0.00748686199697646,
+      "share_of_votes": 0.01349111055531494,
+      "ratio_geo_to_votes": 0.5549477907159351,
+      "low_confidence": false
+    },
+    {
+      "state_code": "LA",
+      "n_tweets": 3662,
+      "n_users": 1661,
+      "share_of_geocoded": 0.012553520436322251,
+      "share_of_votes": 0.013562418531946811,
+      "ratio_geo_to_votes": 0.9256107534767445,
+      "low_confidence": false
+    },
+    {
+      "state_code": "MA",
+      "n_tweets": 7185,
+      "n_users": 2226,
+      "share_of_geocoded": 0.024630541871921183,
+      "share_of_votes": 0.022927920042228163,
+      "ratio_geo_to_votes": 1.0742597595663788,
+      "low_confidence": false
+    },
+    {
+      "state_code": "MD",
+      "n_tweets": 5767,
+      "n_users": 2005,
+      "share_of_geocoded": 0.01976956645447035,
+      "share_of_votes": 0.019175178348706145,
+      "ratio_geo_to_votes": 1.0309977876062004,
+      "low_confidence": false
+    },
+    {
+      "state_code": "ME",
+      "n_tweets": 850,
+      "n_users": 302,
+      "share_of_geocoded": 0.0029138428101785673,
+      "share_of_votes": 0.0051739070160021754,
+      "ratio_geo_to_votes": 0.5631803588983058,
+      "low_confidence": false
+    },
+    {
+      "state_code": "MI",
+      "n_tweets": 6142,
+      "n_users": 2106,
+      "share_of_geocoded": 0.021055085341313836,
+      "share_of_votes": 0.034974005451821236,
+      "ratio_geo_to_votes": 0.6020209887117008,
+      "low_confidence": false
+    },
+    {
+      "state_code": "MN",
+      "n_tweets": 3471,
+      "n_users": 1160,
+      "share_of_geocoded": 0.011898762816623302,
+      "share_of_votes": 0.020691378881409688,
+      "ratio_geo_to_votes": 0.5750589598121867,
+      "low_confidence": false
+    },
+    {
+      "state_code": "MO",
+      "n_tweets": 3134,
+      "n_users": 1188,
+      "share_of_geocoded": 0.010743509843646623,
+      "share_of_votes": 0.01910529728926206,
+      "ratio_geo_to_votes": 0.5623314665553467,
+      "low_confidence": false
+    },
+    {
+      "state_code": "MS",
+      "n_tweets": 617,
+      "n_users": 291,
+      "share_of_geocoded": 0.002115107075153148,
+      "share_of_votes": 0.008294802202223171,
+      "ratio_geo_to_votes": 0.2549918640116889,
+      "low_confidence": false
+    },
+    {
+      "state_code": "MT",
+      "n_tweets": 587,
+      "n_users": 186,
+      "share_of_geocoded": 0.0020122655642056692,
+      "share_of_votes": 0.003811472594764238,
+      "ratio_geo_to_votes": 0.527949634734325,
+      "low_confidence": false
+    },
+    {
+      "state_code": "NC",
+      "n_tweets": 6188,
+      "n_users": 2036,
+      "share_of_geocoded": 0.02121277565809997,
+      "share_of_votes": 0.03488246808284578,
+      "ratio_geo_to_votes": 0.6081214095206703,
+      "low_confidence": false
+    },
+    {
+      "state_code": "ND",
+      "n_tweets": 554,
+      "n_users": 172,
+      "share_of_geocoded": 0.0018991399021634427,
+      "share_of_votes": 0.002284450221087875,
+      "ratio_geo_to_votes": 0.8313334581040054,
+      "low_confidence": false
+    },
+    {
+      "state_code": "NE",
+      "n_tweets": 891,
+      "n_users": 313,
+      "share_of_geocoded": 0.0030543928751401214,
+      "share_of_votes": 0.0060384041628402186,
+      "ratio_geo_to_votes": 0.5058278301304462,
+      "low_confidence": false
+    },
+    {
+      "state_code": "NH",
+      "n_tweets": 3324,
+      "n_users": 1108,
+      "share_of_geocoded": 0.011394839412980655,
+      "share_of_votes": 0.005090211377766647,
+      "ratio_geo_to_votes": 2.238578826559496,
+      "low_confidence": false
+    },
+    {
+      "state_code": "NJ",
+      "n_tweets": 7303,
+      "n_users": 2105,
+      "share_of_geocoded": 0.025035051814981266,
+      "share_of_votes": 0.028723672517631155,
+      "ratio_geo_to_votes": 0.8715825526702499,
+      "low_confidence": false
+    },
+    {
+      "state_code": "NM",
+      "n_tweets": 1040,
+      "n_users": 365,
+      "share_of_geocoded": 0.0035651723795126,
+      "share_of_votes": 0.005833723625700857,
+      "ratio_geo_to_votes": 0.6111315187791886,
+      "low_confidence": false
+    },
+    {
+      "state_code": "NV",
+      "n_tweets": 4270,
+      "n_users": 1125,
+      "share_of_geocoded": 0.014637775058191155,
+      "share_of_votes": 0.008873252963253985,
+      "ratio_geo_to_votes": 1.649651499715975,
+      "low_confidence": false
+    },
+    {
+      "state_code": "NY",
+      "n_tweets": 33726,
+      "n_users": 10063,
+      "share_of_geocoded": 0.11561442660715571,
+      "share_of_votes": 0.054265951085796536,
+      "ratio_geo_to_votes": 2.1305150705709535,
+      "low_confidence": false
+    },
+    {
+      "state_code": "OH",
+      "n_tweets": 7007,
+      "n_users": 2366,
+      "share_of_geocoded": 0.02402034890696614,
+      "share_of_votes": 0.03739155674032335,
+      "ratio_geo_to_votes": 0.6424003438472089,
+      "low_confidence": false
+    },
+    {
+      "state_code": "OK",
+      "n_tweets": 1521,
+      "n_users": 618,
+      "share_of_geocoded": 0.0052140646050371775,
+      "share_of_votes": 0.009853930212624614,
+      "ratio_geo_to_votes": 0.5291355319684572,
+      "low_confidence": false
+    },
+    {
+      "state_code": "OR",
+      "n_tweets": 4226,
+      "n_users": 1334,
+      "share_of_geocoded": 0.014486940842134853,
+      "share_of_votes": 0.014990970992080528,
+      "ratio_geo_to_votes": 0.9663777516338371,
+      "low_confidence": false
+    },
+    {
+      "state_code": "PA",
+      "n_tweets": 10536,
+      "n_users": 3109,
+      "share_of_geocoded": 0.03611793864475457,
+      "share_of_votes": 0.04366166447377065,
+      "ratio_geo_to_votes": 0.8272231276581793,
+      "low_confidence": false
+    },
+    {
+      "state_code": "RI",
+      "n_tweets": 621,
+      "n_users": 286,
+      "share_of_geocoded": 0.002128819276612812,
+      "share_of_votes": 0.003269010453071273,
+      "ratio_geo_to_votes": 0.6512121350400584,
+      "low_confidence": false
+    },
+    {
+      "state_code": "SC",
+      "n_tweets": 2228,
+      "n_users": 809,
+      "share_of_geocoded": 0.007637696213032762,
+      "share_of_votes": 0.01586863871083765,
+      "ratio_geo_to_votes": 0.481307587387223,
+      "low_confidence": false
+    },
+    {
+      "state_code": "SD",
+      "n_tweets": 2107,
+      "n_users": 837,
+      "share_of_geocoded": 0.007222902118877931,
+      "share_of_votes": 0.0026682656894295924,
+      "ratio_geo_to_votes": 2.7069651075197103,
+      "low_confidence": false
+    },
+    {
+      "state_code": "TN",
+      "n_tweets": 6294,
+      "n_users": 2096,
+      "share_of_geocoded": 0.02157614899678106,
+      "share_of_votes": 0.019281382658509996,
+      "ratio_geo_to_votes": 1.1190146152334284,
+      "low_confidence": false
+    },
+    {
+      "state_code": "TX",
+      "n_tweets": 25287,
+      "n_users": 8340,
+      "share_of_geocoded": 0.08668510957762991,
+      "share_of_votes": 0.07144091985446227,
+      "ratio_geo_to_votes": 1.2133817671192189,
+      "low_confidence": false
+    },
+    {
+      "state_code": "UT",
+      "n_tweets": 1802,
+      "n_users": 752,
+      "share_of_geocoded": 0.006177346757578563,
+      "share_of_votes": 0.009396748471176617,
+      "ratio_geo_to_votes": 0.6573919453656574,
+      "low_confidence": false
+    },
+    {
+      "state_code": "VA",
+      "n_tweets": 4937,
+      "n_users": 1453,
+      "share_of_geocoded": 0.016924284651590103,
+      "share_of_votes": 0.028162824611111557,
+      "ratio_geo_to_votes": 0.6009441483690054,
+      "low_confidence": false
+    },
+    {
+      "state_code": "VT",
+      "n_tweets": 500,
+      "n_users": 146,
+      "share_of_geocoded": 0.0017140251824579807,
+      "share_of_votes": 0.002319864285274891,
+      "ratio_geo_to_votes": 0.7388471788361008,
+      "low_confidence": false
+    },
+    {
+      "state_code": "WA",
+      "n_tweets": 6163,
+      "n_users": 1974,
+      "share_of_geocoded": 0.02112707439897707,
+      "share_of_votes": 0.025808455447822395,
+      "ratio_geo_to_votes": 0.8186105689931816,
+      "low_confidence": false
+    },
+    {
+      "state_code": "WI",
+      "n_tweets": 3008,
+      "n_users": 975,
+      "share_of_geocoded": 0.010311575497667211,
+      "share_of_votes": 0.020823147738529144,
+      "ratio_geo_to_votes": 0.49519773029260444,
+      "low_confidence": false
+    },
+    {
+      "state_code": "WV",
+      "n_tweets": 652,
+      "n_users": 227,
+      "share_of_geocoded": 0.0022350888379252067,
+      "share_of_votes": 0.005017766918418844,
+      "ratio_geo_to_votes": 0.44543496624381046,
+      "low_confidence": false
+    },
+    {
+      "state_code": "WY",
+      "n_tweets": 435,
+      "n_users": 122,
+      "share_of_geocoded": 0.0014912019087384432,
+      "share_of_votes": 0.0017474368826385174,
+      "ratio_geo_to_votes": 0.8533652480121766,
+      "low_confidence": false
+    }
+  ],
+  "correlation_geo_vs_votes": 0.9113833259617181,
+  "low_confidence_states_count": 0,
+  "mean_roberta_geocoded": -0.16853844132287352,
+  "mean_roberta_non_geocoded": -0.10698248278257398,
+  "geocoding_bias_assessment": "If means differ materially, geocoding is not missing-at-random."
+}

@@ -1,0 +1,96 @@
+{
+  "phase": "phase5_statistical_evaluation",
+  "run_id": "phase5_statistical_evaluation_20260731",
+  "h1_itsa_events_tested": 4,
+  "h1_results": [
+    {
+      "event_name": "2020 presidential election day",
+      "beta_0_baseline": 0.056976603666249785,
+      "beta_1_pre_slope": 0.0012390897739899076,
+      "beta_2_immediate_shock": 0.041234428373497486,
+      "beta_3_post_slope_change": -0.0022317858841773767,
+      "p_value_immediate_shock": 3.2731384079423314e-09,
+      "p_value_post_slope_change": 1.594881062375785e-15,
+      "r_squared": 0.6297586128595256
+    },
+    {
+      "event_name": "AP projects Joe Biden as president-elect",
+      "beta_0_baseline": 0.05912266051621241,
+      "beta_1_pre_slope": 0.0012202229950209818,
+      "beta_2_immediate_shock": 0.12552819969898993,
+      "beta_3_post_slope_change": -0.005871797855409731,
+      "p_value_immediate_shock": 1.735815289712039e-11,
+      "p_value_post_slope_change": 1.0513111070613342e-17,
+      "r_squared": 0.7064872657606209
+    },
+    {
+      "event_name": "Dueling presidential town halls",
+      "beta_0_baseline": -0.021694229627702153,
+      "beta_1_pre_slope": -8.916959950388225e-05,
+      "beta_2_immediate_shock": 0.034634833164714045,
+      "beta_3_post_slope_change": -0.0005355664346018628,
+      "p_value_immediate_shock": 0.002783897040670191,
+      "p_value_post_slope_change": 0.39662459755827906,
+      "r_squared": 0.24709906211242993
+    },
+    {
+      "event_name": "Final presidential debate",
+      "beta_0_baseline": 0.004124704186545985,
+      "beta_1_pre_slope": 0.0003679814498290441,
+      "beta_2_immediate_shock": 0.01023659312810528,
+      "beta_3_post_slope_change": -0.00031921878313754707,
+      "p_value_immediate_shock": 0.1657698073967966,
+      "p_value_post_slope_change": 0.23683162786665135,
+      "r_squared": 0.21495947457206688
+    }
+  ],
+  "h2_national_ols": {
+    "subgroup_name": "National",
+    "sample_size": 51,
+    "beta_1_sentiment_margin": 83.03796903237611,
+    "p_value_sentiment_margin": 0.052505531346864816,
+    "r_squared": 0.812884039232847,
+    "adjusted_r_squared": 0.7873682264009625,
+    "covariate_coefficients": {
+      "median_age": 2.2147020287727806,
+      "median_income": -6.971611559124127e-06,
+      "urbanization_index": 0.2346069513534032,
+      "ba_education_pct": 2.6543584955891286,
+      "hispanic_latino_pct": 0.3475504339892768
+    }
+  },
+  "h2_battleground_ols": {
+    "subgroup_name": "Battleground_States",
+    "sample_size": 10,
+    "beta_1_sentiment_margin": -46.72539755669911,
+    "p_value_sentiment_margin": 0.003259386496247579,
+    "r_squared": 0.9734654902114044,
+    "adjusted_r_squared": 0.9203964706342131,
+    "covariate_coefficients": {
+      "median_age": 0.07243145021478714,
+      "median_income": 0.0006377855298169462,
+      "urbanization_index": 0.020706008004167845,
+      "ba_education_pct": -0.8127785378131263,
+      "hispanic_latino_pct": -0.24187355864506221
+    }
+  },
+  "h2_safe_ols": {
+    "subgroup_name": "Safe_States",
+    "sample_size": 41,
+    "beta_1_sentiment_margin": 66.14195800406014,
+    "p_value_sentiment_margin": 0.18162039718670142,
+    "r_squared": 0.8379922637734214,
+    "adjusted_r_squared": 0.8094026632628487,
+    "covariate_coefficients": {
+      "median_age": 2.863247035770143,
+      "median_income": -1.4403455609278347e-05,
+      "urbanization_index": 0.2089685777349927,
+      "ba_education_pct": 2.829706863432308,
+      "hispanic_latino_pct": 0.40064813411664507
+    }
+  },
+  "output_paths": {
+    "manifest": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\output\\results\\phase5\\statistical_evaluation_manifest.json",
+    "report": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\output\\reports\\phase5\\statistical_evaluation_report.md"
+  }
+}

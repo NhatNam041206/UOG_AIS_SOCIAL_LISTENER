@@ -1,0 +1,18 @@
+{
+  "phase": "phase4_spatial_temporal_aggregation",
+  "run_id": "phase4_matrix_aggregation_20260731",
+  "temporal_hourly_rows": 599,
+  "temporal_daily_rows": 25,
+  "event_window_rows": 345,
+  "spatial_state_rows": 51,
+  "battleground_states_count": 10,
+  "safe_states_count": 41,
+  "output_paths": {
+    "temporal_hourly": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\data\\03_processed\\temporal_hourly_matrix.parquet",
+    "temporal_daily": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\data\\03_processed\\temporal_daily_matrix.parquet",
+    "temporal_event_windows": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\data\\03_processed\\temporal_event_windows.parquet",
+    "spatial_state_matrix": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\data\\03_processed\\spatial_state_matrix.parquet",
+    "manifest": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\output\\results\\phase4\\aggregation_manifest.json",
+    "report": "D:\\GW_UNIVERSITY\\AIS\\Social_Listener\\Env\\Social_Listener_V1\\UOG_AIS_SOCIAL_LISTENER\\output\\reports\\phase4\\aggregation_report.md"
+  }
+}
